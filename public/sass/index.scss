@@ -13,6 +13,14 @@ html {
     -moz-osx-font-smoothing: grayscale;
 }
 
+.clearfix {
+    &::after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
 #content {
     position: relative;
     height: 100%;
@@ -28,6 +36,7 @@ html {
     right: 0;
     padding: 2.2rem 0.2rem 1rem;
     box-sizing: border-box;
+    transition: all ease-in-out .3s;
     .what-list-item::before {
         content: "";
         position: absolute;
@@ -48,6 +57,9 @@ html {
         margin: .2rem 0;
         .up {
             padding: .2rem .2rem;
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: middle;
             .list-item-title {
                 font-size: .4rem;
                 float: left;

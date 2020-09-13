@@ -10,6 +10,11 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both; }
+
 #content {
   position: relative;
   height: 100%; }
@@ -23,7 +28,8 @@ html {
   left: 0;
   right: 0;
   padding: 2.2rem 0.2rem 1rem;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  transition: all ease-in-out .3s; }
   .what-list .what-list-item::before {
     content: "";
     position: absolute;
@@ -45,7 +51,10 @@ html {
     padding: .2rem .1rem;
     margin: .2rem 0; }
     .what-list .what-list-item .up {
-      padding: .2rem .2rem; }
+      padding: .2rem .2rem;
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: middle; }
       .what-list .what-list-item .up .list-item-title {
         font-size: .4rem;
         float: left;
