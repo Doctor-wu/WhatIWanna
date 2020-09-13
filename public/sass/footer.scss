@@ -1,0 +1,30 @@
+@import './_nc_share.scss';
+.main-footer {
+    position: fixed;
+    bottom: 0;
+    height: 1rem;
+    background-color: #fff;
+    z-index: 4;
+    width: 100%;
+    font-size: .2rem;
+    .iconfont {
+        font-size: .4rem;
+        padding-bottom: .1rem;
+        font-weight: bold;
+    }
+    .foot-list {
+        @include flex();
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: space-around;
+        .active {
+            color: #40a8c4;
+        }
+        .foot-item {
+            @include flex();
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+}

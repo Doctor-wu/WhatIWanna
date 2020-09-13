@@ -1,0 +1,53 @@
+@import './_nc_share.scss';
+#main-header {
+    position: relative;
+    z-index: 5;
+    .head {
+        font-size: .4rem;
+        padding: .1rem .3rem;
+        position: fixed;
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+        height: 1.1rem;
+        background-color: rgba($color: #07689f, $alpha: 1);
+        color: #ffffff;
+        @include flex();
+        .head-avatar {
+            display: block;
+            position: relative;
+            border-radius: 50%;
+            border: 1px solid #3f3f3f;
+        }
+        .head-info {
+            @include flex();
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-evenly;
+            padding: 0rem .2rem;
+            position: relative;
+            height: 120%;
+            margin: -5px 0 0 0;
+            word-spacing: .12rem;
+            .username {
+                color: #a2d5f2;
+                word-spacing: normal;
+            }
+        }
+    }
+    .date {
+        position: fixed;
+        top: 1.3rem;
+        right: 0;
+        height: .6rem;
+        clip-path: polygon(60% 0%, 100% 0%, 100% 100%, 65% 100%);
+        padding-left: 65%;
+        padding-right: 5%;
+        font-size: .3rem;
+        vertical-align: middle;
+        line-height: .6rem;
+        text-align: center;
+        font-weight: bold;
+        background-color: rgba($color: #ffc93c, $alpha: 1);
+        color: #222222;
+    }
+}

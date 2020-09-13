@@ -1,0 +1,16 @@
+{
+    "name": "whatiwanna",
+    "version": "1.0.0",
+    "description": "a time-manage app",
+    "author": "Doctorwu",
+    "main": "cssCompiler.js",
+    "license": "MIT",
+    "scripts": {
+        "less": "nodemon -w ./less -e .less  ./js/compiler.js lang=less",
+        "sass": "nodemon -w ./sass -e .scss  ./js/compiler.js lang=sass"
+    },
+    "dependencies": {
+        "node-cmd": "^3.0.0"
+    },
+    "devDependencies": {}
+}
