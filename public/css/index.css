@@ -64,8 +64,7 @@ html {
         text-overflow: ellipsis;
         -webkit-line-clamp: 1;
         overflow: hidden;
-        display: -webkit-box;
-        background-color: red; }
+        display: -webkit-box; }
       .what-list .what-list-item .up .list-item-time {
         -webkit-box-orient: vertical;
         text-overflow: ellipsis;
