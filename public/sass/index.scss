@@ -56,18 +56,21 @@ html {
         padding: .2rem .1rem;
         margin: .2rem 0;
         .up {
-            padding: .2rem .2rem;
+            padding: .1rem .2rem;
             overflow: hidden;
             display: inline-block;
             vertical-align: middle;
             .list-item-title {
                 font-size: .4rem;
+                padding: .1rem 0;
                 float: left;
                 max-width: 60%;
                 @include ellipse(1);
+                background-color: red;
             }
             .list-item-time {
                 @include ellipse(1);
+                padding: .1rem 0;
                 font-size: .4rem;
                 float: right;
             }
