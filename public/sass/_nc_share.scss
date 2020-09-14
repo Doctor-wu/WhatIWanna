@@ -13,6 +13,28 @@
     display: -webkit-box;
 }
 
+body,
+html {
+    height: 100%;
+    background-color: rgba($color: #a2d5f2, $alpha: .75);
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.clearfix {
+    &::after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
 @for $i from 1 through 12 {
     .btn.btn-#{$i} {
         width: (100%/12)*$i;
@@ -57,7 +79,7 @@
 @keyframes shadeIn {
     0% {
         display: none;
-        transform: translateY(20%);
+        transform: translateY(10%);
     }
     100% {
         display: block;
