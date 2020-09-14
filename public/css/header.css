@@ -83,7 +83,7 @@ html {
 @keyframes shadeIn {
   0% {
     display: none;
-    transform: translateY(10%); }
+    transform: translateY(50%); }
   100% {
     display: block;
     transform: translateY(0); } }
@@ -94,7 +94,8 @@ html {
     transform: translateY(0); }
   100% {
     display: none;
-    transform: translateY(20%); } }
+    transform: translateY(100%);
+    animation-play-state: paused; } }
 
 #main-header {
   position: relative;

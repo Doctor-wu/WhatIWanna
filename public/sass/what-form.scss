@@ -1,6 +1,7 @@
 @import './nc_share';
-.what-form {
-    display: none;
+.what-form-wrap {
+    transition: all ease-in-out .4s;
+    transform: translateY(0);
     position: fixed;
     z-index: 5;
     overflow: auto;
@@ -15,7 +16,7 @@
     box-sizing: border-box;
     background-color: #eeeeee;
     overflow: hidden;
-    .form {
+    .what-form {
         height: 98%;
         overflow: auto;
     }
@@ -23,15 +24,30 @@
         font-size: .45rem;
         padding: .2rem 0;
         text-align: center;
+        line-height: .45rem;
+        a.close-what-form {
+            position: absolute;
+            right: .3rem;
+        }
+        .iconfont {
+            color: #000;
+            vertical-align: middle;
+        }
     }
     .form-item {
-        padding: .1rem .2rem;
+        @include flex();
+        flex-direction: column;
+        padding: .1rem 0.2rem;
+        margin: .2rem;
+        align-items: flex-start;
+        justify-content: space-between;
         text-align: center;
         .label {
             text-align: left;
             font-size: .35rem;
             position: relative;
             top: .18rem;
+            margin-bottom: .3rem;
         }
         .what-input {
             width: 100%;
@@ -39,6 +55,7 @@
             line-height: .7rem;
             font-size: .3rem;
             display: inline-block;
+            margin: .1rem 0;
         }
         .from-msg {
             display: block;
@@ -46,5 +63,12 @@
     }
     .btn-wrap {
         padding: .3rem 0 .1rem .2rem;
+        .btn {
+            border-color: #ccc;
+        }
     }
+}
+
+.what-form-wrap.hide {
+    transform: translateY(100%);
 }
