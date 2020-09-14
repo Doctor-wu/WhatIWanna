@@ -51,12 +51,12 @@
 
 .btn.btn-default {
   background-color: #eee;
-  border: 1px solid #ccc; }
+  border: 1px solid #ddd; }
 
 .btn.btn-success {
   background-color: #00b8a9;
   color: #efefef;
-  border: 1px solid #ccc; }
+  border: 1px solid #ddd; }
 
 body,
 html {
@@ -168,6 +168,8 @@ html {
       font-weight: bold;
       letter-spacing: .03rem;
       text-align: center; }
+    .what-list .what-list-item .tag-green {
+      background-color: lightgreen; }
     .what-list .what-list-item .bottom-info {
       display: none;
       padding: .1rem .2rem; }

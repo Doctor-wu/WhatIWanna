@@ -51,12 +51,12 @@
 
 .btn.btn-default {
   background-color: #eee;
-  border: 1px solid #ccc; }
+  border: 1px solid #ddd; }
 
 .btn.btn-success {
   background-color: #00b8a9;
   color: #efefef;
-  border: 1px solid #ccc; }
+  border: 1px solid #ddd; }
 
 #main-header {
   position: relative;
