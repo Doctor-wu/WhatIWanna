@@ -8,6 +8,7 @@
     <!-- IMPORT CSS -->
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/what-form.css">
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_2064278_t0zq2zxkdsa.css">
 </head>
 
@@ -444,6 +445,38 @@
         <span class="add-schedule">
             <span class="iconfont icon-jia"></span>
         </span>
+
+        <div class="what-form">
+            <h2 class="form-title">新增事件</h2>
+            <form class="form">
+                <div class="form-item">
+                    <h3 class="label">标题</h3>
+                    <input placeholder="请输入标题" type="text" name="title" class="what-input">
+                    <span class="form-msg"></span>
+                </div>
+
+                <div class="form-item">
+                    <h3 class="label">描述</h3>
+                    <input placeholder="请输入描述" type="text" name="desc" class="what-input">
+                </div>
+
+                <div class="form-item">
+                    <h3 class="label">时间</h3>
+                    <input placeholder="请输入开始时间" type="time" name="time" class="what-input">
+                    <input placeholder="请输入结束时间" type="time" name="time" class="what-input">
+                </div>
+
+                <div class="form-item">
+                    <h3 class="label">标签</h3>
+                    <input placeholder="请选择标签" type="text" name="tags" class="what-input">
+                </div>
+
+                <div class="btn-wrap">
+                    <button class="btn btn-6 btn-default" type="reset">重置</button>
+                    <button class="btn btn-6 btn-success">提交</button>
+                </div>
+            </form>
+        </div>
 
 
         <!-- footer -->

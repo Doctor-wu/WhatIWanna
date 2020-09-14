@@ -1,0 +1,50 @@
+@import './nc_share';
+.what-form {
+    display: none;
+    position: fixed;
+    z-index: 5;
+    overflow: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 0.2rem 1rem;
+    margin-top: 3rem;
+    border-top-left-radius: .3rem;
+    border-top-right-radius: .3rem;
+    box-sizing: border-box;
+    background-color: #eeeeee;
+    overflow: hidden;
+    .form {
+        height: 98%;
+        overflow: auto;
+    }
+    .form-title {
+        font-size: .45rem;
+        padding: .2rem 0;
+        text-align: center;
+    }
+    .form-item {
+        padding: .1rem .2rem;
+        text-align: center;
+        .label {
+            text-align: left;
+            font-size: .35rem;
+            position: relative;
+            top: .18rem;
+        }
+        .what-input {
+            width: 100%;
+            height: .7rem;
+            line-height: .7rem;
+            font-size: .3rem;
+            display: inline-block;
+        }
+        .from-msg {
+            display: block;
+        }
+    }
+    .btn-wrap {
+        padding: .3rem 0 .1rem .2rem;
+    }
+}
