@@ -31,12 +31,5 @@ handler.on('push', function (event) {
   console.log('Received a push event for %s to %s',
     event.payload.repository.name,
     event.payload.ref);
-    switch (event.path) {
-    case '/':
-      run_cmd('sh', ['./deploy.sh', event.payload.repository.name], function (text) { console.log(text) })
-      break
-    default:
-      // 处理其他
-      break
-  }
+    run_cmd('sh', ['./deploy.sh',event.payload.repository.name], function(text){ console.log(text) });
 })
