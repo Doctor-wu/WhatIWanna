@@ -58,6 +58,11 @@
   color: #efefef;
   border: 1px solid #ddd; }
 
+.btn.btn-danger {
+  background-color: lightcoral;
+  color: #efefef;
+  border: 1px solid #ddd; }
+
 body,
 html {
   height: 100%;
