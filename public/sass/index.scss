@@ -25,7 +25,6 @@ html {
     position: relative;
     height: 100%;
     user-select: none;
-    max-width: 768px;
 }
 
 .what-list {
@@ -48,6 +47,7 @@ html {
         width: 0;
         border-left: 2px solid lightseagreen;
         border-right: 2px solid lightseagreen;
+        transition: all ease-in-out .3s;
     }
     .what-list-item {
         @include flex();
@@ -87,18 +87,45 @@ html {
                 float: right;
                 @include ellipse(1);
                 max-width: 30%;
-                .tag {
-                    @include ellipse(1);
-                    display: inline-block;
-                    background-color: #ffc93c;
-                    color: azure;
-                    padding: .15rem .25rem;
-                    border-radius: 10%/20%;
-                    font-weight: bold;
+            }
+        }
+        .tag {
+            @include ellipse(1);
+            display: inline-block;
+            background-color: #ffc93c;
+            color: azure;
+            padding: .15rem .25rem;
+            border-radius: 10%/20%;
+            font-weight: bold;
+            letter-spacing: .03rem;
+            text-align: center;
+        }
+        .bottom-info {
+            display: none;
+            padding: .1rem .2rem;
+            .label {
+                font-weight: bold;
+                font-size: .35rem;
+                display: block;
+                margin: .2rem 0;
+            }
+            .info {
+                .list-item-desc {
+                    display: block;
                     letter-spacing: .03rem;
-                    text-align: center;
                 }
             }
+        }
+    }
+    .active {
+        .bottom-info {
+            display: block;
+        }
+        .bottom {
+            display: none;
+        }
+        .btn-wrap {
+            margin-top: .2rem;
         }
     }
 }
@@ -117,7 +144,7 @@ html {
     width: 1rem;
     border-radius: 50%;
     line-height: 1rem;
-    box-shadow: 0 0 8px rgba($color: #000000, $alpha: .35);
+    box-shadow: 0 0 5px rgba($color: #000000, $alpha: .15);
     .iconfont {
         vertical-align: super;
         font-size: .45rem;

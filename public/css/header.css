@@ -1,3 +1,63 @@
+.btn.btn-1 {
+  width: 8.33333%; }
+
+.btn.btn-2 {
+  width: 16.66667%; }
+
+.btn.btn-3 {
+  width: 25%; }
+
+.btn.btn-4 {
+  width: 33.33333%; }
+
+.btn.btn-5 {
+  width: 41.66667%; }
+
+.btn.btn-6 {
+  width: 50%; }
+
+.btn.btn-7 {
+  width: 58.33333%; }
+
+.btn.btn-8 {
+  width: 66.66667%; }
+
+.btn.btn-9 {
+  width: 75%; }
+
+.btn.btn-10 {
+  width: 83.33333%; }
+
+.btn.btn-11 {
+  width: 91.66667%; }
+
+.btn.btn-12 {
+  width: 100%; }
+
+.btn {
+  display: inline-block;
+  padding: .2rem .2rem;
+  box-sizing: border-box;
+  margin: .05rem;
+  border-width: 1px;
+  font-weight: bold; }
+  .btn:active {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15) inset; }
+
+.btn-wrap {
+  display: block;
+  display: flex;
+  margin-left: -.05rem; }
+
+.btn.btn-default {
+  background-color: #eee;
+  border: 1px solid #ccc; }
+
+.btn.btn-success {
+  background-color: #00b8a9;
+  color: #efefef;
+  border: 1px solid #ccc; }
+
 #main-header {
   position: relative;
   z-index: 5; }

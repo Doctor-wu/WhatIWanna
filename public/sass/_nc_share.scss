@@ -12,3 +12,38 @@
     overflow: hidden;
     display: -webkit-box;
 }
+
+@for $i from 1 through 12 {
+    .btn.btn-#{$i} {
+        width: (100%/12)*$i;
+    }
+}
+
+.btn {
+    display: inline-block;
+    padding: .2rem .2rem;
+    box-sizing: border-box;
+    margin: .05rem;
+    border-width: 1px;
+    font-weight: bold;
+    &:active {
+        box-shadow: 2px 2px 8px rgba($color: #000000, $alpha: .15) inset;
+    }
+}
+
+.btn-wrap {
+    display: block;
+    display: flex;
+    margin-left: -.05rem;
+}
+
+.btn.btn-default {
+    background-color: #eee;
+    border: 1px solid #ccc;
+}
+
+.btn.btn-success {
+    background-color: #00b8a9;
+    color: #efefef;
+    border: 1px solid #ccc;
+}
