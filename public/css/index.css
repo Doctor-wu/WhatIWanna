@@ -63,6 +63,22 @@
   color: #efefef;
   border: 1px solid #ddd; }
 
+@keyframes shadeIn {
+  0% {
+    display: none;
+    transform: translateY(20%); }
+  100% {
+    display: block;
+    transform: translateY(0); } }
+
+@keyframes shadeOut {
+  0% {
+    display: block;
+    transform: translateY(0); }
+  100% {
+    display: none;
+    transform: translateY(20%); } }
+
 body,
 html {
   height: 100%;
@@ -177,6 +193,7 @@ html {
       background-color: lightgreen; }
     .what-list .what-list-item .bottom-info {
       display: none;
+      transition: all ease .3s;
       padding: .1rem .2rem; }
       .what-list .what-list-item .bottom-info .label {
         font-weight: bold;
@@ -187,9 +204,11 @@ html {
         display: block;
         letter-spacing: .03rem; }
   .what-list .active .bottom-info {
-    display: block; }
+    display: block;
+    animation: shadeIn ease-in-out .3s; }
   .what-list .active .bottom {
-    display: none; }
+    display: none;
+    animation: shadeOut ease-in-out .3s; }
   .what-list .active .btn-wrap {
     margin-top: .2rem; }
 

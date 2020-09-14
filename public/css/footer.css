@@ -63,6 +63,22 @@
   color: #efefef;
   border: 1px solid #ddd; }
 
+@keyframes shadeIn {
+  0% {
+    display: none;
+    transform: translateY(20%); }
+  100% {
+    display: block;
+    transform: translateY(0); } }
+
+@keyframes shadeOut {
+  0% {
+    display: block;
+    transform: translateY(0); }
+  100% {
+    display: none;
+    transform: translateY(20%); } }
+
 .main-footer {
   position: fixed;
   bottom: 0;
