@@ -28,7 +28,7 @@ function initSASS() {
         console.log(filename);
         const origin = path.resolve(__dirname, "../", `sass/${filename}`);
         const target = path.resolve(__dirname, "../", `css/${filename.replace('scss','css')}`);
-        console.log(`${origin} ${target}`);
+        // console.log(`${origin} ${target}`);
         cmd.run(`node-sass --output-style nested  ${origin} > ${target}`);
     })
 }
