@@ -598,7 +598,7 @@ html {
     .what-list .what-list-item .bottom {
       padding: .1rem .2rem; }
       .what-list .what-list-item .bottom .list-item-desc {
-        transition: all ease-in-out .3s;
+        transition: all ease-in-out .1s;
         float: left;
         -webkit-box-orient: vertical;
         text-overflow: ellipsis;

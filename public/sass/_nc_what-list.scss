@@ -52,7 +52,7 @@
         .bottom {
             padding: .1rem .2rem;
             .list-item-desc {
-                transition: all ease-in-out .3s;
+                transition: all ease-in-out .1s;
                 float: left;
                 @include ellipse(2);
                 max-width: 65%;
