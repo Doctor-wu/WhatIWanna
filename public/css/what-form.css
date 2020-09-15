@@ -114,12 +114,11 @@ html {
   box-sizing: border-box;
   background-color: #eeeeee;
   overflow: hidden; }
-  .what-form-wrap .what-form {
-    height: 98%;
-    overflow: auto; }
   .what-form-wrap .form-title {
-    font-size: .45rem;
+    font-size: .5rem;
+    word-spacing: .1rem;
     padding: .2rem 0;
+    font-weight: normal;
     text-align: center;
     line-height: .45rem; }
     .what-form-wrap .form-title a.close-what-form {
@@ -128,32 +127,6 @@ html {
     .what-form-wrap .form-title .iconfont {
       color: #000;
       vertical-align: middle; }
-  .what-form-wrap .form-item {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    flex-direction: column;
-    padding: .1rem 0.2rem;
-    margin: .2rem;
-    align-items: flex-start;
-    justify-content: space-between;
-    text-align: center; }
-    .what-form-wrap .form-item .label {
-      text-align: left;
-      font-size: .35rem;
-      position: relative;
-      top: .18rem;
-      margin-bottom: .3rem; }
-    .what-form-wrap .form-item .what-input {
-      width: 100%;
-      height: .7rem;
-      line-height: .7rem;
-      font-size: .3rem;
-      display: inline-block;
-      margin: .1rem 0; }
-    .what-form-wrap .form-item .from-msg {
-      display: block; }
 
 .what-form-wrap.hide {
   transform: translateY(100%); }

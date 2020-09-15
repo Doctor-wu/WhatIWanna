@@ -16,13 +16,11 @@
     box-sizing: border-box;
     background-color: #eeeeee;
     overflow: hidden;
-    .what-form {
-        height: 98%;
-        overflow: auto;
-    }
     .form-title {
-        font-size: .45rem;
+        font-size: .5rem;
+        word-spacing: .1rem;
         padding: .2rem 0;
+        font-weight: normal;
         text-align: center;
         line-height: .45rem;
         a.close-what-form {
@@ -32,33 +30,6 @@
         .iconfont {
             color: #000;
             vertical-align: middle;
-        }
-    }
-    .form-item {
-        @include flex();
-        flex-direction: column;
-        padding: .1rem 0.2rem;
-        margin: .2rem;
-        align-items: flex-start;
-        justify-content: space-between;
-        text-align: center;
-        .label {
-            text-align: left;
-            font-size: .35rem;
-            position: relative;
-            top: .18rem;
-            margin-bottom: .3rem;
-        }
-        .what-input {
-            width: 100%;
-            height: .7rem;
-            line-height: .7rem;
-            font-size: .3rem;
-            display: inline-block;
-            margin: .1rem 0;
-        }
-        .from-msg {
-            display: block;
         }
     }
 }

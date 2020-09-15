@@ -612,7 +612,8 @@ html {
         -webkit-line-clamp: 2;
         overflow: hidden;
         display: -webkit-box;
-        max-width: 65%; }
+        max-width: 65%;
+        padding: .05rem 0; }
       .what-list .what-list-item .bottom .list-item-tags {
         transition: all ease .3s;
         float: right;

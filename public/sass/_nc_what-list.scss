@@ -57,6 +57,7 @@
                 float: left;
                 @include ellipse(2);
                 max-width: 65%;
+                padding: .05rem 0;
             }
             .list-item-tags {
                 transition: all ease .3s;
