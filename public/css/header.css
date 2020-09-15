@@ -165,11 +165,11 @@ html {
     top: .7rem;
     right: 0;
     height: .6rem;
-    clip-path: polygon(65% 0%, 100% 0%, 100% 100%, 70% 100%);
+    clip-path: polygon(63% 0%, 100% 0%, 100% 100%, 68% 100%);
     font-size: .25rem;
     text-align: right;
     font-weight: bold;
-    background-color: #cccccc;
+    background-color: #ffc93c;
     width: 100%;
     border: none;
     outline: none;
