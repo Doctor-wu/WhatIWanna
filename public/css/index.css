@@ -301,16 +301,18 @@ html {
     top: 1.3rem;
     right: 0;
     height: .6rem;
-    clip-path: polygon(60% 0%, 100% 0%, 100% 100%, 65% 100%);
-    padding-left: 65%;
-    padding-right: 5%;
+    clip-path: polygon(65% 0%, 100% 0%, 100% 100%, 70% 100%);
+    padding-left: 0;
     font-size: .3rem;
-    vertical-align: middle;
     line-height: .6rem;
-    text-align: center;
+    text-align: right;
     font-weight: bold;
     background-color: #ffc93c;
-    color: #222222; }
+    width: 100%;
+    color: #222222;
+    padding-right: 2%; }
+    #main-header .date span {
+      padding: .1rem; }
 
 body,
 html {
@@ -543,6 +545,7 @@ html {
     animation-play-state: paused; } }
 
 .what-list {
+  transform: translateY(0);
   position: fixed;
   z-index: 2;
   overflow: auto;
@@ -650,6 +653,9 @@ html {
       margin: .2rem 0; }
     .what-list .active .bottom .tag {
       display: inline-block; }
+
+.what-list.hide {
+  transform: translateY(100%); }
 
 .tag {
   -webkit-box-orient: vertical;

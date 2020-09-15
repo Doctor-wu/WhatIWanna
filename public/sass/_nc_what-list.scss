@@ -1,6 +1,6 @@
 @import './_nc_share.scss';
 .what-list {
-    // display: none;
+    transform: translateY(0);
     position: fixed;
     z-index: 2;
     overflow: auto;
@@ -107,6 +107,10 @@
             }
         }
     }
+}
+
+.what-list.hide {
+    transform: translateY(100%);
 }
 
 .tag {

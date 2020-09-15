@@ -39,15 +39,18 @@
         top: 1.3rem;
         right: 0;
         height: .6rem;
-        clip-path: polygon(60% 0%, 100% 0%, 100% 100%, 65% 100%);
-        padding-left: 65%;
-        padding-right: 5%;
+        clip-path: polygon(65% 0%, 100% 0%, 100% 100%, 70% 100%);
+        padding-left: 0;
         font-size: .3rem;
-        vertical-align: middle;
         line-height: .6rem;
-        text-align: center;
+        text-align: right;
         font-weight: bold;
         background-color: rgba($color: #ffc93c, $alpha: 1);
+        width: 100%;
         color: #222222;
+        padding-right: 2%;
+        span {
+            padding: .1rem;
+        }
     }
 }
