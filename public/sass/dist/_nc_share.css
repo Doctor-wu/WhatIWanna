@@ -1,0 +1,130 @@
+body,
+html {
+  height: 100%;
+  background-color: rgba(162, 213, 242, 0.75);
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.btn.btn-1 {
+  width: 8.3333333333%;
+}
+
+.btn.btn-2 {
+  width: 16.6666666667%;
+}
+
+.btn.btn-3 {
+  width: 25%;
+}
+
+.btn.btn-4 {
+  width: 33.3333333333%;
+}
+
+.btn.btn-5 {
+  width: 41.6666666667%;
+}
+
+.btn.btn-6 {
+  width: 50%;
+}
+
+.btn.btn-7 {
+  width: 58.3333333333%;
+}
+
+.btn.btn-8 {
+  width: 66.6666666667%;
+}
+
+.btn.btn-9 {
+  width: 75%;
+}
+
+.btn.btn-10 {
+  width: 83.3333333333%;
+}
+
+.btn.btn-11 {
+  width: 91.6666666667%;
+}
+
+.btn.btn-12 {
+  width: 100%;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.2rem 0.2rem;
+  box-sizing: border-box;
+  margin: 0.05rem;
+  border-width: 1px;
+  font-weight: bold;
+}
+.btn:active {
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15) inset;
+}
+
+.btn-wrap {
+  display: block;
+  display: flex;
+  margin-left: -0.05rem;
+}
+
+.btn.btn-default {
+  background-color: #eee;
+  border: 1px solid #ddd;
+}
+
+.btn.btn-success {
+  background-color: #00b8a9;
+  color: #efefef;
+  border: 1px solid #ddd;
+}
+
+.btn.btn-primary {
+  background-color: rgba(7, 104, 159, 0.6);
+  color: #efefef;
+  border: 1px solid #ddd;
+}
+
+.btn.btn-danger {
+  background-color: lightcoral;
+  color: #efefef;
+  border: 1px solid #ddd;
+}
+
+@keyframes shadeIn {
+  0% {
+    display: none;
+    transform: translateY(50%);
+  }
+  100% {
+    display: block;
+    transform: translateY(0);
+  }
+}
+@keyframes shadeOut {
+  0% {
+    display: block;
+    transform: translateY(0);
+  }
+  100% {
+    display: none;
+    transform: translateY(100%);
+    animation-play-state: paused;
+  }
+}

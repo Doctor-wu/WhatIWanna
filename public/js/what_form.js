@@ -19,7 +19,7 @@ import { VFormItem } from '../libs/vForm/vForm-item.js'
 
     let title = new VFormItem({
         tag: "input",
-        label: "事件标题",
+        label: "事项标题",
         key: "title",
         attrs: {
             placeholder: "请输入标题"
@@ -31,7 +31,7 @@ import { VFormItem } from '../libs/vForm/vForm-item.js'
 
     let desc = new VFormItem({
         tag: "textarea",
-        label: "事件描述",
+        label: "事项描述",
         key: "desc",
         attrs: {
             rows: 5,
@@ -44,7 +44,7 @@ import { VFormItem } from '../libs/vForm/vForm-item.js'
 
     let timeStart = new VFormItem({
             tag: "input",
-            label: "事件时间",
+            label: "事项时间",
             key: "timeStart",
             attrs: {
                 placeholder: "请选择开始时间",
@@ -69,7 +69,7 @@ import { VFormItem } from '../libs/vForm/vForm-item.js'
         });
     let tags = new VFormItem({
         tag: "select",
-        label: "事件标签",
+        label: "事项标签",
         key: "timeStart",
         attrs: {
             placeholder: "请选择标签类型",

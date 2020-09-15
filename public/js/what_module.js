@@ -24,10 +24,10 @@
             </div>
             <div class="bottom">
                 <p class="info">
-                    <span class="label">事件详情</span>
+                    <span class="label">事项详情</span>
                     <small class="list-item-desc">${item.desc}</small>
                 </p>
-                <span class="label">事件标签</span>
+                <span class="label">事项标签</span>
                 <ul class="list-item-tags">
                     ${(function(){
                         let result = "";
@@ -41,10 +41,10 @@
                     <button class="btn btn-default btn-6 collapse">收起详情</button>
                     ${(function(){
                         return item.isModule
-                        ?'<button class="btn btn-danger btn-6 save-module">删除模板</button>'
-                        :'<button class="btn btn-success btn-6 save-module">添加模板</button>'
+                        ?'<button class="btn btn-danger btn-6 delete-module">删除模板</button>'
+                        :'<button class="btn btn-primary btn-6 save-module">添加模板</button>'
                     })()}
-                    
+                    <button class="btn btn-success btn-12" style="margin-top:.1rem">修改事项</button>
                 </div>
             </div>
         </li>

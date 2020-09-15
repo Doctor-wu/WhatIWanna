@@ -138,6 +138,11 @@ html {
   color: #efefef;
   border: 1px solid #ddd; }
 
+.btn.btn-primary {
+  background-color: rgba(7, 104, 159, 0.6);
+  color: #efefef;
+  border: 1px solid #ddd; }
+
 .btn.btn-danger {
   background-color: lightcoral;
   color: #efefef;
@@ -234,6 +239,11 @@ html {
 
 .btn.btn-success {
   background-color: #00b8a9;
+  color: #efefef;
+  border: 1px solid #ddd; }
+
+.btn.btn-primary {
+  background-color: rgba(7, 104, 159, 0.6);
   color: #efefef;
   border: 1px solid #ddd; }
 
@@ -391,6 +401,11 @@ html {
   color: #efefef;
   border: 1px solid #ddd; }
 
+.btn.btn-primary {
+  background-color: rgba(7, 104, 159, 0.6);
+  color: #efefef;
+  border: 1px solid #ddd; }
+
 .btn.btn-danger {
   background-color: lightcoral;
   color: #efefef;
@@ -522,6 +537,11 @@ html {
   color: #efefef;
   border: 1px solid #ddd; }
 
+.btn.btn-primary {
+  background-color: rgba(7, 104, 159, 0.6);
+  color: #efefef;
+  border: 1px solid #ddd; }
+
 .btn.btn-danger {
   background-color: lightcoral;
   color: #efefef;
@@ -637,7 +657,12 @@ html {
       display: -webkit-box;
       display: -webkit-flex;
       display: -ms-flexbox;
-      display: flex; }
+      display: flex;
+      flex-wrap: wrap; }
+      .what-list .active .bottom .btn-wrap .btn {
+        margin: 0;
+        border: 2px solid #fff;
+        outline: none; }
     .what-list .active .bottom .label {
       font-weight: bold;
       font-size: .35rem;

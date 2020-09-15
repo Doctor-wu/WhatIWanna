@@ -70,6 +70,12 @@ html {
     border: 1px solid #ddd;
 }
 
+.btn.btn-primary {
+    background-color: rgba($color: #07689f, $alpha: .6);
+    color: #efefef;
+    border: 1px solid #ddd;
+}
+
 .btn.btn-danger {
     background-color: lightcoral;
     color: #efefef;

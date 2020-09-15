@@ -75,6 +75,11 @@ html {
   color: #efefef;
   border: 1px solid #ddd; }
 
+.btn.btn-primary {
+  background-color: rgba(7, 104, 159, 0.6);
+  color: #efefef;
+  border: 1px solid #ddd; }
+
 .btn.btn-danger {
   background-color: lightcoral;
   color: #efefef;
