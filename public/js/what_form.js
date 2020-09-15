@@ -66,11 +66,27 @@ import { VFormItem } from '../libs/vForm/vForm-item.js'
             rules: [
                 { prop: "required", msg: "请选择结束时间", trigger: "blur" }
             ]
-        })
+        });
+    let tags = new VFormItem({
+        tag: "select",
+        label: "事件标签",
+        key: "timeStart",
+        attrs: {
+            placeholder: "请选择标签类型",
+            multiple: true
+        },
+        opts: {
+            "日常": "#ffc93c",
+            "生活": "lightgreen"
+        },
+        rules: [
+            { prop: "required", msg: "请至少选择一个标签类型", trigger: "blur" }
+        ]
+    })
 
     let vForm = new VForm({
         title: "新增事件",
-        items: [title, desc, timeStart, timeEnd]
+        items: [title, desc, timeStart, timeEnd, tags]
     });
     console.log(vForm);
     vForm.mount(whatForm)

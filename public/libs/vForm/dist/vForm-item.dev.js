@@ -60,20 +60,49 @@ VFormItem.prototype.initEL = function () {
     label.innerText = this.label;
   }
 
-  var control = document.createElement(this.tag);
-  control.className = "vform-item-control";
-  control.id = "item".concat(this.id);
-  control.setAttribute("required", true);
-  Object.assign(control, this.options.attrs || {});
-  control.setAttribute("style", parseStyle(this.options.style));
-  this.control = control;
+  this.buildControl();
   var msgBox = document.createElement("div");
   msgBox.className = "vform-item-msgbox";
   this.msgBox = msgBox; // msgBox.innerText = "测试数据"
 
   label && this.el.appendChild(label);
-  this.el.appendChild(control);
+  this.el.appendChild(this.control);
   this.el.appendChild(msgBox);
+};
+
+VFormItem.prototype.buildControl = function () {
+  var control = document.createElement(this.tag);
+
+  if (this.tag === "select") {
+    _utils.utils.assert(this.opts, "select need some options");
+
+    console.log(this.opts);
+
+    for (var key in this.opts) {
+      if (this.opts.hasOwnProperty(key)) {
+        var el = document.createElement("option");
+        el.innerText = key;
+        el.value = this.opts[key];
+        el.style.background = this.options[key];
+        el.style.padding = ".1rem 0";
+        control.appendChild(el);
+        control.value = null;
+      }
+    }
+  }
+
+  control.className = "vform-item-control";
+  control.id = "item".concat(this.id);
+  control.setAttribute("required", true); // Object.assign(control, this.options.attrs || {});
+
+  for (var _key in this.options.attrs) {
+    if (this.options.attrs.hasOwnProperty(_key)) {
+      control.setAttribute(_key, this.options.attrs[_key]);
+    }
+  }
+
+  control.setAttribute("style", parseStyle(this.options.style));
+  this.control = control;
 };
 
 VFormItem.prototype.mount = function (form) {

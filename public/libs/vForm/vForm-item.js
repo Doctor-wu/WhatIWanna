@@ -50,13 +50,7 @@ VFormItem.prototype.initEL = function() {
         label.innerText = this.label;
     }
 
-    let control = document.createElement(this.tag);
-    control.className = "vform-item-control";
-    control.id = `item${this.id}`;
-    control.setAttribute("required", true);
-    Object.assign(control, this.options.attrs || {});
-    control.setAttribute("style", parseStyle(this.options.style));
-    this.control = control;
+    this.buildControl();
 
     let msgBox = document.createElement("div");
     msgBox.className = "vform-item-msgbox"
@@ -64,8 +58,38 @@ VFormItem.prototype.initEL = function() {
     // msgBox.innerText = "测试数据"
 
     label && this.el.appendChild(label);
-    this.el.appendChild(control);
+    this.el.appendChild(this.control);
     this.el.appendChild(msgBox);
+}
+
+VFormItem.prototype.buildControl = function() {
+    let control = document.createElement(this.tag);
+    if (this.tag === "select") {
+        utils.assert(this.opts, "select need some options");
+        console.log(this.opts)
+        for (const key in this.opts) {
+            if (this.opts.hasOwnProperty(key)) {
+                let el = document.createElement("option");
+                el.innerText = key;
+                el.value = this.opts[key];
+                el.style.background = this.options[key];
+                el.style.padding = ".1rem 0"
+                control.appendChild(el);
+                control.value = null;
+            }
+        }
+    }
+    control.className = "vform-item-control";
+    control.id = `item${this.id}`;
+    control.setAttribute("required", true);
+    // Object.assign(control, this.options.attrs || {});
+    for (const key in this.options.attrs) {
+        if (this.options.attrs.hasOwnProperty(key)) {
+            control.setAttribute(key, this.options.attrs[key]);
+        }
+    }
+    control.setAttribute("style", parseStyle(this.options.style));
+    this.control = control;
 }
 
 VFormItem.prototype.mount = function(form) {
