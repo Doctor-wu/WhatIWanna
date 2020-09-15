@@ -39,7 +39,7 @@ import { VFormItem } from '../libs/vForm/vForm-item.js'
 
     let vForm = new VForm({
         title: "新增事件",
-        items: [title, title, desc]
+        items: [title, title, desc, desc, desc]
     });
     console.log(vForm);
     vForm.mount(whatForm)

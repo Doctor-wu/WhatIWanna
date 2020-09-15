@@ -13,6 +13,7 @@ export function VForm(options = {}) {
 
 VForm.prototype.init = function(options) {
     this.el = options.el || document.createElement("form");
+    this.el.className = "vform";
     this.items = options.items || [];
     this.title = options.title;
 }

@@ -1,9 +1,15 @@
+.vform {
+    overflow: auto;
+    height: 100%;
+}
+
 .vform-item {
     font-size: .35rem;
     margin: .8rem 0;
     .vform-item-label {
         font-weight: bold;
         padding: .1rem 0;
+        color: rgba($color: #07689f, $alpha: .8);
     }
     .vform-item-control {
         -webkit-appearance: none;

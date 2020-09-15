@@ -1,3 +1,8 @@
+.vform {
+  overflow: auto;
+  height: 100%;
+}
+
 .vform-item {
   font-size: 0.35rem;
   margin: 0.8rem 0;
@@ -5,6 +10,7 @@
 .vform-item .vform-item-label {
   font-weight: bold;
   padding: 0.1rem 0;
+  color: rgba(7, 104, 159, 0.8);
 }
 .vform-item .vform-item-control {
   -webkit-appearance: none;

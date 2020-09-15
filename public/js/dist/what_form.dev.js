@@ -37,7 +37,7 @@ var _vFormItem = require("../libs/vForm/vForm-item.js");
   });
   var vForm = new _vForm.VForm({
     title: "新增事件",
-    items: [title, title, desc]
+    items: [title, title, desc, desc, desc]
   });
   console.log(vForm);
   vForm.mount(whatForm);
