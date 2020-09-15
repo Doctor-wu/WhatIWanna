@@ -33,7 +33,7 @@ import { VFormItem } from '../libs/vForm/vForm-item.js'
             placeholder: "请输入描述"
         },
         style: {
-            height: "2rem"
+            // height: "2rem"
         }
     })
 

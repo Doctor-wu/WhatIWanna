@@ -18,6 +18,8 @@ function VFormItem() {
 
   this.init(options);
 }
+
+var itemId = 0;
 /**
  * t
  * @author Doctorwu
@@ -30,7 +32,6 @@ function VFormItem() {
  * @returns {VFormItem}
  */
 
-
 VFormItem.prototype.init = function (options) {
   // utils.assert(options.tag, "VFormItem need a tag");
   Object.assign(this, {
@@ -42,13 +43,18 @@ VFormItem.prototype.init = function (options) {
 };
 
 VFormItem.prototype.initEL = function () {
+  this.id = itemId++;
   this.el = document.createElement("div");
   this.el.className = "vform-item";
-  var label = document.createElement("div");
+  var label = document.createElement("label");
   label.className = "vform-item-label";
+  label.setAttribute("for", "item".concat(this.id));
+  label.style = "display: block;width: 100%;";
   label.innerText = this.label;
   var control = document.createElement(this.tag);
   control.className = "vform-item-control";
+  control.id = "item".concat(this.id);
+  control.setAttribute("required", true);
   Object.assign(control, this.options.attrs || {});
   control.setAttribute("style", parseStyle(this.options.style));
   console.log(control);

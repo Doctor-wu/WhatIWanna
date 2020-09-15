@@ -8,6 +8,8 @@ export function VFormItem(options = {}) {
     this.init(options);
 }
 
+let itemId = 0;
+
 
 /**
  * t
@@ -31,15 +33,20 @@ VFormItem.prototype.init = function(options) {
 }
 
 VFormItem.prototype.initEL = function() {
+    this.id = itemId++;
     this.el = document.createElement("div");
     this.el.className = "vform-item";
 
-    let label = document.createElement("div");
+    let label = document.createElement("label");
     label.className = "vform-item-label";
+    label.setAttribute("for", `item${this.id}`);
+    label.style = "display: block;width: 100%;"
     label.innerText = this.label;
 
     let control = document.createElement(this.tag);
-    control.className = "vform-item-control"
+    control.className = "vform-item-control";
+    control.id = `item${this.id}`;
+    control.setAttribute("required", true);
     Object.assign(control, this.options.attrs || {});
     control.setAttribute("style", parseStyle(this.options.style));
     console.log(control);

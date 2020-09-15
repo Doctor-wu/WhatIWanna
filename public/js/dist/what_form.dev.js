@@ -32,8 +32,7 @@ var _vFormItem = require("../libs/vForm/vForm-item.js");
       rows: 5,
       placeholder: "请输入描述"
     },
-    style: {
-      height: "2rem"
+    style: {// height: "2rem"
     }
   });
   var vForm = new _vForm.VForm({

@@ -1,23 +1,31 @@
 .vform-item {
     font-size: .35rem;
-    margin: .2rem 0;
+    margin: .8rem 0;
     .vform-item-label {
-        font-weight: 600;
+        font-weight: bold;
         padding: .1rem 0;
-        font-family: 'Times New Roman', Times, serif;
     }
     .vform-item-control {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        transition: all ease .3s;
         width: 100%;
-        height: .6rem;
-        border-radius: 8px;
         border-width: 1px;
         vertical-align: middle;
-        padding: .05rem .05rem;
-        border-color: rgba($color: #000000, $alpha: .4);
         box-sizing: border-box;
         outline: none;
-        &:focus {
-            border: 2px solid rgba($color: #07689f, $alpha: 1);
+        font-size: 0;
+        height: 0;
+        padding: 0;
+        border-bottom: 1px solid rgba($color: #07689f, $alpha: .2);
+        background-color: transparent;
+        &:focus,
+        &:valid {
+            border: none;
+            border-bottom: 2px solid rgba($color: #07689f, $alpha: 1);
+            font-size: .28rem;
+            height: .7rem;
+            padding: .1rem .05rem;
         }
     }
     .vform-item-msgbox {
