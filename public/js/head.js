@@ -1,13 +1,28 @@
 (function() {
-    let span = document.querySelector('.head-date-span'),
-        date = document.querySelector('.head-date');
+    let date = document.querySelector('.date'),
+        picker = document.querySelector('.head-date');
 
-    span.addEventListener("click", () => {
-        let ev = document.createEvent('MouseEvents')
-        ev.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
-        date.dispatchEvent(ev);
-    });
     date.addEventListener("click", () => {
-        console.dir(date);
-    })
+        // date.classList.toggle("slideDown");
+        picker.classList.toggle("slideDown");
+        setTimeout(() => {
+            document.body.addEventListener("click", hideDate)
+        }, 0);
+    });
+
+    function changeDate() {
+        picker.classList.toggle("slideDown");
+        date.innerText = this.value || (new Date()).toLocaleDateString().replace(/\//g, "-");
+    }
+
+    function hideDate(ev) {
+        if (!picker.contains(ev.target)) {
+            picker.classList.toggle("slideDown");
+            document.body.removeEventListener("click", hideDate);
+        }
+    }
+
+    picker.addEventListener("change", changeDate)
+
+    picker.addEventListener("blur", changeDate)
 })()

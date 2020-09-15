@@ -94,7 +94,20 @@ var _vFormItem = require("../libs/vForm/vForm-item.js");
   });
   var vForm = new _vForm.VForm({
     title: "新增事件",
-    items: [title, desc, timeStart, timeEnd, tags]
+    items: [title, desc, timeStart, timeEnd, tags, {
+      tag: "input",
+      label: "事项时间",
+      key: "timeStart",
+      attrs: {
+        placeholder: "请选择开始时间",
+        type: "date"
+      },
+      rules: [{
+        prop: "required",
+        msg: "请选择开始时间",
+        trigger: "blur"
+      }]
+    }]
   });
   console.log(vForm);
   vForm.mount(whatForm);

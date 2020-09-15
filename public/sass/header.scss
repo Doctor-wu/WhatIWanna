@@ -11,6 +11,7 @@
         height: 1.1rem;
         background-color: rgba($color: #07689f, $alpha: 1);
         color: #ffffff;
+        z-index: 3;
         @include flex();
         .head-avatar {
             display: block;
@@ -49,9 +50,29 @@
         background-color: rgba($color: #ffc93c, $alpha: 1);
         width: 100%;
         color: #222222;
-        padding-right: 2%;
+        padding-right: 3%;
+        transition: all ease-in-out .3s;
         span {
             padding: .1rem;
         }
+    }
+    .head-date {
+        position: fixed;
+        z-index: 2;
+        top: .7rem;
+        right: 0;
+        height: .6rem;
+        clip-path: polygon(65% 0%, 100% 0%, 100% 100%, 70% 100%);
+        font-size: .25rem;
+        text-align: right;
+        font-weight: bold;
+        background-color: rgba($color: #ccc, $alpha: 1);
+        width: 100%;
+        border: none;
+        outline: none;
+        transition: all ease-in-out .3s;
+    }
+    .slideDown {
+        transform: translateY(.6rem);
     }
 }

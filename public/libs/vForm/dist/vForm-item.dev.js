@@ -76,8 +76,6 @@ VFormItem.prototype.buildControl = function () {
   if (this.tag === "select") {
     _utils.utils.assert(this.opts, "select need some options");
 
-    console.log(this.opts);
-
     for (var key in this.opts) {
       if (this.opts.hasOwnProperty(key)) {
         var el = document.createElement("option");
