@@ -39,12 +39,16 @@ VFormItem.prototype.initEL = function() {
     this.el = document.createElement("div");
     this.el.className = "vform-item";
     this.el.type = this.type;
+    this.el.style = this.style;
 
-    let label = document.createElement("label");
-    label.className = "vform-item-label";
-    label.setAttribute("for", `item${this.id}`);
-    label.style = "display: block;width: 100%;"
-    label.innerText = this.label;
+    let label
+    if (this.label) {
+        label = document.createElement("label");
+        label.className = "vform-item-label";
+        label.setAttribute("for", `item${this.id}`);
+        label.style = "display: block;width: 100%;"
+        label.innerText = this.label;
+    }
 
     let control = document.createElement(this.tag);
     control.className = "vform-item-control";
@@ -59,7 +63,7 @@ VFormItem.prototype.initEL = function() {
     this.msgBox = msgBox;
     // msgBox.innerText = "测试数据"
 
-    this.el.appendChild(label);
+    label && this.el.appendChild(label);
     this.el.appendChild(control);
     this.el.appendChild(msgBox);
 }
@@ -68,15 +72,17 @@ VFormItem.prototype.mount = function(form) {
     utils.assert(form instanceof VForm, "VFormItem need mount to VForm");
     form.el.appendChild(this.el);
     this.initRules();
+    return this
 }
 
 VFormItem.prototype.validate = function() {
     if (this.valid) return this.valid;
-    // this.rules.every(rule => resolveRule(rule));
-    return {
-        state: "success",
-        info: this.el
-    }
+    this.rules.map(rule => resolveRule(rule).call(this)).forEach(item => {
+        if (!item.valid) {
+            this.rejectValid(item.msg);
+        }
+    });
+    return this.valid;
 }
 
 VFormItem.prototype.initRules = function() {
@@ -99,14 +105,16 @@ VFormItem.prototype.rejectValid = function(reason) {
         state: "failed",
         info: reason
     }
-    this.msgBox.innerText = this.valid.info;
+    this.msgBox.innerText = reason;
     this.el.classList.add("valid-fail");
 }
 
 VFormItem.prototype.resolveValid = function() {
     this.valid = {
         state: "success",
-        info: "校验成功"
+        info: "校验成功",
+        key: this.key,
+        value: this.value
     }
     this.msgBox.innerText = "";
     this.el.classList.remove("valid-fail");

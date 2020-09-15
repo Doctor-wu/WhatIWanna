@@ -17,7 +17,6 @@ VForm.prototype.init = function(options) {
     this.title = options.title;
     this.submit = new Promise((resolve, reject) => {
         this.submitTrigger = resolve;
-        this.submitReject = reject;
     }).catch(e => {
         console.warn("[valid fail]", e);
     });
@@ -27,9 +26,9 @@ VForm.prototype.init = function(options) {
 
 VForm.prototype.loadItem = function() {
     if (this.items.length <= 0) return;
-    this.items.forEach(item => {
-        if (item instanceof VFormItem) new VFormItem(item.options).mount(this);
-        else new VFormItem(item).mount(this);
+    this.items = this.items.map(item => {
+        if (item instanceof VFormItem) return new VFormItem(item.options).mount(this);
+        else return new VFormItem(item).mount(this);
     });
     this.initBtn();
 }
@@ -76,7 +75,14 @@ function resolveSubmit() {
     this.submitEL.addEventListener("click", (ev) => {
         ev.preventDefault();
         let valid = this.validate();
-        if (valid.state === "success") this.submitTrigger(valid);
-        else this.submitReject(valid);
+        if (valid.state === "success") {
+            let data = {};
+            this.items.forEach(item => {
+                data[item.key] = item.value
+            });
+            this.submitTrigger(Object.assign(valid, data));
+        } else {
+            console.warn(`[valid failed] ${JSON.stringify(valid)}`);
+        };
     })
 }

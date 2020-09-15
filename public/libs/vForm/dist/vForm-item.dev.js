@@ -49,11 +49,17 @@ VFormItem.prototype.initEL = function () {
   this.el = document.createElement("div");
   this.el.className = "vform-item";
   this.el.type = this.type;
-  var label = document.createElement("label");
-  label.className = "vform-item-label";
-  label.setAttribute("for", "item".concat(this.id));
-  label.style = "display: block;width: 100%;";
-  label.innerText = this.label;
+  this.el.style = this.style;
+  var label;
+
+  if (this.label) {
+    label = document.createElement("label");
+    label.className = "vform-item-label";
+    label.setAttribute("for", "item".concat(this.id));
+    label.style = "display: block;width: 100%;";
+    label.innerText = this.label;
+  }
+
   var control = document.createElement(this.tag);
   control.className = "vform-item-control";
   control.id = "item".concat(this.id);
@@ -65,7 +71,7 @@ VFormItem.prototype.initEL = function () {
   msgBox.className = "vform-item-msgbox";
   this.msgBox = msgBox; // msgBox.innerText = "测试数据"
 
-  this.el.appendChild(label);
+  label && this.el.appendChild(label);
   this.el.appendChild(control);
   this.el.appendChild(msgBox);
 };
@@ -75,32 +81,38 @@ VFormItem.prototype.mount = function (form) {
 
   form.el.appendChild(this.el);
   this.initRules();
+  return this;
 };
 
 VFormItem.prototype.validate = function () {
-  if (this.valid) return this.valid; // this.rules.every(rule => resolveRule(rule));
+  var _this = this;
 
-  return {
-    state: "success",
-    info: this.el
-  };
+  if (this.valid) return this.valid;
+  this.rules.map(function (rule) {
+    return resolveRule(rule).call(_this);
+  }).forEach(function (item) {
+    if (!item.valid) {
+      _this.rejectValid(item.msg);
+    }
+  });
+  return this.valid;
 };
 
 VFormItem.prototype.initRules = function () {
-  var _this = this;
+  var _this2 = this;
 
   this.rules.forEach(function (item) {
-    var validFunc = resolveRule.call(_this, item);
+    var validFunc = resolveRule.call(_this2, item);
 
-    _this.control.addEventListener(item.trigger || "blur", function () {
-      var result = validFunc.call(_this);
+    _this2.control.addEventListener(item.trigger || "blur", function () {
+      var result = validFunc.call(_this2);
 
       if (!result.valid) {
         console.log(result);
 
-        _this.rejectValid(result.msg);
+        _this2.rejectValid(result.msg);
       } else {
-        _this.resolveValid();
+        _this2.resolveValid();
       }
     });
   });
@@ -111,14 +123,16 @@ VFormItem.prototype.rejectValid = function (reason) {
     state: "failed",
     info: reason
   };
-  this.msgBox.innerText = this.valid.info;
+  this.msgBox.innerText = reason;
   this.el.classList.add("valid-fail");
 };
 
 VFormItem.prototype.resolveValid = function () {
   this.valid = {
     state: "success",
-    info: "校验成功"
+    info: "校验成功",
+    key: this.key,
+    value: this.value
   };
   this.msgBox.innerText = "";
   this.el.classList.remove("valid-fail");

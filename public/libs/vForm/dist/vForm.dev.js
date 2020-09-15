@@ -29,7 +29,6 @@ VForm.prototype.init = function (options) {
   this.title = options.title;
   this.submit = new Promise(function (resolve, reject) {
     _this.submitTrigger = resolve;
-    _this.submitReject = reject;
   })["catch"](function (e) {
     console.warn("[valid fail]", e);
   });
@@ -39,8 +38,8 @@ VForm.prototype.loadItem = function () {
   var _this2 = this;
 
   if (this.items.length <= 0) return;
-  this.items.forEach(function (item) {
-    if (item instanceof _vFormItem.VFormItem) new _vFormItem.VFormItem(item.options).mount(_this2);else new _vFormItem.VFormItem(item).mount(_this2);
+  this.items = this.items.map(function (item) {
+    if (item instanceof _vFormItem.VFormItem) return new _vFormItem.VFormItem(item.options).mount(_this2);else return new _vFormItem.VFormItem(item).mount(_this2);
   });
   this.initBtn();
 };
@@ -98,6 +97,18 @@ function resolveSubmit() {
 
     var valid = _this3.validate();
 
-    if (valid.state === "success") _this3.submitTrigger(valid);else _this3.submitReject(valid);
+    if (valid.state === "success") {
+      var data = {};
+
+      _this3.items.forEach(function (item) {
+        data[item.key] = item.value;
+      });
+
+      _this3.submitTrigger(Object.assign(valid, data));
+    } else {
+      console.warn("[valid failed] ".concat(JSON.stringify(valid)));
+    }
+
+    ;
   });
 }

@@ -8,7 +8,8 @@
 
 .vform-item {
   font-size: .35rem;
-  margin: .8rem 0; }
+  margin: .8rem 0;
+  box-sizing: border-box; }
   .vform-item .vform-item-label {
     font-weight: bold;
     padding: .1rem 0;
@@ -31,12 +32,14 @@
       border: none;
       border-bottom: 2px solid #07689f;
       font-size: .28rem;
-      height: .7rem;
-      padding: .1rem .05rem; }
+      height: .6rem;
+      padding: .1rem .05rem 0; }
   .vform-item .vform-item-msgbox {
     font-size: .25rem;
     padding: .1rem .02rem;
-    color: red; }
+    color: red;
+    height: .35rem;
+    box-sizing: border-box; }
 
 .vform-item.valid-fail .vform-item-control {
   border-color: red; }

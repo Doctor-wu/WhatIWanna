@@ -29,8 +29,6 @@ import { VFormItem } from '../libs/vForm/vForm-item.js'
         ]
     });
 
-
-
     let desc = new VFormItem({
         tag: "textarea",
         label: "描述",
@@ -44,9 +42,35 @@ import { VFormItem } from '../libs/vForm/vForm-item.js'
         ]
     })
 
+    let timeStart = new VFormItem({
+            tag: "input",
+            label: "时间",
+            key: "timeStart",
+            attrs: {
+                placeholder: "请选择开始时间",
+                type: "time"
+            },
+            style: "margin: 0 0 .2rem;width:50%;display:inline-block;padding-right:.1rem;",
+            rules: [
+                { prop: "required", msg: "请选择开始时间", trigger: "blur" }
+            ]
+        }),
+        timeEnd = new VFormItem({
+            tag: "input",
+            key: "timeEnd",
+            attrs: {
+                placeholder: "请选择结束时间",
+                type: "time"
+            },
+            style: "margin: .3rem 0 0.2rem 0;width:50%;display:inline-block;padding-left:0 .1rem;",
+            rules: [
+                { prop: "required", msg: "请选择结束时间", trigger: "blur" }
+            ]
+        })
+
     let vForm = new VForm({
         title: "新增事件",
-        items: [title, desc]
+        items: [title, desc, timeStart, timeEnd]
     });
     console.log(vForm);
     vForm.mount(whatForm)

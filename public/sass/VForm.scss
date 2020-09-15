@@ -12,6 +12,7 @@
 .vform-item {
     font-size: .35rem;
     margin: .8rem 0;
+    box-sizing: border-box;
     .vform-item-label {
         font-weight: bold;
         padding: .1rem 0;
@@ -36,14 +37,16 @@
             border: none;
             border-bottom: 2px solid rgba($color: #07689f, $alpha: 1);
             font-size: .28rem;
-            height: .7rem;
-            padding: .1rem .05rem;
+            height: .6rem;
+            padding: .1rem .05rem 0;
         }
     }
     .vform-item-msgbox {
         font-size: .25rem;
         padding: .1rem .02rem;
         color: red;
+        height: .35rem;
+        box-sizing: border-box;
     }
 }
 
