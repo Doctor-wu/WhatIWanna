@@ -135,6 +135,7 @@ html {
 
 .btn.btn-success {
   background-color: #00b8a9;
+  background-position: 1px 1px;
   color: #efefef;
   border: 1px solid #ddd; }
 
@@ -239,6 +240,7 @@ html {
 
 .btn.btn-success {
   background-color: #00b8a9;
+  background-position: 1px 1px;
   color: #efefef;
   border: 1px solid #ddd; }
 
@@ -398,6 +400,7 @@ html {
 
 .btn.btn-success {
   background-color: #00b8a9;
+  background-position: 1px 1px;
   color: #efefef;
   border: 1px solid #ddd; }
 
@@ -534,6 +537,7 @@ html {
 
 .btn.btn-success {
   background-color: #00b8a9;
+  background-position: 1px 1px;
   color: #efefef;
   border: 1px solid #ddd; }
 
@@ -596,8 +600,7 @@ html {
     font-size: .3rem;
     position: relative;
     padding: .2rem .1rem;
-    margin: .2rem 0;
-    transition: all ease .3s; }
+    margin: .2rem 0; }
     .what-list .what-list-item .up {
       padding: .1rem .2rem;
       overflow: hidden;
@@ -625,7 +628,7 @@ html {
     .what-list .what-list-item .bottom {
       padding: .1rem .2rem; }
       .what-list .what-list-item .bottom .list-item-desc {
-        transition: all ease-in-out .1s;
+        transition: all ease .3s;
         float: left;
         -webkit-box-orient: vertical;
         text-overflow: ellipsis;
@@ -635,7 +638,6 @@ html {
         max-width: 65%;
         padding: .05rem 0; }
       .what-list .what-list-item .bottom .list-item-tags {
-        transition: all ease .3s;
         float: right;
         -webkit-box-orient: vertical;
         text-overflow: ellipsis;

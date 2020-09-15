@@ -72,6 +72,7 @@ html {
 
 .btn.btn-success {
   background-color: #00b8a9;
+  background-position: 1px 1px;
   color: #efefef;
   border: 1px solid #ddd; }
 

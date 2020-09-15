@@ -91,6 +91,13 @@ html {
 
 .btn.btn-success {
   background-color: #00b8a9;
+  background-position: 1px 1px;
+  color: #efefef;
+  border: 1px solid #ddd;
+}
+
+.btn.btn-primary {
+  background-color: rgba(7, 104, 159, 0.6);
   color: #efefef;
   border: 1px solid #ddd;
 }
@@ -157,7 +164,6 @@ html {
   position: relative;
   padding: 0.2rem 0.1rem;
   margin: 0.2rem 0;
-  transition: all ease 0.3s;
 }
 .what-list .what-list-item .up {
   padding: 0.1rem 0.2rem;
@@ -190,7 +196,7 @@ html {
   padding: 0.1rem 0.2rem;
 }
 .what-list .what-list-item .bottom .list-item-desc {
-  transition: all ease-in-out 0.1s;
+  transition: all ease 0.3s;
   float: left;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
@@ -201,7 +207,6 @@ html {
   padding: 0.05rem 0;
 }
 .what-list .what-list-item .bottom .list-item-tags {
-  transition: all ease 0.3s;
   float: right;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;

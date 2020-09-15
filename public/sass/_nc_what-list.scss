@@ -30,7 +30,7 @@
         position: relative;
         padding: .2rem .1rem;
         margin: .2rem 0;
-        transition: all ease .3s;
+        // transition: all ease .3s;
         .up {
             padding: .1rem .2rem;
             overflow: hidden;
@@ -53,14 +53,13 @@
         .bottom {
             padding: .1rem .2rem;
             .list-item-desc {
-                transition: all ease-in-out .1s;
+                transition: all ease .3s;
                 float: left;
                 @include ellipse(2);
                 max-width: 65%;
                 padding: .05rem 0;
             }
             .list-item-tags {
-                transition: all ease .3s;
                 float: right;
                 @include ellipse(1);
                 text-overflow: clip !important;
