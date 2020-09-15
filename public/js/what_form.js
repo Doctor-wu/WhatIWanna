@@ -20,29 +20,39 @@ import { VFormItem } from '../libs/vForm/vForm-item.js'
     let title = new VFormItem({
         tag: "input",
         label: "标题",
+        key: "title",
         attrs: {
             placeholder: "请输入标题"
-        }
+        },
+        rules: [
+            { prop: "required", msg: "请输入标题", trigger: "blur" }
+        ]
     });
+
+
 
     let desc = new VFormItem({
         tag: "textarea",
         label: "描述",
+        key: "desc",
         attrs: {
             rows: 5,
             placeholder: "请输入描述"
         },
-        style: {
-            // height: "2rem"
-        }
+        rules: [
+            { prop: "required", msg: "请输入描述", trigger: "blur" }
+        ]
     })
 
     let vForm = new VForm({
         title: "新增事件",
-        items: [title, title, desc, desc, desc]
+        items: [title, desc]
     });
     console.log(vForm);
     vForm.mount(whatForm)
+
+
+
 
     popOut.addEventListener('click', () => {
         formWrap.classList.remove("hide");

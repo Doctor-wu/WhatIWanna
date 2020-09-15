@@ -21,23 +21,33 @@ var _vFormItem = require("../libs/vForm/vForm-item.js");
   var title = new _vFormItem.VFormItem({
     tag: "input",
     label: "标题",
+    key: "title",
     attrs: {
       placeholder: "请输入标题"
-    }
+    },
+    rules: [{
+      prop: "required",
+      msg: "请输入标题",
+      trigger: "blur"
+    }]
   });
   var desc = new _vFormItem.VFormItem({
     tag: "textarea",
     label: "描述",
+    key: "desc",
     attrs: {
       rows: 5,
       placeholder: "请输入描述"
     },
-    style: {// height: "2rem"
-    }
+    rules: [{
+      prop: "required",
+      msg: "请输入描述",
+      trigger: "blur"
+    }]
   });
   var vForm = new _vForm.VForm({
     title: "新增事件",
-    items: [title, title, desc, desc, desc]
+    items: [title, desc]
   });
   console.log(vForm);
   vForm.mount(whatForm);

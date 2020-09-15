@@ -10,16 +10,18 @@ export function VForm(options = {}) {
 }
 
 
-
 VForm.prototype.init = function(options) {
     this.el = options.el || document.createElement("form");
     this.el.className = "vform";
     this.items = options.items || [];
     this.title = options.title;
-    this.subPromise = new Promise((resolve, reject) => {
+    this.submit = new Promise((resolve, reject) => {
         this.submitTrigger = resolve;
         this.submitReject = reject;
+    }).catch(e => {
+        console.warn("[valid fail]", e);
     });
+
 }
 
 
@@ -35,11 +37,11 @@ VForm.prototype.loadItem = function() {
 VForm.prototype.validate = function() {
     if (this.items.length === 0) return { state: 'success', info: [] };
     let arr = [];
-    this.items.formEach((item) => {
+    this.items.forEach((item) => {
         arr.push(item.validate());
     });
-    let success = arr.all(item => {
-        item.state = "success";
+    let success = arr.every(item => {
+        return item.state === "success";
     });
     return success ? { state: 'success', info: arr } : { state: 'failed', info: arr };
 }
@@ -71,8 +73,10 @@ VForm.prototype.initBtn = function() {
 
 
 function resolveSubmit() {
-    this.submitEL.addEventListener("submit", function(ev) {
+    this.submitEL.addEventListener("click", (ev) => {
         ev.preventDefault();
-        this.subPromise(this.items.map(item => item.value));
+        let valid = this.validate();
+        if (valid.state === "success") this.submitTrigger(valid);
+        else this.submitReject(valid);
     })
 }

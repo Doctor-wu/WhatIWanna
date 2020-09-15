@@ -39,13 +39,16 @@ VFormItem.prototype.init = function (options) {
     rules: []
   }, options);
   this.options = options;
+  this.valid = null;
   this.initEL();
+  this.observe();
 };
 
 VFormItem.prototype.initEL = function () {
   this.id = itemId++;
   this.el = document.createElement("div");
   this.el.className = "vform-item";
+  this.el.type = this.type;
   var label = document.createElement("label");
   label.className = "vform-item-label";
   label.setAttribute("for", "item".concat(this.id));
@@ -57,8 +60,10 @@ VFormItem.prototype.initEL = function () {
   control.setAttribute("required", true);
   Object.assign(control, this.options.attrs || {});
   control.setAttribute("style", parseStyle(this.options.style));
+  this.control = control;
   var msgBox = document.createElement("div");
-  msgBox.className = "vform-item-msgbox"; // msgBox.innerText = "测试数据"
+  msgBox.className = "vform-item-msgbox";
+  this.msgBox = msgBox; // msgBox.innerText = "测试数据"
 
   this.el.appendChild(label);
   this.el.appendChild(control);
@@ -69,7 +74,116 @@ VFormItem.prototype.mount = function (form) {
   _utils.utils.assert(form instanceof _vForm.VForm, "VFormItem need mount to VForm");
 
   form.el.appendChild(this.el);
+  this.initRules();
 };
+
+VFormItem.prototype.validate = function () {
+  if (this.valid) return this.valid; // this.rules.every(rule => resolveRule(rule));
+
+  return {
+    state: "success",
+    info: this.el
+  };
+};
+
+VFormItem.prototype.initRules = function () {
+  var _this = this;
+
+  this.rules.forEach(function (item) {
+    var validFunc = resolveRule.call(_this, item);
+
+    _this.control.addEventListener(item.trigger || "blur", function () {
+      var result = validFunc.call(_this);
+
+      if (!result.valid) {
+        console.log(result);
+
+        _this.rejectValid(result.msg);
+      } else {
+        _this.resolveValid();
+      }
+    });
+  });
+};
+
+VFormItem.prototype.rejectValid = function (reason) {
+  this.valid = {
+    state: "failed",
+    info: reason
+  };
+  this.msgBox.innerText = this.valid.info;
+  this.el.classList.add("valid-fail");
+};
+
+VFormItem.prototype.resolveValid = function () {
+  this.valid = {
+    state: "success",
+    info: "校验成功"
+  };
+  this.msgBox.innerText = "";
+  this.el.classList.remove("valid-fail");
+};
+
+VFormItem.prototype.observe = function () {
+  Object.defineProperty(this, "value", {
+    get: function get() {
+      return this.control.value;
+    },
+    set: function set(value) {
+      this.control.value = value;
+    }
+  });
+};
+
+function resolveRule(rule) {
+  var validFunc;
+
+  if (rule.prop) {
+    validFunc = function validFunc() {
+      switch (rule.prop) {
+        case "required":
+          {
+            if (!this.value) {
+              return {
+                valid: false,
+                msg: rule.msg || "验证失败"
+              };
+            } else {
+              return {
+                valid: true,
+                msg: "校验成功"
+              };
+            }
+
+            break;
+          }
+
+        default:
+          throw new Error("Unknow Rule Name: ".concat(rule.prop));
+      }
+    };
+  } else if (rule.pattern) {
+    validFunc = function validFunc() {
+      var result = rule.pattern.test(this.value);
+
+      if (result) {
+        return {
+          valid: true,
+          msg: "校验成功"
+        };
+      } else {
+        return {
+          valid: false,
+          msg: "\u672A\u901A\u8FC7\u6B63\u5219\u8868\u8FBE\u5F0F\u9A8C\u8BC1:".concat(rule.pattern)
+        };
+      }
+    };
+  } else {
+    throw new Error("rule need a name or pattern");
+  }
+
+  return validFunc;
+}
 
 function parseStyle(style) {
   if (!style) return "";

@@ -1,6 +1,10 @@
 .vform {
   overflow: auto;
   height: 100%; }
+  .vform .btn-wrap {
+    margin-bottom: .2rem; }
+    .vform .btn-wrap button {
+      border-color: #777; }
 
 .vform-item {
   font-size: .35rem;
@@ -31,4 +35,8 @@
       padding: .1rem .05rem; }
   .vform-item .vform-item-msgbox {
     font-size: .08rem;
-    padding: .1rem .02rem; }
+    padding: .1rem .02rem;
+    color: red; }
+
+.vform-item.valid-fail .vform-item-control {
+  border-color: red; }

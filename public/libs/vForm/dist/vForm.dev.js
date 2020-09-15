@@ -27,9 +27,11 @@ VForm.prototype.init = function (options) {
   this.el.className = "vform";
   this.items = options.items || [];
   this.title = options.title;
-  this.subPromise = new Promise(function (resolve, reject) {
+  this.submit = new Promise(function (resolve, reject) {
     _this.submitTrigger = resolve;
     _this.submitReject = reject;
+  })["catch"](function (e) {
+    console.warn("[valid fail]", e);
   });
 };
 
@@ -49,11 +51,11 @@ VForm.prototype.validate = function () {
     info: []
   };
   var arr = [];
-  this.items.formEach(function (item) {
+  this.items.forEach(function (item) {
     arr.push(item.validate());
   });
-  var success = arr.all(function (item) {
-    item.state = "success";
+  var success = arr.every(function (item) {
+    return item.state === "success";
   });
   return success ? {
     state: 'success',
@@ -89,10 +91,13 @@ VForm.prototype.initBtn = function () {
 };
 
 function resolveSubmit() {
-  this.submitEL.addEventListener("submit", function (ev) {
+  var _this3 = this;
+
+  this.submitEL.addEventListener("click", function (ev) {
     ev.preventDefault();
-    this.subPromise(this.items.map(function (item) {
-      return item.value;
-    }));
+
+    var valid = _this3.validate();
+
+    if (valid.state === "success") _this3.submitTrigger(valid);else _this3.submitReject(valid);
   });
 }
