@@ -57,7 +57,6 @@ VFormItem.prototype.initEL = function () {
   control.setAttribute("required", true);
   Object.assign(control, this.options.attrs || {});
   control.setAttribute("style", parseStyle(this.options.style));
-  console.log(control);
   var msgBox = document.createElement("div");
   msgBox.className = "vform-item-msgbox"; // msgBox.innerText = "测试数据"
 

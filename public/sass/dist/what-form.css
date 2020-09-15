@@ -188,16 +188,6 @@ html {
 .what-form-wrap .form-item .from-msg {
   display: block;
 }
-.what-form-wrap .btn-wrap {
-  padding: 0.3rem 0.2rem 0.1rem 0.45rem;
-  margin-left: -0.05rem;
-}
-.what-form-wrap .btn-wrap .btn {
-  border-color: #ccc;
-}
-.what-form-wrap .btn-wrap .btn:nth-child(1) {
-  margin-left: 0;
-}
 
 .what-form-wrap.hide {
   transform: translateY(100%);

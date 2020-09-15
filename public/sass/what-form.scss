@@ -61,16 +61,6 @@
             display: block;
         }
     }
-    .btn-wrap {
-        padding: .3rem .2rem .1rem .45rem;
-        margin-left: -.05rem;
-        .btn {
-            &:nth-child(1) {
-                margin-left: 0;
-            }
-            border-color: #ccc;
-        }
-    }
 }
 
 .what-form-wrap.hide {

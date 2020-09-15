@@ -154,13 +154,6 @@ html {
       margin: .1rem 0; }
     .what-form-wrap .form-item .from-msg {
       display: block; }
-  .what-form-wrap .btn-wrap {
-    padding: .3rem .2rem .1rem .45rem;
-    margin-left: -.05rem; }
-    .what-form-wrap .btn-wrap .btn {
-      border-color: #ccc; }
-      .what-form-wrap .btn-wrap .btn:nth-child(1) {
-        margin-left: 0; }
 
 .what-form-wrap.hide {
   transform: translateY(100%); }
