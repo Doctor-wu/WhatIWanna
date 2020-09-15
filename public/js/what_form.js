@@ -5,10 +5,12 @@ import { Drag } from './drag.js';
     let close = document.querySelector('.close-what-form');
     let whatList = document.querySelector('.what-list');
     let popDrag = new Drag('.add-schedule', {
+        limitYT: 10,
+        limitYB: 17,
         snapX: ".25rem"
     });
+    let submit = document.querySelector(".what-submit");
     let popOut = popDrag.el;
-    console.log(popDrag);
 
     popOut.addEventListener('click', () => {
         formWrap.classList.remove("hide");
@@ -18,4 +20,10 @@ import { Drag } from './drag.js';
         formWrap.classList.add("hide");
         whatList.classList.remove("hide");
     });
+
+
+
+    submit.addEventListener("click", (ev) => {
+        ev.preventDefault();
+    })
 })()

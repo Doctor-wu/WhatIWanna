@@ -10,7 +10,8 @@ export function Drag(el, options = {}) {
 
 
 Drag.prototype.init = function(el, options) {
-    el.style.position = 'absolute';
+
+    // 初始化Drag对象属性 
 
     this.el = el;
 
@@ -22,9 +23,19 @@ Drag.prototype.init = function(el, options) {
 
     this.currX = this.el.offsetLeft;
 
+    this.limitYT = parseInt(options.limitYT) * window.outerHeight / 100;
+
+    this.limitYB = parseInt(options.limitYB) * window.outerHeight / 100;
+
     this.currY = this.el.offsetTop;
 
+    this.windowWidth = window.outerWidth;
+
+    // 修改el属性
+
     console.log(this.currX, this.currY);
+
+    this.el.style.position = 'absolute';
 
     this.el.style.left = this.currX + 'px';
 
@@ -33,8 +44,6 @@ Drag.prototype.init = function(el, options) {
     this.el.style.right = "unset";
 
     this.el.style.bottom = "unset";
-
-    this.windowWidth = window.outerWidth;
 }
 
 Drag.prototype.dragable = function() {
@@ -57,6 +66,7 @@ Drag.prototype.destroy = function() {
 function handleTouchStart(ev) {
     ev.stopPropagation();
     ev.stopImmediatePropagation();
+    this.el.style.transition = "";
     let touch = ev.changedTouches[0];
     this.gapX = touch.clientX - this.currX;
     this.gapY = touch.clientY - this.currY;
@@ -86,6 +96,14 @@ function handleTouchEnd(ev) {
         } else {
             this.el.style.left = this.snapX;
             this.el.style.right = "unset";
+        }
+    }
+    if (this.limitYT || this.limitYB) {
+        console.log(this.el.offsetTop, window.outerHeight - this.limitYB);
+        if (this.limitYT > this.el.offsetTop) {
+            this.el.style.top = this.limitYT + 'px';
+        } else if (window.outerHeight - this.limitYB < this.el.offsetTop) {
+            this.el.style.top = window.outerHeight - this.limitYB + 'px';
         }
     }
     this.currX = this.el.offsetLeft;
