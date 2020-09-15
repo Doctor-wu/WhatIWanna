@@ -4,6 +4,7 @@ import { Drag } from './drag.js';
     let formWrap = document.querySelector(".what-form-wrap");
     let close = document.querySelector('.close-what-form');
     let popOut = document.querySelector(".add-schedule");
+    new Drag(popOut);
     popOut.addEventListener('click', () => {
         formWrap.classList.remove("hide");
     })

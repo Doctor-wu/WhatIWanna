@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+default-passive-events@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/default-passive-events/download/default-passive-events-2.0.0.tgz#79b1aa67becbaab38b718469b5480fef92eda649"
+  integrity sha1-ebGqZ77LqrOLcYRptUgP75Ltpkk=
+
 node-cmd@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/node-cmd/download/node-cmd-3.0.0.tgz#38fff70a4aaa4f659d203eb57862737018e24f6f"

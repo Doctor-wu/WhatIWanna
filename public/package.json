@@ -10,6 +10,7 @@
         "sass": "nodemon -w ./sass -e .scss  ./js/compiler.js lang=sass"
     },
     "dependencies": {
+        "default-passive-events": "^2.0.0",
         "node-cmd": "^3.0.0"
     },
     "devDependencies": {}
