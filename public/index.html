@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/index.css">
     <link rel="stylesheet" href="./css/what-form.css">
+    <link rel="stylesheet" href="./css/VForm.css">
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_2064278_3ky254g2xtl.css">
 </head>
 
@@ -446,39 +447,12 @@
             <span class="iconfont icon-jia"></span>
         </span>
 
-        <div class="what-form-wrap hide">
+        <div class="what-form-wrap">
             <h2 class="form-title">
                 新增事件
                 <a href="javascript:0" class="close-what-form"><span class="iconfont icon-cuowu"></span></a>
             </h2>
-            <form class="what-form">
-                <div class="form-item">
-                    <h3 class="label">标题</h3>
-                    <input placeholder="请输入标题" type="text" name="title" class="what-input" required>
-                    <span class="form-msg"></span>
-                </div>
-
-                <div class="form-item">
-                    <h3 class="label">描述</h3>
-                    <textarea placeholder="请输入描述" style="height: 3rem;" name="desc" class="what-input" required></textarea>
-                </div>
-
-                <div class="form-item">
-                    <h3 class="label">时间</h3>
-                    <input placeholder="请输入开始时间" type="time" name="time" class="what-input" required>
-                    <input placeholder="请输入结束时间" type="time" name="time" class="what-input" required>
-                </div>
-
-                <div class="form-item">
-                    <h3 class="label">标签</h3>
-                    <input placeholder="请选择标签" type="text" name="tags" class="what-input" required>
-                </div>
-
-                <div class="btn-wrap">
-                    <button class="btn btn-6 btn-default" type="reset">重置</button>
-                    <button class="btn btn-6 btn-success what-submit">提交</button>
-                </div>
-            </form>
+            <i class="what-form"></i>
         </div>
 
 
@@ -508,8 +482,7 @@
 
 
     <!-- IMPORT JAVASCRIPT -->
-    <script src="./js/passive.js"></script>
-    <script src="./js/utils.js"></script>
+    <script src="./js/utils/passive.js"></script>
     <script src="./js/what_module.js"></script>
     <script src="./js/what_form.js" type="module"></script>
 </body>

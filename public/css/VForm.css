@@ -1,0 +1,22 @@
+.vform-item {
+  font-size: .35rem;
+  margin: .2rem 0; }
+  .vform-item .vform-item-label {
+    font-weight: 600;
+    padding: .1rem 0;
+    font-family: 'Times New Roman', Times, serif; }
+  .vform-item .vform-item-control {
+    width: 100%;
+    height: .6rem;
+    border-radius: 8px;
+    border-width: 1px;
+    vertical-align: middle;
+    padding: .05rem .05rem;
+    border-color: rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+    outline: none; }
+    .vform-item .vform-item-control:focus {
+      border: 2px solid #07689f; }
+  .vform-item .vform-item-msgbox {
+    font-size: .08rem;
+    padding: .1rem .02rem; }

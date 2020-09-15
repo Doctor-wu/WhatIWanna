@@ -192,11 +192,41 @@ const utils = (function() {
     }
 
 
+    /**
+     * 断言函数
+     * @author Doctorwu
+     * @date 2020-09-15
+     * @param {any} exp
+     * @param {any} msg
+     * @returns {any}
+     */
+    function assert(exp, msg) {
+        if (!exp) {
+            throw new Error(msg);
+        }
+    }
+
+    function deepClone(obj) {
+        const constructor = obj.constructor;
+        if (obj === null) return obj;
+        if (typeof obj !== "object") return obj;
+        if (/^RegExp|Date$/i.test(constructor.name)) return new constructor(obj);
+        let clone = new constructor();
+        for (const key in obj) {
+            if (!obj.hasOwnProperty(key)) break;
+            clone[key] = deepClone(obj[key]);
+        }
+        return clone;
+    }
+
+
 
 
 
 
     return {
+        deepClone,
+        assert,
         debounce,
         throttle,
         toType,
@@ -207,3 +237,4 @@ const utils = (function() {
         isPlainObject
     }
 })()
+export { utils };

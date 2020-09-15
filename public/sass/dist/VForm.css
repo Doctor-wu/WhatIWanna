@@ -1,0 +1,27 @@
+.vform-item {
+  font-size: 0.35rem;
+  margin: 0.2rem 0;
+}
+.vform-item .vform-item-label {
+  font-weight: 600;
+  padding: 0.1rem 0;
+  font-family: "Times New Roman", Times, serif;
+}
+.vform-item .vform-item-control {
+  width: 100%;
+  height: 0.6rem;
+  border-radius: 8px;
+  border-width: 1px;
+  vertical-align: middle;
+  padding: 0.05rem 0.05rem;
+  border-color: rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+  outline: none;
+}
+.vform-item .vform-item-control:focus {
+  border: 2px solid #07689f;
+}
+.vform-item .vform-item-msgbox {
+  font-size: 0.08rem;
+  padding: 0.1rem 0.02rem;
+}

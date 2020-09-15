@@ -8,7 +8,6 @@ export function Drag(el, options = {}) {
     this.dragable();
 }
 
-
 Drag.prototype.init = function(el, options) {
 
     // 初始化Drag对象属性 
