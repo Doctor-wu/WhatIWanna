@@ -29,22 +29,30 @@ Drag.prototype.dragable = function() {
 }
 
 function handleTouchStart(ev) {
+    ev.stopPropagation();
+    ev.stopImmediatePropagation();
     let touch = ev.changedTouches[0];
     this.gapX = touch.clientX - this.currX;
     this.gapY = touch.clientY - this.currY;
+    return false;
 }
 
 function handleTouchMove(ev) {
     ev.stopPropagation();
-    // console.log(ev)
+    ev.stopImmediatePropagation();
+    ev.cancelBubble = true;
+    console.log(ev)
     let touch = ev.changedTouches[0];
     let changedX = (touch.clientX - this.gapX) + 'px';
     let changedY = (touch.clientY - this.gapY) + 'px';
     this.el.style.left = changedX;
     this.el.style.top = changedY;
+    return false;
 }
 
 function handleTouchEnd(ev) {
+    ev.stopPropagation();
+    ev.stopImmediatePropagation();
     let touch = ev.changedTouches[0];
     if (touch.clientX > this.windowWidth / 2) {
         this.el.style.right = ".25rem";
