@@ -105,7 +105,7 @@ import { utils } from './utils/utils.js';
 
 
 
-    popOut.addEventListener('click', showForm)
+    popOut.addEventListener('click', showForm);
     close.addEventListener('click', hideForm);
 
     function showForm() {
@@ -114,12 +114,11 @@ import { utils } from './utils/utils.js';
         setTimeout(() => {
             document.addEventListener("click", function handle(ev) {
                 if (!formWrap.contains(ev.target)) {
-                    console.log(123);
                     document.removeEventListener("click", handle);
                     hideForm();
                 }
             })
-        }, 0)
+        }, 0);
     }
 
     function hideForm() {

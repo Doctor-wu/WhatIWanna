@@ -1,8 +1,13 @@
 (function() {
     let date = document.querySelector('.date'),
-        picker = document.querySelector('.head-date');
+        picker = document.querySelector('.head-date'),
+        today = (new Date()).toLocaleDateString().replace(/\//g, "-");
+    today = today.split("-");
+    today[1] = today[1] >= 10 ? today[1] : "0" + today[1];
+    today = today.join("-");
+    date.firstElementChild.innerText = today;
+    picker.value = today;
 
-    date.firstElementChild.innerText = (new Date()).toLocaleDateString().replace(/\//g, "-");
 
     date.addEventListener("click", () => {
         // date.classList.toggle("slideDown");

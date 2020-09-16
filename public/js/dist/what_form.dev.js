@@ -112,7 +112,6 @@ var _utils = require("./utils/utils.js");
     setTimeout(function () {
       document.addEventListener("click", function handle(ev) {
         if (!formWrap.contains(ev.target)) {
-          console.log(123);
           document.removeEventListener("click", handle);
           hideForm();
         }
