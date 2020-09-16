@@ -13,8 +13,10 @@ proto.init = function() {
 
 proto.route = function(routeMap) {
     this.map = routeMap.map;
+    this.home = routeMap.home || "/";
     this.matcher = matcher(this.map);
-    this.matcher.flush.call(this, this.matcher.match(location.hash.split("#")[1]));
+    location.hash = this.home;
+    // this.matcher.flush.call(this, this.matcher.match(location.hash.split("#")[1]));
     console.log(routeMap);
 }
 
@@ -77,6 +79,7 @@ function parseRoute(map, parent = null) {
 
 
 function watchHash() {
+    location.hash = "";
     window.addEventListener("hashchange", (ev) => {
         // console.log(ev, this);
         this.matcher.flush.call(this, this.matcher.match(ev.newURL.split("#")[1]));

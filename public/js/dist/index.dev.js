@@ -12,8 +12,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 // whatPage.mount("#app");
 var viewMap = {
+  home: '/home/whatList',
   map: [{
-    path: '/whatList',
+    path: '/home',
     name: 'layout',
     view: _whatPage["default"],
     children: [{

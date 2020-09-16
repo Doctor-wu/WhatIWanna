@@ -6,8 +6,9 @@ import whatList from "../libs/view/template/whatList.js";
 // whatPage.mount("#app");
 
 let viewMap = {
+    home: '/home/whatList',
     map: [{
-        path: '/whatList',
+        path: '/home',
         name: 'layout',
         view: whatPage,
         children: [{
