@@ -93,7 +93,6 @@ VFormItem.prototype.buildControl = function () {
     var _this = this;
 
     this.observe = function () {
-      console.log("observe");
       Object.defineProperty(this, "value", {
         get: function get() {
           var arr = [];

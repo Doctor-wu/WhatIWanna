@@ -10,7 +10,6 @@
   date.firstElementChild.innerText = today;
   picker.value = today;
   date.addEventListener("click", function () {
-    // date.classList.toggle("slideDown");
     picker.classList.toggle("slideDown");
     setTimeout(function () {
       document.body.addEventListener("click", hideDate);

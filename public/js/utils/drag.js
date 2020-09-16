@@ -32,8 +32,6 @@ Drag.prototype.init = function(el, options) {
 
     // 修改el属性
 
-    console.log(this.currX, this.currY);
-
     this.el.style.position = 'absolute';
 
     this.el.style.left = this.currX + 'px';
@@ -50,15 +48,12 @@ Drag.prototype.dragable = function() {
     this.handleM = handleTouchMove.bind(this);
     this.handleE = handleTouchEnd.bind(this);
     this.el.addEventListener('touchstart', this.handleS, false);
-    this.el.addEventListener('touchmove', this.handleM, false);
-    this.el.addEventListener('touchend', this.handleE, false);
 }
 
 Drag.prototype.destroy = function() {
-    console.log(this);
     this.el.removeEventListener('touchstart', this.handleS, false);
-    this.el.removeEventListener('touchmove', this.handleM, false);
-    this.el.removeEventListener('touchend', this.handleE, false);
+    document.removeEventListener('touchmove', this.handleM, false);
+    document.removeEventListener('touchend', this.handleE, false);
     this.el = null;
 }
 
@@ -69,6 +64,8 @@ function handleTouchStart(ev) {
     let touch = ev.changedTouches[0];
     this.gapX = touch.clientX - this.currX;
     this.gapY = touch.clientY - this.currY;
+    document.addEventListener('touchmove', this.handleM, false);
+    document.addEventListener('touchend', this.handleE, false);
 }
 
 function handleTouchMove(ev) {
@@ -98,13 +95,14 @@ function handleTouchEnd(ev) {
         }
     }
     if (this.limitYT || this.limitYB) {
-        console.log(this.el.offsetTop, window.outerHeight - this.limitYB);
         if (this.limitYT > this.el.offsetTop) {
             this.el.style.top = this.limitYT + 'px';
         } else if (window.outerHeight - this.limitYB < this.el.offsetTop) {
             this.el.style.top = window.outerHeight - this.limitYB + 'px';
         }
     }
+    document.removeEventListener('touchmove', this.handleM, false);
+    document.removeEventListener('touchend', this.handleE, false);
     this.currX = this.el.offsetLeft;
     this.currY = this.el.offsetTop;
     this.once && this.destroy();

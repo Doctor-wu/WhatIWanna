@@ -16,16 +16,15 @@ function Viewtrigger() {
 Viewtrigger.prototype.init = function () {
   var _this = this;
 
-  this.pages = this.options.pages || [];
-  this.matcher = matcher(this.pages);
-  this.pages.forEach(function (page) {
-    _this.mountPage(page);
+  this.views = this.options.views || [];
+  this.matcher = matcher(this.views);
+  this.views.forEach(function (view) {
+    _this.mountPage(view);
   });
 };
 
-Viewtrigger.prototype.mountPage = function (page) {
-  console.log(page);
-  renderTemplate(page);
+Viewtrigger.prototype.mountPage = function (view) {
+  console.log(view);
 };
 
 function matcher(pages) {
@@ -49,16 +48,6 @@ function matcher(pages) {
     flush: flush,
     addRoute: addRoute
   };
-}
-
-function renderTemplate(page) {
-  if (!page.components) return;
-  page.components.forEach(function (component) {
-    var name = "__".concat(component.name, "__");
-    console.log(new RegExp(name, "g"));
-    page.template = page.template.replace(new RegExp(name, "g"), component.template);
-  });
-  console.log(page.template);
 }
 
 function watchHash() {

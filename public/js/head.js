@@ -10,7 +10,6 @@
 
 
     date.addEventListener("click", () => {
-        // date.classList.toggle("slideDown");
         picker.classList.toggle("slideDown");
         setTimeout(() => {
             document.body.addEventListener("click", hideDate)

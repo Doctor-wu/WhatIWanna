@@ -1,12 +1,12 @@
 "use strict";
 
-var _drag = require("./utils/drag.js");
+var _drag = require("/js/utils/drag.js");
 
 var _vForm = require("../libs/vForm/vForm.js");
 
 var _vFormItem = require("../libs/vForm/vForm-item.js");
 
-var _utils = require("./utils/utils.js");
+var _utils = require("/js/utils/utils.js");
 
 (function () {
   var formWrap = document.querySelector(".what-form-wrap");

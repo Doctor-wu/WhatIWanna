@@ -1,0 +1,104 @@
+import { utils } from "../../js/utils/utils.js";
+let vid = 0;
+let components = {};
+
+export default function View(options) {
+    if (!this instanceof View) {
+        return new View(options);
+    }
+    this.options = options;
+    this.vid = vid++;
+    this.init();
+    this.parseTemplate();
+}
+
+let proto = View.prototype;
+proto.scriptHref = document.querySelector("#VIEW_SCRIPTS")
+
+
+proto.init = function() {
+    utils.assert(this.options.template != null, "View needs a template");
+    utils.assert(this.options.name, "View needs a name");
+    this.name = this.options.name;
+    this.template = this.options.template;
+    this.target = this.template;
+    this.scripts = this.options.scripts || [];
+    this.components = this.options.components || [];
+}
+
+
+proto.parseTemplate = function() {
+    this.target = this.template;
+    if (this.components.length === 0) return;
+    this.components.forEach((component) => {
+        let name = `__${component.name}__`;
+        this.target = this.target.replace(new RegExp(name, "g"), component.target);
+    });
+    this.target = this.target.replace(/__routeView__/g, "<span style='display:none' class='__view__'></span>");
+}
+
+
+proto.component = function(component) {
+    this.components.push(component);
+    this.parseTemplate();
+}
+
+proto.mount = function(el) {
+    el = typeof el === "string" ? document.querySelector(el) : el;
+    this.el = el;
+    if (el instanceof HTMLElement) {
+        el.innerHTML = this.target;
+    }
+    this.components.forEach(component => {
+        component.mount(this);
+    })
+    this.flushScripts();
+}
+
+proto.flushScripts = function() {
+    if (this.scripts.length === 0) return;
+    if (this.scripts[0] instanceof HTMLScriptElement) {
+        this.scripts.forEach(s => {
+            document.body.removeChild(s);
+        });
+        this.scripts = this.scripts.map(script => {
+            let data = script.innerHTML;
+            let s = document.createElement("script");
+            s.innerHTML = data;
+            s.type = "module";
+            document.body.appendChild(s);
+            return s;
+        });
+        console.log(this.scripts)
+    } else {
+        let scripts = this.scripts.map(scriptSrc => {
+            return axios.get(scriptSrc).then(res => {
+                return res.data;
+            });
+        });
+
+        Promise.all(scripts)
+            .then(resArr => {
+                resArr.forEach((data, i) => {
+                    let s = document.createElement("script");
+                    s.innerHTML = data.replace(/<br>/g, "");
+                    s.type = "module";
+                    this.scripts[i] = s;
+                });
+                this.scripts.forEach(s => {
+                    document.body.appendChild(s);
+                });
+            });
+    }
+}
+
+proto.renderView = function(view) {
+    this.routeViews = this.el.querySelectorAll(".__view__");
+    [].forEach.call(this.routeViews, (routeView => {
+        routeView.outerHTML = `
+        <span style='display:none' class='__view__'></span>
+        ${view.target}
+        `
+        this.flushScripts.call(view)
+    }));
+}
