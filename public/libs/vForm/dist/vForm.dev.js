@@ -51,7 +51,7 @@ VForm.prototype.loadItem = function () {
 
   if (this.items.length <= 0) return;
   this.items = this.items.map(function (item) {
-    if (item instanceof _vFormItem.VFormItem) return new _vFormItem.VFormItem(item.options).mount(_this2);else return new _vFormItem.VFormItem(item).mount(_this2);
+    if (item instanceof _vFormItem.VFormItem) return item.mount(_this2);else return new _vFormItem.VFormItem(item).mount(_this2);
   });
   this.showBtn && this.initBtn();
 };

@@ -39,7 +39,7 @@ VForm.prototype.init = function(options) {
 VForm.prototype.loadItem = function() {
     if (this.items.length <= 0) return;
     this.items = this.items.map(item => {
-        if (item instanceof VFormItem) return new VFormItem(item.options).mount(this);
+        if (item instanceof VFormItem) return item.mount(this);
         else return new VFormItem(item).mount(this);
     });
     this.showBtn && this.initBtn();

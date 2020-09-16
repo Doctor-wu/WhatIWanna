@@ -81,6 +81,24 @@ VFormItem.prototype.buildControl = function() {
                 control.value = null;
             }
         }
+
+        // 重写observe 以解决多选的value无法是多个option值的问题
+        let _this = this;
+        this.observe = function() {
+            console.log("observe");
+            Object.defineProperty(this, "value", {
+                get() {
+                    let arr = [];
+                    [].forEach.call(_this.control.selectedOptions, option => {
+                        arr.push(option.value);
+                    });
+                    return arr.toString();
+                },
+                set(value) {
+                    _this.value = value;
+                }
+            })
+        }
     }
 
 

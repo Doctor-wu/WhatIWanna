@@ -6,6 +6,8 @@ var _vForm = require("../libs/vForm/vForm.js");
 
 var _vFormItem = require("../libs/vForm/vForm-item.js");
 
+var _utils = require("./utils/utils.js");
+
 (function () {
   var formWrap = document.querySelector(".what-form-wrap");
   var whatForm = document.querySelector(".what-form");
@@ -17,7 +19,8 @@ var _vFormItem = require("../libs/vForm/vForm-item.js");
     limitYB: 17,
     snapX: ".25rem"
   });
-  var popOut = popDrag.el;
+  var popOut = popDrag.el; // 新增事件表单
+
   var title = new _vFormItem.VFormItem({
     tag: "input",
     label: "事项标题",
@@ -54,8 +57,11 @@ var _vFormItem = require("../libs/vForm/vForm-item.js");
       type: "time"
     },
     style: "margin: 0 0 .2rem;width:50%;display:inline-block;padding-right:.1rem;",
-    rules: [// { prop: "required", msg: "请选择开始时间", trigger: "blur" }
-    ]
+    rules: [{
+      prop: "required",
+      msg: "请选择开始时间",
+      trigger: "blur"
+    }]
   }),
       timeEnd = new _vFormItem.VFormItem({
     tag: "input",
@@ -65,8 +71,11 @@ var _vFormItem = require("../libs/vForm/vForm-item.js");
       type: "time"
     },
     style: "margin: .3rem 0 0.2rem 0;width:50%;display:inline-block;padding-left:0 .1rem;",
-    rules: [// { prop: "required", msg: "请选择结束时间", trigger: "blur" }
-    ]
+    rules: [{
+      prop: "required",
+      msg: "请选择结束时间",
+      trigger: "blur"
+    }]
   });
   var tags = new _vFormItem.VFormItem({
     tag: "select",
@@ -74,7 +83,7 @@ var _vFormItem = require("../libs/vForm/vForm-item.js");
     key: "tags",
     attrs: {
       placeholder: "请选择标签类型",
-      multiple: true
+      multiple: "multiple"
     },
     opts: {
       "日常": "日常-#ffc93c",
@@ -91,9 +100,9 @@ var _vFormItem = require("../libs/vForm/vForm-item.js");
     items: [title, desc, timeStart, timeEnd, tags]
   }).mount(whatForm);
   console.log(vForm);
-  var submitId = vForm.regist("submit", function (data) {
+  vForm.regist("submit", _utils.utils.debounce(function (data) {
     console.log(data);
-  });
+  }, 500, true));
   popOut.addEventListener('click', showForm);
   close.addEventListener('click', hideForm);
 
@@ -102,12 +111,11 @@ var _vFormItem = require("../libs/vForm/vForm-item.js");
     whatList.classList.add("hide");
     setTimeout(function () {
       document.addEventListener("click", function handle(ev) {
-        if (!popOut.contains(ev.target)) {
+        if (!formWrap.contains(ev.target)) {
+          console.log(123);
+          document.removeEventListener("click", handle);
           hideForm();
         }
-
-        console.log(123);
-        document.removeEventListener("click", handle);
       });
     }, 0);
   }

@@ -1,6 +1,7 @@
 import { Drag } from './utils/drag.js';
 import { VForm } from '../libs/vForm/vForm.js'
 import { VFormItem } from '../libs/vForm/vForm-item.js'
+import { utils } from './utils/utils.js';
 
 (function() {
     let formWrap = document.querySelector(".what-form-wrap");
@@ -17,6 +18,13 @@ import { VFormItem } from '../libs/vForm/vForm-item.js'
     let popOut = popDrag.el;
 
 
+
+
+
+
+
+
+    // 新增事件表单
     let title = new VFormItem({
         tag: "input",
         label: "事项标题",
@@ -52,7 +60,7 @@ import { VFormItem } from '../libs/vForm/vForm-item.js'
             },
             style: "margin: 0 0 .2rem;width:50%;display:inline-block;padding-right:.1rem;",
             rules: [
-                // { prop: "required", msg: "请选择开始时间", trigger: "blur" }
+                { prop: "required", msg: "请选择开始时间", trigger: "blur" }
             ]
         }),
         timeEnd = new VFormItem({
@@ -64,7 +72,7 @@ import { VFormItem } from '../libs/vForm/vForm-item.js'
             },
             style: "margin: .3rem 0 0.2rem 0;width:50%;display:inline-block;padding-left:0 .1rem;",
             rules: [
-                // { prop: "required", msg: "请选择结束时间", trigger: "blur" }
+                { prop: "required", msg: "请选择结束时间", trigger: "blur" }
             ]
         });
     let tags = new VFormItem({
@@ -73,7 +81,7 @@ import { VFormItem } from '../libs/vForm/vForm-item.js'
         key: "tags",
         attrs: {
             placeholder: "请选择标签类型",
-            multiple: true
+            multiple: "multiple"
         },
         opts: {
             "日常": "日常-#ffc93c",
@@ -89,9 +97,10 @@ import { VFormItem } from '../libs/vForm/vForm-item.js'
         items: [title, desc, timeStart, timeEnd, tags]
     }).mount(whatForm);
     console.log(vForm);
-    let submitId = vForm.regist("submit", function(data) {
+
+    vForm.regist("submit", utils.debounce(function(data) {
         console.log(data);
-    })
+    }, 500, true))
 
 
 
@@ -104,11 +113,11 @@ import { VFormItem } from '../libs/vForm/vForm-item.js'
         whatList.classList.add("hide");
         setTimeout(() => {
             document.addEventListener("click", function handle(ev) {
-                if (!popOut.contains(ev.target)) {
+                if (!formWrap.contains(ev.target)) {
+                    console.log(123);
+                    document.removeEventListener("click", handle);
                     hideForm();
                 }
-                console.log(123);
-                document.removeEventListener("click", handle);
             })
         }, 0)
     }

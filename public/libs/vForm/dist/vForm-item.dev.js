@@ -87,7 +87,26 @@ VFormItem.prototype.buildControl = function () {
         control.appendChild(el);
         control.value = null;
       }
-    }
+    } // 重写observe 以解决多选的value无法是多个option值的问题
+
+
+    var _this = this;
+
+    this.observe = function () {
+      console.log("observe");
+      Object.defineProperty(this, "value", {
+        get: function get() {
+          var arr = [];
+          [].forEach.call(_this.control.selectedOptions, function (option) {
+            arr.push(option.value);
+          });
+          return arr.toString();
+        },
+        set: function set(value) {
+          _this.value = value;
+        }
+      });
+    };
   }
 
   control.className = "vform-item-control";
@@ -115,7 +134,7 @@ VFormItem.prototype.mount = function (form) {
 
 
 VFormItem.prototype.validate = function () {
-  var _this = this;
+  var _this2 = this;
 
   if (this.rules.length === 0) {
     return {
@@ -126,10 +145,10 @@ VFormItem.prototype.validate = function () {
 
   ;
   this.rules.map(function (rule) {
-    return resolveRule(rule).call(_this);
+    return resolveRule(rule).call(_this2);
   }).forEach(function (item) {
     if (!item.valid) {
-      _this.rejectValid(item.msg);
+      _this2.rejectValid(item.msg);
     }
   });
   return this.valid;
@@ -137,18 +156,18 @@ VFormItem.prototype.validate = function () {
 
 
 VFormItem.prototype.initRules = function () {
-  var _this2 = this;
+  var _this3 = this;
 
   this.rules.forEach(function (item) {
-    var validFunc = resolveRule.call(_this2, item);
+    var validFunc = resolveRule.call(_this3, item);
 
-    _this2.control.addEventListener(item.trigger || "blur", function () {
-      var result = validFunc.call(_this2);
+    _this3.control.addEventListener(item.trigger || "blur", function () {
+      var result = validFunc.call(_this3);
 
       if (!result.valid) {
-        _this2.rejectValid(result.msg);
+        _this3.rejectValid(result.msg);
       } else {
-        _this2.resolveValid();
+        _this3.resolveValid();
       }
     });
   });
