@@ -21,7 +21,9 @@ proto.init = function() {
     utils.assert(this.options.name, "View needs a name");
     this.name = this.options.name;
     this.template = this.options.template;
+    this.routeCurrView = [];
     this.target = this.template;
+    this.firstLoad = true;
     this.scripts = this.options.scripts || [];
     this.components = this.options.components || [];
 }
@@ -49,9 +51,13 @@ proto.mount = function(el) {
     if (el instanceof HTMLElement) {
         el.innerHTML = this.target;
     }
-    this.components.forEach(component => {
-        component.mount(this);
-    })
+
+    if (this.firstLoad) {
+        this.components.forEach(component => {
+            component.mount(this);
+        })
+        this.firstLoad = false;
+    }
     this.flushScripts();
 }
 
@@ -93,12 +99,20 @@ proto.flushScripts = function() {
 }
 
 proto.renderView = function(view) {
+    console.log(this.routeCurrView)
+    if (this.routeCurrView.length > 0) {
+        [].forEach.call(this.routeCurrView, (route => {
+            route.parentNode.removeChild(route.nextElementSibling);
+        }));
+        this.routeCurrView = [];
+    }
     this.routeViews = this.el.querySelectorAll(".__view__");
     [].forEach.call(this.routeViews, (routeView => {
         routeView.outerHTML = `
         <span style='display:none' class='__view__'></span>
         ${view.target}
         `
+        this.routeCurrView = this.el.querySelectorAll(".__view__");
         this.flushScripts.call(view)
     }));
 }

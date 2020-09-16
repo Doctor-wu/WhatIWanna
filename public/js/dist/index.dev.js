@@ -4,9 +4,11 @@ var _viewTrigger = require("../libs/view/view-trigger.js");
 
 var _whatPage = _interopRequireDefault(require("../libs/view/template/what-page.js"));
 
-var _test = _interopRequireDefault(require("../libs/view/template/test2.js"));
+var _myInfo = _interopRequireDefault(require("../libs/view/template/myInfo.js"));
 
 var _whatList = _interopRequireDefault(require("../libs/view/template/whatList.js"));
+
+var _wanna = _interopRequireDefault(require("../libs/view/template/wanna.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -22,9 +24,13 @@ var viewMap = {
       name: 'whatList',
       view: _whatList["default"]
     }, {
-      path: 'test2',
-      name: 'test2',
-      view: _test["default"]
+      path: 'myInfo',
+      name: 'myInfo',
+      view: _myInfo["default"]
+    }, {
+      path: 'wanna',
+      name: 'wanna',
+      view: _wanna["default"]
     }]
   }]
 };

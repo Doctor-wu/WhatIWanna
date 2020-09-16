@@ -2,7 +2,8 @@ import View from "../view.js";
 
 let test1 = {
     name: "whatList",
-    template: `<ul class="what-list">
+    template: `<div>
+    <ul class="what-list">
     </ul>
 
     <span class="add-schedule">
@@ -15,6 +16,7 @@ let test1 = {
             <a href="javascript:0" class="close-what-form"><span class="iconfont icon-cuowu"></span></a>
         </h2>
         <i class="what-form"></i>
+    </div>
     </div>`,
     scripts: [
         "./js/what_module.js",

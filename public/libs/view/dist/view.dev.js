@@ -31,7 +31,9 @@ proto.init = function () {
 
   this.name = this.options.name;
   this.template = this.options.template;
+  this.routeCurrView = [];
   this.target = this.template;
+  this.firstLoad = true;
   this.scripts = this.options.scripts || [];
   this.components = this.options.components || [];
 };
@@ -63,9 +65,13 @@ proto.mount = function (el) {
     el.innerHTML = this.target;
   }
 
-  this.components.forEach(function (component) {
-    component.mount(_this2);
-  });
+  if (this.firstLoad) {
+    this.components.forEach(function (component) {
+      component.mount(_this2);
+    });
+    this.firstLoad = false;
+  }
+
   this.flushScripts();
 };
 
@@ -111,9 +117,19 @@ proto.flushScripts = function () {
 proto.renderView = function (view) {
   var _this4 = this;
 
+  console.log(this.routeCurrView);
+
+  if (this.routeCurrView.length > 0) {
+    [].forEach.call(this.routeCurrView, function (route) {
+      route.parentNode.removeChild(route.nextElementSibling);
+    });
+    this.routeCurrView = [];
+  }
+
   this.routeViews = this.el.querySelectorAll(".__view__");
   [].forEach.call(this.routeViews, function (routeView) {
     routeView.outerHTML = "\n        <span style='display:none' class='__view__'></span>\n        ".concat(view.target, "\n        ");
+    _this4.routeCurrView = _this4.el.querySelectorAll(".__view__");
 
     _this4.flushScripts.call(view);
   });

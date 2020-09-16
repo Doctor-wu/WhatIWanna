@@ -5,20 +5,23 @@ let foot = {
     template: `<!-- footer -->
     <footer class="main-footer">
         <ul class="foot-list">
-            <li class="foot-item">
+            <li class="foot-item wanna">
                 <span class="iconfont icon-jihua2"></span>
                 <span>Wanna</span>
             </li>
-            <li class="foot-item active">
+            <li class="foot-item what active">
                 <span class="iconfont icon-jihua"></span>
                 <span>What</span>
             </li>
-            <li class="foot-item">
+            <li class="foot-item i">
                 <span class="iconfont icon-wode"></span>
                 <span>I</span>
             </li>
         </ul>
-    </footer>`
+    </footer>`,
+    scripts: [
+        "./js/foot.js"
+    ]
 };
 foot = new View(foot);
 

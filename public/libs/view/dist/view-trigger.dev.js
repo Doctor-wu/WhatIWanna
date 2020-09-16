@@ -23,8 +23,7 @@ proto.route = function (routeMap) {
   this.map = routeMap.map;
   this.home = routeMap.home || "/";
   this.matcher = matcher(this.map);
-  location.hash = this.home; // this.matcher.flush.call(this, this.matcher.match(location.hash.split("#")[1]));
-
+  location.hash = this.home;
   console.log(routeMap);
 };
 
@@ -44,7 +43,7 @@ function matcher(map) {
         flush.call(this, route.parent);
         route.parent.view.renderView(route.view);
       } else {
-        route.view.mount(this.root);
+        route.view.firstLoad && route.view.mount(this.root);
       }
     }
   }
