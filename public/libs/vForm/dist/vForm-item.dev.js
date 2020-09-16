@@ -68,7 +68,8 @@ VFormItem.prototype.initEL = function () {
   label && this.el.appendChild(label);
   this.el.appendChild(this.control);
   this.el.appendChild(msgBox);
-};
+}; // 可在这个方法扩展表单控件
+
 
 VFormItem.prototype.buildControl = function () {
   var control = document.createElement(this.tag);
@@ -101,7 +102,8 @@ VFormItem.prototype.buildControl = function () {
 
   control.setAttribute("style", parseStyle(this.options.style));
   this.control = control;
-};
+}; // 挂载到VForm上
+
 
 VFormItem.prototype.mount = function (form) {
   _utils.utils.assert(form instanceof _vForm.VForm, "VFormItem need mount to VForm");
@@ -109,12 +111,20 @@ VFormItem.prototype.mount = function (form) {
   form.el.appendChild(this.el);
   this.initRules();
   return this;
-};
+}; // 独立的验证模块
+
 
 VFormItem.prototype.validate = function () {
   var _this = this;
 
-  if (this.valid) return this.valid;
+  if (this.rules.length === 0) {
+    return {
+      state: "success",
+      info: []
+    };
+  }
+
+  ;
   this.rules.map(function (rule) {
     return resolveRule(rule).call(_this);
   }).forEach(function (item) {
@@ -123,7 +133,8 @@ VFormItem.prototype.validate = function () {
     }
   });
   return this.valid;
-};
+}; // 初始化规则，将相应规则的事件绑定上
+
 
 VFormItem.prototype.initRules = function () {
   var _this2 = this;
@@ -135,8 +146,6 @@ VFormItem.prototype.initRules = function () {
       var result = validFunc.call(_this2);
 
       if (!result.valid) {
-        console.log(result);
-
         _this2.rejectValid(result.msg);
       } else {
         _this2.resolveValid();

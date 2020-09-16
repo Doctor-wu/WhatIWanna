@@ -162,7 +162,7 @@ html {
   flex-direction: column;
   font-size: 0.3rem;
   position: relative;
-  padding: 0.2rem 0.1rem;
+  padding: 0.1rem 0.1rem 0rem;
   margin: 0.2rem 0;
 }
 .what-list .what-list-item .up {
@@ -193,7 +193,7 @@ html {
   float: right;
 }
 .what-list .what-list-item .bottom {
-  padding: 0.1rem 0.2rem;
+  padding: 0.1rem 0.2rem 0;
 }
 .what-list .what-list-item .bottom .list-item-desc {
   transition: all ease 0.3s;
@@ -205,6 +205,9 @@ html {
   display: -webkit-box;
   max-width: 65%;
   padding: 0.05rem 0;
+}
+.what-list .what-list-item .bottom .info {
+  padding-bottom: 0.2rem;
 }
 .what-list .what-list-item .bottom .list-item-tags {
   float: right;
@@ -227,6 +230,7 @@ html {
   display: inline-block;
 }
 .what-list .active .bottom {
+  padding: 0.2rem 0.2rem 0.2rem;
   display: block;
 }
 .what-list .active .bottom .btn-wrap {

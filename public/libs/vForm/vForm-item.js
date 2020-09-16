@@ -62,8 +62,12 @@ VFormItem.prototype.initEL = function() {
     this.el.appendChild(msgBox);
 }
 
+// 可在这个方法扩展表单控件
 VFormItem.prototype.buildControl = function() {
     let control = document.createElement(this.tag);
+
+
+
     if (this.tag === "select") {
         utils.assert(this.opts, "select need some options");
         for (const key in this.opts) {
@@ -78,6 +82,9 @@ VFormItem.prototype.buildControl = function() {
             }
         }
     }
+
+
+
     control.className = "vform-item-control";
     control.id = `item${this.id}`;
     control.setAttribute("required", true);
@@ -91,6 +98,7 @@ VFormItem.prototype.buildControl = function() {
     this.control = control;
 }
 
+// 挂载到VForm上
 VFormItem.prototype.mount = function(form) {
     utils.assert(form instanceof VForm, "VFormItem need mount to VForm");
     form.el.appendChild(this.el);
@@ -98,8 +106,9 @@ VFormItem.prototype.mount = function(form) {
     return this
 }
 
+// 独立的验证模块
 VFormItem.prototype.validate = function() {
-    if (this.valid) return this.valid;
+    if (this.rules.length === 0) { return { state: "success", info: [] } };
     this.rules.map(rule => resolveRule(rule).call(this)).forEach(item => {
         if (!item.valid) {
             this.rejectValid(item.msg);
@@ -108,13 +117,13 @@ VFormItem.prototype.validate = function() {
     return this.valid;
 }
 
+// 初始化规则，将相应规则的事件绑定上
 VFormItem.prototype.initRules = function() {
     this.rules.forEach(item => {
         let validFunc = resolveRule.call(this, item);
         this.control.addEventListener(item.trigger || "blur", () => {
             let result = validFunc.call(this);
             if (!result.valid) {
-                console.log(result);
                 this.rejectValid(result.msg);
             } else {
                 this.resolveValid();

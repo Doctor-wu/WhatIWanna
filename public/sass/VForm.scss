@@ -52,6 +52,10 @@
 
 .vform-item.valid-fail {
     .vform-item-control {
-        border-color: red;
+        border: none;
+        border-bottom: 2px solid red;
+        font-size: .28rem;
+        height: .6rem;
+        padding: .1rem .05rem 0;
     }
 }

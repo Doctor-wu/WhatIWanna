@@ -2,6 +2,8 @@
     let date = document.querySelector('.date'),
         picker = document.querySelector('.head-date');
 
+    date.firstElementChild.innerText = (new Date()).toLocaleDateString().replace(/\//g, "-");
+
     date.addEventListener("click", () => {
         // date.classList.toggle("slideDown");
         picker.classList.toggle("slideDown");

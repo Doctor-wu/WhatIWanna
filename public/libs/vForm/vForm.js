@@ -1,13 +1,24 @@
 import { VFormItem } from './vForm-item.js';
+import { Pipe } from './Pipe.js';
 import { utils } from '../../js/utils/utils.js';
 export function VForm(options = {}) {
     if (!this instanceof VForm) {
         return new VForm(options);
     }
+    Pipe.call(this);
 
     this.init(options);
     this.loadItem();
 }
+VForm.prototype = Object.create(Pipe.prototype);
+
+let proto = VForm.prototype;
+
+Object.defineProperty(proto, "constructor", {
+    enumerable: false,
+    value: VForm
+})
+
 
 
 VForm.prototype.init = function(options) {
@@ -15,6 +26,7 @@ VForm.prototype.init = function(options) {
     this.el.className = "vform";
     this.items = options.items || [];
     this.title = options.title;
+    this.showBtn = options.showBtn || true;
     this.submit = new Promise((resolve, reject) => {
         this.submitTrigger = resolve;
     }).catch(e => {
@@ -30,7 +42,7 @@ VForm.prototype.loadItem = function() {
         if (item instanceof VFormItem) return new VFormItem(item.options).mount(this);
         else return new VFormItem(item).mount(this);
     });
-    this.initBtn();
+    this.showBtn && this.initBtn();
 }
 
 VForm.prototype.validate = function() {
@@ -42,7 +54,11 @@ VForm.prototype.validate = function() {
     let success = arr.every(item => {
         return item.state === "success";
     });
-    return success ? { state: 'success', info: arr } : { state: 'failed', info: arr };
+    if (success) {
+        return { state: 'success', info: arr }
+    } else {
+        return { state: 'failed', info: arr }
+    }
 }
 
 VForm.prototype.mount = function(el) {
@@ -50,6 +66,7 @@ VForm.prototype.mount = function(el) {
     el = typeof el === "string" ? document.querySelector(el) : el;
     el.parentNode.insertBefore(this.el, el);
     el.parentNode.removeChild(el);
+    return this;
 }
 
 VForm.prototype.initBtn = function() {
@@ -80,7 +97,7 @@ function resolveSubmit() {
             this.items.forEach(item => {
                 data[item.key] = item.value
             });
-            this.submitTrigger(Object.assign(valid, data));
+            this.emit("submit", { valid: valid, data });
         } else {
             console.warn(`[valid failed] ${JSON.stringify(valid)}`);
         };

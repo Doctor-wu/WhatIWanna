@@ -7,6 +7,8 @@ exports.VForm = VForm;
 
 var _vFormItem = require("./vForm-item.js");
 
+var _Pipe = require("./Pipe.js");
+
 var _utils = require("../../js/utils/utils.js");
 
 function VForm() {
@@ -16,9 +18,18 @@ function VForm() {
     return new VForm(options);
   }
 
+  _Pipe.Pipe.call(this);
+
   this.init(options);
   this.loadItem();
 }
+
+VForm.prototype = Object.create(_Pipe.Pipe.prototype);
+var proto = VForm.prototype;
+Object.defineProperty(proto, "constructor", {
+  enumerable: false,
+  value: VForm
+});
 
 VForm.prototype.init = function (options) {
   var _this = this;
@@ -27,6 +38,7 @@ VForm.prototype.init = function (options) {
   this.el.className = "vform";
   this.items = options.items || [];
   this.title = options.title;
+  this.showBtn = options.showBtn || true;
   this.submit = new Promise(function (resolve, reject) {
     _this.submitTrigger = resolve;
   })["catch"](function (e) {
@@ -41,7 +53,7 @@ VForm.prototype.loadItem = function () {
   this.items = this.items.map(function (item) {
     if (item instanceof _vFormItem.VFormItem) return new _vFormItem.VFormItem(item.options).mount(_this2);else return new _vFormItem.VFormItem(item).mount(_this2);
   });
-  this.initBtn();
+  this.showBtn && this.initBtn();
 };
 
 VForm.prototype.validate = function () {
@@ -56,13 +68,18 @@ VForm.prototype.validate = function () {
   var success = arr.every(function (item) {
     return item.state === "success";
   });
-  return success ? {
-    state: 'success',
-    info: arr
-  } : {
-    state: 'failed',
-    info: arr
-  };
+
+  if (success) {
+    return {
+      state: 'success',
+      info: arr
+    };
+  } else {
+    return {
+      state: 'failed',
+      info: arr
+    };
+  }
 };
 
 VForm.prototype.mount = function (el) {
@@ -70,6 +87,7 @@ VForm.prototype.mount = function (el) {
   el = typeof el === "string" ? document.querySelector(el) : el;
   el.parentNode.insertBefore(this.el, el);
   el.parentNode.removeChild(el);
+  return this;
 };
 
 VForm.prototype.initBtn = function () {
@@ -104,7 +122,10 @@ function resolveSubmit() {
         data[item.key] = item.value;
       });
 
-      _this3.submitTrigger(Object.assign(valid, data));
+      _this3.emit("submit", {
+        valid: valid,
+        data: data
+      });
     } else {
       console.warn("[valid failed] ".concat(JSON.stringify(valid)));
     }
