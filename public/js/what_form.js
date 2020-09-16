@@ -112,18 +112,21 @@ import { utils } from './utils/utils.js';
         formWrap.classList.remove("hide");
         whatList.classList.add("hide");
         setTimeout(() => {
-            document.addEventListener("click", function handle(ev) {
-                if (!formWrap.contains(ev.target)) {
-                    document.removeEventListener("click", handle);
-                    hideForm();
-                }
-            })
-        }, 0);
+            document.addEventListener("click", handle);
+        }, 5);
     }
 
     function hideForm() {
         formWrap.classList.add("hide");
         whatList.classList.remove("hide");
+        document.removeEventListener("click", handle);
+    }
+
+    function handle(ev) {
+        if (!formWrap.contains(ev.target)) {
+            document.removeEventListener("click", handle);
+            hideForm();
+        }
     }
 
 })()
