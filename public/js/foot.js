@@ -10,23 +10,43 @@ import { utils } from "/js/utils/utils.js";
 
 
     function goWhat() {
-        what.classList.add("active");
-        wanna.classList.remove("active");
-        I.classList.remove("active");
         location.hash = "/home/whatList";
     }
 
     function goMyInfo() {
-        I.classList.add("active");
-        wanna.classList.remove("active");
-        what.classList.remove("active");
         location.hash = "/home/myInfo";
     }
 
     function goWanna() {
-        wanna.classList.add("active");
-        I.classList.remove("active");
-        what.classList.remove("active");
         location.hash = "/home/wanna";
     }
+
+    window.addEventListener("hashchange", function() {
+        let path = location.hash.split("#")[1];
+        switch (path) {
+            case "/home/whatList":
+                {
+                    what.classList.add("active");
+                    wanna.classList.remove("active");
+                    I.classList.remove("active");
+                    break;
+                }
+            case "/home/myInfo":
+                {
+                    I.classList.add("active");
+                    wanna.classList.remove("active");
+                    what.classList.remove("active");
+                    break;
+                }
+            case "/home/wanna":
+                {
+                    wanna.classList.add("active");
+                    what.classList.remove("active");
+                    I.classList.remove("active");
+                    break;
+                }
+        }
+        console.log(path)
+    })
+
 })()
