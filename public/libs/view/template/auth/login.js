@@ -11,8 +11,8 @@ let login = {
     </div>
     </div>`,
     plainScript: `
-    import { VFormItem } from "/libs/vForm/vForm-item.js";
-    import { VForm } from "/libs/vForm/vForm.js";
+    import { VFormItem } from "./libs/vForm/vForm-item.js";
+    import { VForm } from "./libs/vForm/vForm.js";
     let user = new VFormItem({
         tag: "input",
         label: "用户名",
