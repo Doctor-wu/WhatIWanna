@@ -77,7 +77,6 @@ html {
 body,
 html {
   height: 100%;
-  background-color: rgba(162, 213, 242, 0.75);
 }
 
 .iconfont {
@@ -208,7 +207,6 @@ html {
 body,
 html {
   height: 100%;
-  background-color: rgba(162, 213, 242, 0.75);
 }
 
 .iconfont {
@@ -423,7 +421,6 @@ html {
 body,
 html {
   height: 100%;
-  background-color: rgba(162, 213, 242, 0.75);
 }
 
 .iconfont {
@@ -591,7 +588,6 @@ html {
 body,
 html {
   height: 100%;
-  background-color: rgba(162, 213, 242, 0.75);
 }
 
 .iconfont {
@@ -921,6 +917,7 @@ html {
   position: relative;
   height: 100%;
   user-select: none;
+  background-color: rgba(162, 213, 242, 0.75);
 }
 
 #app {

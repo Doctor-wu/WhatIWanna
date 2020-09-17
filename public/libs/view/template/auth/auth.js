@@ -5,7 +5,16 @@ let auth = {
     template: `
     <section class="auth">
     __routeView__
-    <div class="mask"></div>
+    <ul class="left">
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ul class="right">
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
     </section>`,
     scripts: []
 };

@@ -63,8 +63,7 @@ html {
 
 body,
 html {
-  height: 100%;
-  background-color: rgba(162, 213, 242, 0.75); }
+  height: 100%; }
 
 .iconfont {
   font-family: "iconfont" !important;
@@ -168,8 +167,7 @@ html {
 
 body,
 html {
-  height: 100%;
-  background-color: rgba(162, 213, 242, 0.75); }
+  height: 100%; }
 
 .iconfont {
   font-family: "iconfont" !important;
@@ -348,8 +346,7 @@ html {
 
 body,
 html {
-  height: 100%;
-  background-color: rgba(162, 213, 242, 0.75); }
+  height: 100%; }
 
 .iconfont {
   font-family: "iconfont" !important;
@@ -485,8 +482,7 @@ html {
 
 body,
 html {
-  height: 100%;
-  background-color: rgba(162, 213, 242, 0.75); }
+  height: 100%; }
 
 .iconfont {
   font-family: "iconfont" !important;
@@ -765,7 +761,8 @@ html {
 #content {
   position: relative;
   height: 100%;
-  user-select: none; }
+  user-select: none;
+  background-color: rgba(162, 213, 242, 0.75); }
 
 #app {
   height: 100%; }
