@@ -1,4 +1,4 @@
-import View from "../view.js";
+import View from "../../view.js";
 
 let test1 = {
     name: "whatList",

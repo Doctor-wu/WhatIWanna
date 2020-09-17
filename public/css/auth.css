@@ -103,38 +103,18 @@ html {
     transform: translateY(100%);
     animation-play-state: paused; } }
 
-.what-form-wrap {
-  transition: all ease-in-out .4s;
-  transform: translateY(0);
-  position: fixed;
-  z-index: 5;
-  overflow: auto;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 0 0.4rem 1.8rem;
-  margin-top: 3rem;
-  border-top-left-radius: .3rem;
-  border-top-right-radius: .3rem;
-  box-sizing: border-box;
-  background-color: #eeeeee;
-  overflow: hidden; }
-  .what-form-wrap .form-title {
+.auth {
+  height: 100%; }
+  .auth .login {
+    background-color: rgba(255, 255, 255, 0.6);
+    height: 100%;
+    padding: 40% 1rem 1rem;
+    box-sizing: border-box;
     font-size: .5rem;
-    word-spacing: .1rem;
-    padding: .2rem 0;
-    font-weight: normal;
-    text-align: center;
-    line-height: .45rem; }
-    .what-form-wrap .form-title a.close-what-form {
-      position: absolute;
-      right: .3rem; }
-    .what-form-wrap .form-title .iconfont {
-      color: #000;
-      vertical-align: middle; }
-  .what-form-wrap .vform {
-    height: 100%; }
-
-.what-form-wrap.hide {
-  transform: translateY(100%); }
+    overflow: hidden; }
+    .auth .login .btn {
+      margin-bottom: .2rem; }
+    .auth .login .vform {
+      margin-top: 1rem; }
+    .auth .login .vform-item {
+      margin: .2rem 0; }

@@ -2,19 +2,25 @@
 
 var _viewTrigger = require("../libs/view/view-trigger.js");
 
-var _whatPage = _interopRequireDefault(require("../libs/view/template/what-page.js"));
+var _whatPage = _interopRequireDefault(require("../libs/view/template/whatPage/what-page.js"));
 
-var _myInfo = _interopRequireDefault(require("../libs/view/template/myInfo.js"));
+var _myInfo = _interopRequireDefault(require("../libs/view/myInfo/myInfo.js"));
 
-var _whatList = _interopRequireDefault(require("../libs/view/template/whatList.js"));
+var _whatList = _interopRequireDefault(require("../libs/view/template/whatPage/whatList.js"));
 
-var _wanna = _interopRequireDefault(require("../libs/view/template/wanna.js"));
+var _wanna = _interopRequireDefault(require("../libs/view/wanna/wanna.js"));
+
+var _auth = _interopRequireDefault(require("../libs/view/template/auth/auth.js"));
+
+var _login = _interopRequireDefault(require("../libs/view/template/auth/login.js"));
+
+var _regist = _interopRequireDefault(require("../libs/view/template/auth/regist.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 // whatPage.mount("#app");
 var viewMap = {
-  home: '/home/whatList',
+  home: '/auth/login',
   map: [{
     path: '/home',
     name: 'layout',
@@ -31,6 +37,19 @@ var viewMap = {
       path: 'wanna',
       name: 'wanna',
       view: _wanna["default"]
+    }]
+  }, {
+    path: "/auth",
+    name: "auth",
+    view: _auth["default"],
+    children: [{
+      path: 'login',
+      name: 'login',
+      view: _login["default"]
+    }, {
+      path: 'regist',
+      name: 'regist',
+      view: _regist["default"]
     }]
   }]
 };

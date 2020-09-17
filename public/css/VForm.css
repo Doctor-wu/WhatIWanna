@@ -1,6 +1,5 @@
 .vform {
-  overflow: auto;
-  height: 100%; }
+  overflow: auto; }
   .vform .btn-wrap {
     margin-bottom: .2rem; }
     .vform .btn-wrap button {
@@ -43,7 +42,7 @@
 
 .vform-item.valid-fail .vform-item-control {
   border: none;
-  border-bottom: 2px solid red;
+  border-bottom: 2px solid #07689f;
   font-size: .28rem;
   height: .6rem;
   padding: .1rem .05rem 0; }

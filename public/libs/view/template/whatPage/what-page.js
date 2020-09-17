@@ -1,6 +1,6 @@
-import head from './head.js';
-import foot from './foot.js';
-import View from '../view.js';
+import head from '../head.js';
+import foot from '../foot.js';
+import View from '../../view.js';
 
 
 let whatPage = {

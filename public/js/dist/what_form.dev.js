@@ -97,7 +97,8 @@ var _utils = require("/js/utils/utils.js");
   });
   var vForm = new _vForm.VForm({
     title: "新增事件",
-    items: [title, desc, timeStart, timeEnd, tags]
+    items: [title, desc, timeStart, timeEnd, tags],
+    showBtn: true
   }).mount(whatForm);
   console.log(vForm);
   vForm.regist("submit", _utils.utils.debounce(function (data) {

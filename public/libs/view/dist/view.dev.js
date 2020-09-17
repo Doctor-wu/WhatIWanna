@@ -8,7 +8,6 @@ exports["default"] = View;
 var _utils = require("../../js/utils/utils.js");
 
 var vid = 0;
-var components = {};
 
 function View(options) {
   if (!this instanceof View) {
@@ -42,12 +41,12 @@ proto.parseTemplate = function () {
   var _this = this;
 
   this.target = this.template;
+  this.target = this.target.replace(/__routeView__/g, "<span style='display:none' class='__view__'></span>");
   if (this.components.length === 0) return;
   this.components.forEach(function (component) {
     var name = "__".concat(component.name, "__");
     _this.target = _this.target.replace(new RegExp(name, "g"), component.target);
   });
-  this.target = this.target.replace(/__routeView__/g, "<span style='display:none' class='__view__'></span>");
 };
 
 proto.component = function (component) {
@@ -78,11 +77,21 @@ proto.mount = function (el) {
 proto.flushScripts = function () {
   var _this3 = this;
 
+  if (this.options.plainScript) {
+    var script = document.createElement("script");
+    script.innerHTML = this.options.plainScript;
+    script.type = "module";
+    this.scripts.push(script);
+    script = null;
+  }
+
   if (this.scripts.length === 0) return;
 
   if (this.scripts[0] instanceof HTMLScriptElement) {
     this.scripts.forEach(function (s) {
-      document.body.removeChild(s);
+      try {
+        document.body.removeChild(s);
+      } catch (e) {}
     });
     this.scripts = this.scripts.map(function (script) {
       var data = script.innerHTML;
@@ -117,8 +126,6 @@ proto.flushScripts = function () {
 proto.renderView = function (view) {
   var _this4 = this;
 
-  console.log(this.routeCurrView);
-
   if (this.routeCurrView.length > 0) {
     [].forEach.call(this.routeCurrView, function (route) {
       route.parentNode.removeChild(route.nextElementSibling);
@@ -130,7 +137,6 @@ proto.renderView = function (view) {
   [].forEach.call(this.routeViews, function (routeView) {
     routeView.outerHTML = "\n        <span style='display:none' class='__view__'></span>\n        ".concat(view.target, "\n        ");
     _this4.routeCurrView = _this4.el.querySelectorAll(".__view__");
-
-    _this4.flushScripts.call(view);
   });
+  this.flushScripts.call(view);
 };

@@ -1,0 +1,21 @@
+@import './nc_share';
+.auth {
+    height: 100%;
+    .login {
+        background-color: rgba($color: #fff, $alpha: .6);
+        height: 100%;
+        padding: 40% 1rem 1rem;
+        box-sizing: border-box;
+        font-size: .5rem;
+        overflow: hidden;
+        .btn {
+            margin-bottom: .2rem;
+        }
+        .vform {
+            margin-top: 1rem;
+        }
+        .vform-item {
+            margin: .2rem 0;
+        }
+    }
+}

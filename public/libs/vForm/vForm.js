@@ -26,7 +26,8 @@ VForm.prototype.init = function(options) {
     this.el.className = "vform";
     this.items = options.items || [];
     this.title = options.title;
-    this.showBtn = options.showBtn || true;
+    this.showBtn = options.showBtn == "undefined" ? true : options.showBtn;
+    console.log(this.showBtn);
     this.submit = new Promise((resolve, reject) => {
         this.submitTrigger = resolve;
     }).catch(e => {
@@ -63,6 +64,7 @@ VForm.prototype.validate = function() {
 
 VForm.prototype.mount = function(el) {
     if (!el) throw new Error("el is required in VForm");
+    console.log(el)
     el = typeof el === "string" ? document.querySelector(el) : el;
     el.parentNode.insertBefore(this.el, el);
     el.parentNode.removeChild(el);

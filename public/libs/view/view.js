@@ -1,6 +1,5 @@
 import { utils } from "../../js/utils/utils.js";
 let vid = 0;
-let components = {};
 
 export default function View(options) {
     if (!this instanceof View) {
@@ -31,12 +30,12 @@ proto.init = function() {
 
 proto.parseTemplate = function() {
     this.target = this.template;
+    this.target = this.target.replace(/__routeView__/g, "<span style='display:none' class='__view__'></span>");
     if (this.components.length === 0) return;
     this.components.forEach((component) => {
         let name = `__${component.name}__`;
         this.target = this.target.replace(new RegExp(name, "g"), component.target);
     });
-    this.target = this.target.replace(/__routeView__/g, "<span style='display:none' class='__view__'></span>");
 }
 
 
@@ -62,10 +61,19 @@ proto.mount = function(el) {
 }
 
 proto.flushScripts = function() {
+    if (this.options.plainScript) {
+        let script = document.createElement("script");
+        script.innerHTML = this.options.plainScript;
+        script.type = "module";
+        this.scripts.push(script);
+        script = null;
+    }
     if (this.scripts.length === 0) return;
     if (this.scripts[0] instanceof HTMLScriptElement) {
         this.scripts.forEach(s => {
-            document.body.removeChild(s);
+            try {
+                document.body.removeChild(s);
+            } catch (e) {}
         });
         this.scripts = this.scripts.map(script => {
             let data = script.innerHTML;
@@ -99,7 +107,6 @@ proto.flushScripts = function() {
 }
 
 proto.renderView = function(view) {
-    console.log(this.routeCurrView)
     if (this.routeCurrView.length > 0) {
         [].forEach.call(this.routeCurrView, (route => {
             route.parentNode.removeChild(route.nextElementSibling);
@@ -113,6 +120,6 @@ proto.renderView = function(view) {
         ${view.target}
         `
         this.routeCurrView = this.el.querySelectorAll(".__view__");
-        this.flushScripts.call(view)
     }));
+    this.flushScripts.call(view)
 }

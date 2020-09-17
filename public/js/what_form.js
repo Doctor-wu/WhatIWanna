@@ -43,7 +43,7 @@ import { utils } from '/js/utils/utils.js';
         rules: [
             { prop: "required", msg: "请输入描述", trigger: "blur" }
         ]
-    })
+    });
 
     let timeStart = new VFormItem({
             tag: "input",
@@ -89,7 +89,8 @@ import { utils } from '/js/utils/utils.js';
 
     let vForm = new VForm({
         title: "新增事件",
-        items: [title, desc, timeStart, timeEnd, tags]
+        items: [title, desc, timeStart, timeEnd, tags],
+        showBtn: true
     }).mount(whatForm);
     console.log(vForm);
 

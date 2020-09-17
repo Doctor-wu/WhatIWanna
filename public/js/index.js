@@ -1,13 +1,16 @@
 import { Viewtrigger } from "../libs/view/view-trigger.js";
-import whatPage from "../libs/view/template/what-page.js";
-import myInfo from "../libs/view/template/myInfo.js";
-import whatList from "../libs/view/template/whatList.js";
-import wanna from "../libs/view/template/wanna.js";
+import whatPage from "../libs/view/template/whatPage/what-page.js";
+import myInfo from "../libs/view/myInfo/myInfo.js";
+import whatList from "../libs/view/template/whatPage/whatList.js";
+import wanna from "../libs/view/wanna/wanna.js";
+import auth from "../libs/view/template/auth/auth.js";
+import login from "../libs/view/template/auth/login.js";
+import regist from "../libs/view/template/auth/regist.js";
 
 // whatPage.mount("#app");
 
 let viewMap = {
-    home: '/home/whatList',
+    home: '/auth/login',
     map: [{
         path: '/home',
         name: 'layout',
@@ -25,6 +28,21 @@ let viewMap = {
             name: 'wanna',
             view: wanna
         }]
+    }, {
+        path: "/auth",
+        name: "auth",
+        view: auth,
+        children: [{
+                path: 'login',
+                name: 'login',
+                view: login
+            },
+            {
+                path: 'regist',
+                name: 'regist',
+                view: regist
+            }
+        ]
     }]
 }
 

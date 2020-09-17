@@ -767,6 +767,9 @@ html {
   height: 100%;
   user-select: none; }
 
+#app {
+  height: 100%; }
+
 a {
   text-decoration: none; }
 
