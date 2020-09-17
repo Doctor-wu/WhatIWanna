@@ -156,8 +156,7 @@ html {
   height: 100%;
   position: relative;
   z-index: 1;
-  color: #07689f;
-  text-shadow: 0 0 15px rgba(255, 255, 255, 0.25); }
+  color: #07689f; }
   .auth::before {
     content: "";
     transition: all ease-in-out .3s;
@@ -204,13 +203,13 @@ html {
     .auth .login .vform {
       margin-top: 1rem; }
       .auth .login .vform .vform-item-label {
-        color: #07689f; }
+        color: #ffc93c; }
       .auth .login .vform .vform-item-control {
         border: none;
-        border-bottom: 2px solid #07689f;
+        border-bottom: 2px solid #ffc93c;
         color: #07689f; }
         .auth .login .vform .vform-item-control::-webkit-input-placeholder {
-          color: rgba(7, 104, 159, 0.3); }
+          color: rgba(255, 201, 60, 0.7); }
     .auth .login .vform-item.valid-fail .vform-item-control {
       border-bottom: 2px solid red; }
     .auth .login .vform-item {
@@ -225,7 +224,7 @@ html {
     margin-right: 0;
     border-color: #ccc; }
   .auth .mask {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3);
     height: 100vh;
     width: 100vw;
     z-index: 2;
