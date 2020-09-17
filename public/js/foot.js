@@ -1,4 +1,4 @@
-import { utils } from "/js/utils/utils.js";
+import { utils } from "./js/utils/utils.js";
 
 (function() {
     let wanna = document.querySelector(".foot-item.wanna"),

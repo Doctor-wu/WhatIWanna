@@ -1,7 +1,7 @@
-import { Drag } from '/js/utils/drag.js';
+import { Drag } from './js/utils/drag.js';
 import { VForm } from '../libs/vForm/vForm.js'
 import { VFormItem } from '../libs/vForm/vForm-item.js'
-import { utils } from '/js/utils/utils.js';
+import { utils } from './js/utils/utils.js';
 
 (function() {
     let formWrap = document.querySelector(".what-form-wrap");

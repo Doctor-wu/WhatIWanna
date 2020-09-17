@@ -1,6 +1,6 @@
 "use strict";
 
-var _utils = require("/js/utils/utils.js");
+var _utils = require("./js/utils/utils.js");
 
 (function () {
   var wanna = document.querySelector(".foot-item.wanna"),
