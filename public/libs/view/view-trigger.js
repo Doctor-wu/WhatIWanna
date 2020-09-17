@@ -2,7 +2,6 @@ export function Viewtrigger(options = {}) {
     this.options = options;
     this.init();
     watchHash.call(this);
-    console.log(this);
 }
 
 let proto = Viewtrigger.prototype;
@@ -17,13 +16,11 @@ proto.route = function(routeMap) {
     this.home = routeMap.home || "/";
     this.matcher = matcher(this.map);
     location.hash = this.home;
-    console.log(routeMap);
 }
 
 function matcher(map) {
 
     const routeMap = parseRoute(map);
-    console.log(routeMap);
 
     function match(hash) {
         return routeMap[hash]
@@ -31,7 +28,6 @@ function matcher(map) {
 
     function flush(route) {
         if (route) {
-            console.log(route);
             if (route.parent) {
                 flush.call(this, route.parent);
                 route.parent.view.renderView(route.view);
@@ -40,7 +36,6 @@ function matcher(map) {
                     route.view.firstLoad = true;
                     this.curRootRoute = route.pathArr[0];
                 }
-                console.log(route.view.firstLoad)
                 route.view.firstLoad && route.view.mount(this.root);
             }
         }

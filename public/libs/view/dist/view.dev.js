@@ -102,7 +102,6 @@ proto.flushScripts = function () {
       document.body.appendChild(s);
       return s;
     });
-    console.log(this.scripts);
   } else {
     var scripts = this.scripts.map(function (scriptSrc) {
       return axios.get(scriptSrc).then(function (res) {

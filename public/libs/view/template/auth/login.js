@@ -18,7 +18,8 @@ let login = {
         label: "用户名",
         key: "user",
         attrs: {
-            placeholder: "请输入用户名"
+            placeholder: "请输入用户名",
+            autocomplete: "username"
         },
         rules: [
             { prop: "required", msg: "请输入用户名", trigger: "blur" }
@@ -31,7 +32,8 @@ let login = {
         key: "pwd",
         attrs: {
             type: "password",
-            placeholder: "请输入密码"
+            placeholder: "请输入密码",
+            autocomplete: "current-password"
         },
         rules: [
             { prop: "required", msg: "请输入密码", trigger: "blur" }

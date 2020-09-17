@@ -174,4 +174,5 @@ html {
     font-size: .3rem; }
   .auth .btn {
     margin-left: 0;
-    margin-right: 0; }
+    margin-right: 0;
+    border-color: #ccc; }
