@@ -106,7 +106,7 @@ html {
 .auth {
   height: 100%; }
   .auth .login {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(0, 184, 169, 0.2);
     height: 100%;
     padding: 40% 1rem 1rem;
     box-sizing: border-box;

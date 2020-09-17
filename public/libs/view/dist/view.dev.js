@@ -83,6 +83,7 @@ proto.flushScripts = function () {
     script.type = "module";
     this.scripts.push(script);
     script = null;
+    this.options.plainScript = null;
   }
 
   if (this.scripts.length === 0) return;

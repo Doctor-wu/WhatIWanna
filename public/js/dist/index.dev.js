@@ -18,7 +18,6 @@ var _regist = _interopRequireDefault(require("../libs/view/template/auth/regist.
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-// whatPage.mount("#app");
 var viewMap = {
   home: '/auth/login',
   map: [{

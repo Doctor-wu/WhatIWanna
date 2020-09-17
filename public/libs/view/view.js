@@ -67,6 +67,7 @@ proto.flushScripts = function() {
         script.type = "module";
         this.scripts.push(script);
         script = null;
+        this.options.plainScript = null;
     }
     if (this.scripts.length === 0) return;
     if (this.scripts[0] instanceof HTMLScriptElement) {
@@ -121,5 +122,5 @@ proto.renderView = function(view) {
         `
         this.routeCurrView = this.el.querySelectorAll(".__view__");
     }));
-    this.flushScripts.call(view)
+    this.flushScripts.call(view);
 }

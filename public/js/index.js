@@ -7,7 +7,6 @@ import auth from "../libs/view/template/auth/auth.js";
 import login from "../libs/view/template/auth/login.js";
 import regist from "../libs/view/template/auth/regist.js";
 
-// whatPage.mount("#app");
 
 let viewMap = {
     home: '/auth/login',

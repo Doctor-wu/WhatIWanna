@@ -9,6 +9,7 @@ let proto = Viewtrigger.prototype;
 
 proto.init = function() {
     this.root = typeof this.options.root === "string" ? document.querySelector(this.options.root) : this.options.root;
+    this.curRootRoute = "";
 }
 
 proto.route = function(routeMap) {
@@ -35,6 +36,11 @@ function matcher(map) {
                 flush.call(this, route.parent);
                 route.parent.view.renderView(route.view);
             } else {
+                if (this.curRootRoute !== route.pathArr[0]) {
+                    route.view.firstLoad = true;
+                    this.curRootRoute = route.pathArr[0];
+                }
+                console.log(route.view.firstLoad)
                 route.view.firstLoad && route.view.mount(this.root);
             }
         }
