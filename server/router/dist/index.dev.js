@@ -1,25 +1,17 @@
 "use strict";
 
-var router = require('koa-router')();
+var _require = require("./user"),
+    error = _require.error,
+    login = _require.login,
+    register = _require.register;
 
-router.get('/', function _callee(ctx) {
+var Router = require('koa-router');
+
+var listRouter = new Router();
+listRouter.get('/', function _callee(ctx, next) {
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
-        case 0:
-          ctx.body = "首页";
-
-        case 1:
-        case "end":
-          return _context.stop();
-      }
-    }
-  });
-});
-router.get('/getWhatList', function _callee2(ctx, next) {
-  return regeneratorRuntime.async(function _callee2$(_context2) {
-    while (1) {
-      switch (_context2.prev = _context2.next) {
         case 0:
           ctx.body = JSON.stringify({
             code: 0,
@@ -125,9 +117,14 @@ router.get('/getWhatList', function _callee2(ctx, next) {
 
         case 1:
         case "end":
-          return _context2.stop();
+          return _context.stop();
       }
     }
   });
 });
-module.exports = router.routes();
+var router = new Router();
+router.use('/getWhatList', listRouter.routes(), listRouter.allowedMethods());
+router.use('/page', error.routes(), error.allowedMethods());
+router.use('/login', login.routes(), login.allowedMethods());
+router.use('/register', register.routes(), register.allowedMethods());
+module.exports = router;
