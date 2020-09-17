@@ -5,6 +5,7 @@ let auth = {
     template: `
     <section class="auth">
     __routeView__
+    <div class="mask"></div>
     </section>`,
     scripts: []
 };

@@ -11,7 +11,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var auth = {
   name: "auth",
-  template: "\n    <section class=\"auth\">\n    __routeView__\n    </section>",
+  template: "\n    <section class=\"auth\">\n    __routeView__\n    <div class=\"mask\"></div>\n    </section>",
   scripts: []
 };
 auth = new _view["default"](auth);

@@ -194,6 +194,8 @@ html {
 }
 .auth::before {
   content: "";
+  transition: all ease-in-out 0.3s;
+  animation: slideLeft ease-in-out 1s;
   display: block;
   position: absolute;
   height: 1rem;
@@ -202,12 +204,15 @@ html {
   left: -2rem;
   transform: rotate(-60deg);
   z-index: 1;
-  background-color: rgba(7, 104, 159, 0.6);
+  background-color: rgba(7, 104, 159, 0.8);
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
+  filter: blur(2px);
 }
 .auth::after {
   content: "";
+  transition: all ease-in-out 0.3s;
+  animation: slideRight ease-in-out 1s;
   display: block;
   position: absolute;
   height: 1rem;
@@ -216,9 +221,10 @@ html {
   right: -2rem;
   transform: rotate(-60deg);
   z-index: 1;
-  background-color: rgba(255, 201, 60, 0.6);
+  background-color: rgba(255, 201, 60, 0.8);
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
+  filter: blur(2px);
 }
 .auth .login {
   background-color: rgba(255, 255, 255, 0.2);
@@ -226,7 +232,7 @@ html {
   padding: 3rem 1rem 1rem;
   box-sizing: border-box;
   position: relative;
-  z-index: 2;
+  z-index: 3;
   font-size: 0.5rem;
   overflow: hidden;
 }
@@ -249,4 +255,29 @@ html {
   margin-left: 0;
   margin-right: 0;
   border-color: #ccc;
+}
+.auth .mask {
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 100vh;
+  width: 100vw;
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+@keyframes slideLeft {
+  0% {
+    transform: translateX(-100%) rotate(-60deg);
+  }
+  100% {
+    transform: translateX(0) rotate(-60deg);
+  }
+}
+@keyframes slideRight {
+  0% {
+    transform: translateX(100%) rotate(-60deg);
+  }
+  100% {
+    transform: translateX(0) rotate(-60deg);
+  }
 }
