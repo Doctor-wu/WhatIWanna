@@ -9,7 +9,7 @@ let regist = {
     <button class="btn btn-12 btn-success goRegist">注册</button>
     </div>
     <div class="options">
-        <a href="/#/auth/login">已有账号?立即登录</a>
+        <a href="./#/auth/login">已有账号?立即登录</a>
     </div>
     </div>`,
     plainScript: `
