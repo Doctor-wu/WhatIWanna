@@ -6,13 +6,13 @@ const router = require('./router');
 const app = new Koa();
 require('./session')(app); // load koa-session
 app.use(static(path.resolve(__dirname, '../public'))); // load koa-static
-app.use(async(ctx, next) => {
-    if (!ctx.session.user) {
-        ctx.response.redirect("/#/auth/login");
-    } else {
-        await next();
-    }
-});
+// app.use(async(ctx, next) => {
+//     if (!ctx.session.user) {
+//         ctx.response.redirect("/#/auth/login");
+//     } else {
+//         await next();
+//     }
+// });
 app.use(bodyparser());
 app.use(router.routes()).use(router.allowedMethods()); // load koa-router
 

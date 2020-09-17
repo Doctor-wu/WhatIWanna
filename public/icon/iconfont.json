@@ -1,0 +1,65 @@
+{
+  "id": "2064278",
+  "name": "WhatIWanna",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "13725818",
+      "name": "错误",
+      "font_class": "cuowu",
+      "unicode": "e711",
+      "unicode_decimal": 59153
+    },
+    {
+      "icon_id": "4015684",
+      "name": "加载",
+      "font_class": "jiazai",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "5953047",
+      "name": "加",
+      "font_class": "jia",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
+      "icon_id": "10694424",
+      "name": "计划",
+      "font_class": "jihua2",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "10810054",
+      "name": "计划",
+      "font_class": "jihua1",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "5213267",
+      "name": "清单",
+      "font_class": "qingdan",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "12201472",
+      "name": "计划",
+      "font_class": "jihua",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "13630457",
+      "name": "我 的",
+      "font_class": "wode",
+      "unicode": "e66d",
+      "unicode_decimal": 58989
+    }
+  ]
+}
