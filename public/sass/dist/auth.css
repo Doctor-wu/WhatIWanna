@@ -191,6 +191,8 @@ html {
   height: 100%;
   position: relative;
   z-index: 1;
+  color: lightblue;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
 }
 .auth::before {
   content: "";
@@ -204,10 +206,10 @@ html {
   left: -2rem;
   transform: rotate(-60deg);
   z-index: 1;
-  background-color: rgba(7, 104, 159, 0.8);
+  background-color: #07689f;
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
-  filter: blur(2px);
+  filter: blur(10px);
 }
 .auth::after {
   content: "";
@@ -221,10 +223,10 @@ html {
   right: -2rem;
   transform: rotate(-60deg);
   z-index: 1;
-  background-color: rgba(255, 201, 60, 0.8);
+  background-color: #ffc93c;
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
-  filter: blur(2px);
+  filter: blur(10px);
 }
 .auth .login {
   background-color: rgba(255, 255, 255, 0.2);
@@ -242,6 +244,23 @@ html {
 .auth .login .vform {
   margin-top: 1rem;
 }
+.auth .login .vform .vform-item-label {
+  color: lightblue;
+}
+.auth .login .vform .vform-item-control {
+  border: none;
+  border-bottom: 2px solid lightblue;
+  color: aliceblue;
+}
+.auth .login .vform .vform-item-control::-webkit-input-placeholder {
+  color: lightblue;
+}
+.auth .login .vform-item.valid-fail .vform-item-control {
+  border-bottom: 1px solid red;
+}
+.auth .login .vform-item.valid-fail .vform-item-control::-webkit-input-placeholder {
+  color: lightcoral;
+}
 .auth .login .vform-item {
   margin: 0.2rem 0;
 }
@@ -257,7 +276,7 @@ html {
   border-color: #ccc;
 }
 .auth .mask {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.35);
   height: 100vh;
   width: 100vw;
   z-index: 2;

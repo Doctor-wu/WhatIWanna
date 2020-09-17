@@ -4,6 +4,8 @@
     height: 100%;
     position: relative;
     z-index: 1;
+    color: lightblue;
+    text-shadow: 0 0 15px rgba($color: #fff, $alpha: .25);
     &::before {
         content: "";
         transition: all ease-in-out .3s;
@@ -16,10 +18,10 @@
         left: -2rem;
         transform: rotate(-60deg);
         z-index: 1;
-        background-color: rgba($color: #07689f, $alpha: .8);
+        background-color: rgba($color: #07689f, $alpha: 1);
         border-top-right-radius: .5rem;
         border-bottom-right-radius: .5rem;
-        filter: blur(2px);
+        filter: blur(10px);
     }
     &::after {
         content: "";
@@ -33,10 +35,10 @@
         right: -2rem;
         transform: rotate(-60deg);
         z-index: 1;
-        background-color: rgba($color: #ffc93c, $alpha: .8);
+        background-color: rgba($color: #ffc93c, $alpha: 1);
         border-top-left-radius: .5rem;
         border-bottom-left-radius: .5rem;
-        filter: blur(2px);
+        filter: blur(10px);
     }
     .login {
         background-color: rgba($color: #fff, $alpha: .2);
@@ -52,6 +54,25 @@
         }
         .vform {
             margin-top: 1rem;
+            .vform-item-label {
+                color: lightblue;
+            }
+            .vform-item-control {
+                border: none;
+                border-bottom: 2px solid rgba($color: lightblue, $alpha: 1);
+                &::-webkit-input-placeholder {
+                    color: rgba($color: lightblue, $alpha: 1);
+                }
+                color: aliceblue;
+            }
+        }
+        .vform-item.valid-fail {
+            .vform-item-control {
+                border-bottom: 1px solid red;
+                &::-webkit-input-placeholder {
+                    color: lightcoral;
+                }
+            }
         }
         .vform-item {
             margin: .2rem 0;
@@ -73,7 +94,7 @@
         border-color: #ccc;
     }
     .mask {
-        background-color: rgba($color: #000000, $alpha: .2);
+        background-color: rgba($color: #000000, $alpha: .35);
         height: 100vh;
         width: 100vw;
         z-index: 2;
