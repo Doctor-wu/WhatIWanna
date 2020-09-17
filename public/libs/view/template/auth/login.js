@@ -4,7 +4,7 @@ let login = {
     name: "login",
     template: `<div class="login">
     <h3>登录</h3>
-    <span id="login"></span>
+    <div id="login" style="height: 4rem"></div>
     <div class=".btn-wrap">
     <button class="btn btn-12 btn-success goLogin">登录</button>
     <button class="btn btn-12 btn-default goRegist">注册</button>

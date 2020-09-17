@@ -190,6 +190,7 @@ html {
   height: 100%;
   position: relative;
   z-index: 1;
+  overflow: hidden;
   color: rgba(7, 104, 159, 0.8);
 }
 .auth .login {
@@ -207,6 +208,7 @@ html {
 }
 .auth .login .vform {
   margin-top: 1rem;
+  overflow: auto;
 }
 .auth .login .vform .vform-item-label {
   color: #ffc93c;

@@ -4,6 +4,7 @@
     height: 100%;
     position: relative;
     z-index: 1;
+    overflow: hidden;
     color: rgba($color: #07689f, $alpha: .8);
     .login {
         background-color: rgba($color: #fff, $alpha: .2);
@@ -19,6 +20,7 @@
         }
         .vform {
             margin-top: 1rem;
+            overflow: auto;
             .vform-item-label {
                 color: #ffc93c;
             }

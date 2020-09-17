@@ -4,7 +4,7 @@ let regist = {
     name: "regist",
     template: `<div class="login">
     <h3>注册</h3>
-    <span id="login"></span>
+    <div id="regist" style="height: 6rem"></div>
     <div class=".btn-wrap">
     <button class="btn btn-12 btn-success goRegist">注册</button>
     </div>
@@ -57,7 +57,7 @@ let regist = {
         title: "登录",
         items: [user, pwd, casId],
         showBtn: false
-    }).mount("#login");
+    }).mount("#regist");
     
 
 
