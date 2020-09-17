@@ -2,9 +2,9 @@
 
 var _drag = require("./js/utils/drag.js");
 
-var _vForm = require("../libs/vForm/vForm.js");
+var _vForm = require("./libs/vForm/vForm.js");
 
-var _vFormItem = require("../libs/vForm/vForm-item.js");
+var _vFormItem = require("./libs/vForm/vForm-item.js");
 
 var _utils = require("./js/utils/utils.js");
 

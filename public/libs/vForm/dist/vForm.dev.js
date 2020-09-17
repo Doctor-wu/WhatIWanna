@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.VForm = VForm;
 
-var _vFormItem = require("./libs/vForm/vForm-item.js");
+var _vFormItem = require("./vForm-item.js");
 
 var _Pipe = require("./Pipe.js");
 

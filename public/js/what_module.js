@@ -12,7 +12,7 @@
                 }
             }
         });
-        axios.get('/getWhatList').then(res => {
+        axios.get('./getWhatList').then(res => {
                     let data = res.data.data,
                         str = ``;
                     data.forEach(item => {

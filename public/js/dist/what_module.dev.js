@@ -17,7 +17,7 @@
       }
     }
   });
-  axios.get('/getWhatList').then(function (res) {
+  axios.get('./getWhatList').then(function (res) {
     var data = res.data.data,
         str = "";
     data.forEach(function (item) {

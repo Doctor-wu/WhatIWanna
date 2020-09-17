@@ -1,4 +1,4 @@
-import { VFormItem } from './libs/vForm/vForm-item.js';
+import { VFormItem } from './vForm-item.js';
 import { Pipe } from './Pipe.js';
 export function VForm(options = {}) {
     if (!this instanceof VForm) {
