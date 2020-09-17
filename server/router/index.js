@@ -1,12 +1,13 @@
-const router = require('koa-router')();
+const {
+    error,
+    login,
+    register,
+} = require("./user");
+const Router = require('koa-router');
 
-router.get('/', async(ctx) => {
-    ctx.body = "首页";
-});
 
-
-
-router.get('/getWhatList', async(ctx, next) => {
+const listRouter = new Router();
+listRouter.get('/', async(ctx, next) => {
     ctx.body = JSON.stringify({
         code: 0,
         success: true,
@@ -118,4 +119,12 @@ router.get('/getWhatList', async(ctx, next) => {
     })
 })
 
-module.exports = router.routes();
+
+const router = new Router();
+router.use('/getWhatList', listRouter.routes(), listRouter.allowedMethods());
+router.use('/page', error.routes(), error.allowedMethods());
+router.use('/login', login.routes(), login.allowedMethods());
+router.use('/register', register.routes(), register.allowedMethods());
+
+
+module.exports = router;
