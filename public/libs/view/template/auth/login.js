@@ -30,7 +30,7 @@ let login = {
         label: "密码",
         key: "pwd",
         attrs: {
-            rows: 5,
+            type: "password",
             placeholder: "请输入密码"
         },
         rules: [

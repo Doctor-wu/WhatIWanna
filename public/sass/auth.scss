@@ -1,8 +1,9 @@
 @import './nc_share';
+@import './VForm.scss';
 .auth {
     height: 100%;
     .login {
-        background-color: rgba($color: #00b8a9, $alpha: .2);
+        background-color: rgba($color: #fff, $alpha: .2);
         height: 100%;
         padding: 40% 1rem 1rem;
         box-sizing: border-box;
@@ -17,5 +18,19 @@
         .vform-item {
             margin: .2rem 0;
         }
+    }
+    .login {
+        .options {
+            a {
+                display: inline-block;
+                float: right;
+                color: cornflowerblue;
+                font-size: .3rem;
+            }
+        }
+    }
+    .btn {
+        margin-left: 0;
+        margin-right: 0;
     }
 }

@@ -129,11 +129,69 @@ html {
     animation-play-state: paused;
   }
 }
+.vform {
+  overflow: auto;
+}
+.vform .btn-wrap {
+  margin-bottom: 0.2rem;
+}
+.vform .btn-wrap button {
+  border-color: #777;
+}
+
+.vform-item {
+  font-size: 0.35rem;
+  margin: 0.8rem 0;
+  box-sizing: border-box;
+}
+.vform-item .vform-item-label {
+  font-weight: bold;
+  padding: 0.1rem 0;
+  color: #333;
+}
+.vform-item .vform-item-control {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: all ease 0.3s;
+  width: 100%;
+  border-width: 1px;
+  vertical-align: middle;
+  box-sizing: border-box;
+  outline: none;
+  font-size: 0;
+  height: 0;
+  padding: 0;
+  border-bottom: 1px solid rgba(7, 104, 159, 0.2);
+  background-color: transparent;
+}
+.vform-item .vform-item-control:focus, .vform-item .vform-item-control:valid {
+  border: none;
+  border-bottom: 2px solid #07689f;
+  font-size: 0.28rem;
+  height: 0.6rem;
+  padding: 0.1rem 0.05rem 0;
+}
+.vform-item .vform-item-msgbox {
+  font-size: 0.25rem;
+  padding: 0.1rem 0.02rem;
+  color: red;
+  height: 0.35rem;
+  box-sizing: border-box;
+}
+
+.vform-item.valid-fail .vform-item-control {
+  border: none;
+  border-bottom: 2px solid red;
+  font-size: 0.28rem;
+  height: 0.6rem;
+  padding: 0.1rem 0.05rem 0;
+}
+
 .auth {
   height: 100%;
 }
 .auth .login {
-  background-color: rgba(0, 184, 169, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
   height: 100%;
   padding: 40% 1rem 1rem;
   box-sizing: border-box;
@@ -148,4 +206,14 @@ html {
 }
 .auth .login .vform-item {
   margin: 0.2rem 0;
+}
+.auth .login .options a {
+  display: inline-block;
+  float: right;
+  color: cornflowerblue;
+  font-size: 0.3rem;
+}
+.auth .btn {
+  margin-left: 0;
+  margin-right: 0;
 }
