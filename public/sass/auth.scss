@@ -4,7 +4,7 @@
     height: 100%;
     position: relative;
     z-index: 1;
-    color: #07689f;
+    color: rgba($color: #07689f, $alpha: .8);
     &::before {
         content: "";
         transition: all ease-in-out .3s;
@@ -62,7 +62,7 @@
                 &::-webkit-input-placeholder {
                     color: rgba($color: #ffc93c, $alpha: .7);
                 }
-                color: darken($color: #07689f, $amount: 0);
+                color: darken($color: #ffc93c, $amount: 0);
             }
         }
         .vform-item.valid-fail {

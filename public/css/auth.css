@@ -156,7 +156,7 @@ html {
   height: 100%;
   position: relative;
   z-index: 1;
-  color: #07689f; }
+  color: rgba(7, 104, 159, 0.8); }
   .auth::before {
     content: "";
     transition: all ease-in-out .3s;
@@ -207,7 +207,7 @@ html {
       .auth .login .vform .vform-item-control {
         border: none;
         border-bottom: 2px solid #ffc93c;
-        color: #07689f; }
+        color: #ffc93c; }
         .auth .login .vform .vform-item-control::-webkit-input-placeholder {
           color: rgba(255, 201, 60, 0.7); }
     .auth .login .vform-item.valid-fail .vform-item-control {
