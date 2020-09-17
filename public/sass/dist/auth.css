@@ -191,7 +191,7 @@ html {
   height: 100%;
   position: relative;
   z-index: 1;
-  color: lightblue;
+  color: #07689f;
   text-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
 }
 .auth::before {
@@ -206,7 +206,7 @@ html {
   left: -2rem;
   transform: rotate(-60deg);
   z-index: 1;
-  background-color: #07689f;
+  background-color: #40a8c4;
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   filter: blur(10px);
@@ -245,21 +245,18 @@ html {
   margin-top: 1rem;
 }
 .auth .login .vform .vform-item-label {
-  color: lightblue;
+  color: #07689f;
 }
 .auth .login .vform .vform-item-control {
   border: none;
-  border-bottom: 2px solid lightblue;
-  color: aliceblue;
+  border-bottom: 2px solid #07689f;
+  color: #07689f;
 }
 .auth .login .vform .vform-item-control::-webkit-input-placeholder {
-  color: lightblue;
+  color: rgba(7, 104, 159, 0.3);
 }
 .auth .login .vform-item.valid-fail .vform-item-control {
-  border-bottom: 1px solid red;
-}
-.auth .login .vform-item.valid-fail .vform-item-control::-webkit-input-placeholder {
-  color: lightcoral;
+  border-bottom: 2px solid red;
 }
 .auth .login .vform-item {
   margin: 0.2rem 0;
@@ -276,7 +273,7 @@ html {
   border-color: #ccc;
 }
 .auth .mask {
-  background-color: rgba(0, 0, 0, 0.35);
+  background-color: rgba(0, 0, 0, 0.2);
   height: 100vh;
   width: 100vw;
   z-index: 2;
