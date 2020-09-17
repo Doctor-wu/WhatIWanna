@@ -20,7 +20,7 @@
         background-color: rgba($color: #40a8c4, $alpha: 1);
         border-top-right-radius: .5rem;
         border-bottom-right-radius: .5rem;
-        filter: blur(10px);
+        filter: blur(7px);
     }
     &::after {
         content: "";
@@ -37,7 +37,7 @@
         background-color: rgba($color: #ffc93c, $alpha: 1);
         border-top-left-radius: .5rem;
         border-bottom-left-radius: .5rem;
-        filter: blur(10px);
+        filter: blur(7px);
     }
     .login {
         background-color: rgba($color: #fff, $alpha: .2);
@@ -87,7 +87,7 @@
     .btn {
         margin-left: 0;
         margin-right: 0;
-        border-color: #ccc;
+        border-color: #aaa;
     }
     .mask {
         background-color: rgba($color: #000000, $alpha: .3);

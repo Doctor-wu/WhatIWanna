@@ -208,7 +208,7 @@ html {
   background-color: #40a8c4;
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
-  filter: blur(10px);
+  filter: blur(7px);
 }
 .auth::after {
   content: "";
@@ -225,7 +225,7 @@ html {
   background-color: #ffc93c;
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
-  filter: blur(10px);
+  filter: blur(7px);
 }
 .auth .login {
   background-color: rgba(255, 255, 255, 0.2);
@@ -269,7 +269,7 @@ html {
 .auth .btn {
   margin-left: 0;
   margin-right: 0;
-  border-color: #ccc;
+  border-color: #aaa;
 }
 .auth .mask {
   background-color: rgba(0, 0, 0, 0.3);
