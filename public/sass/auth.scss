@@ -2,11 +2,43 @@
 @import './VForm.scss';
 .auth {
     height: 100%;
+    position: relative;
+    z-index: 1;
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        height: 1rem;
+        width: 80%;
+        top: 55%;
+        left: -2rem;
+        transform: rotate(-60deg);
+        z-index: 1;
+        background-color: rgba($color: #07689f, $alpha: .6);
+        border-top-right-radius: .5rem;
+        border-bottom-right-radius: .5rem;
+    }
+    &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        height: 1rem;
+        width: 80%;
+        top: 45%;
+        right: -2rem;
+        transform: rotate(-60deg);
+        z-index: 1;
+        background-color: rgba($color: #ffc93c, $alpha: .6);
+        border-top-left-radius: .5rem;
+        border-bottom-left-radius: .5rem;
+    }
     .login {
         background-color: rgba($color: #fff, $alpha: .2);
         height: 100%;
-        padding: 40% 1rem 1rem;
+        padding: 3rem 1rem 1rem;
         box-sizing: border-box;
+        position: relative;
+        z-index: 2;
         font-size: .5rem;
         overflow: hidden;
         .btn {
