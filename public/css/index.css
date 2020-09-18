@@ -849,7 +849,8 @@ html {
     background-color: #fff;
     animation: shadeSlideIn ease-in-out .3s;
     border: 1px solid #ccc;
-    border-radius: 8px; }
+    border-radius: 8px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.04), 0 0 8px rgba(0, 0, 0, 0.08), 0 0 4px rgba(0, 0, 0, 0.12); }
     .notify-list .notify .operation {
       display: -webkit-box;
       display: -webkit-flex;
