@@ -70,9 +70,9 @@ proto.destroy = function() {
             },
             beforeMount() {
                 console.log("beforeMount");
-                // setTimeout(() => {
-                //     this.destroy();
-                // }, 3000)
+                setTimeout(() => {
+                    this.destroy();
+                }, 3000)
             },
             mounted() {
                 console.log(this.el.firstElementChild)
