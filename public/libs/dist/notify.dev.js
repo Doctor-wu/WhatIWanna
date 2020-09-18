@@ -48,11 +48,13 @@ proto.destroy = function () {
     msg: ""
   };
 
-  Notify.success = function (msg) {
+  Notify.success = function (options) {
+    var msg = _typeof(options) === "object" ? options.msg : options;
+    var title = _typeof(options) === "object" ? options.title || "成功" : "成功";
     var note = new Notify(Object.assign(notifyConfig, {
       type: "success",
       slot: {
-        "default": "<div class=\"notify\">\n                <span class=\"sign success\"></span>\n                <span class=\"msg\">".concat(msg, "</span>\n                <a href=\"javascript:;\" class=\"close-notify\">\n                    <span class=\"iconfont icon-cuowu\"></span>\n                </a>\n                </div>")
+        "default": "<div class=\"notify\">\n                <div class=\"operation\">\n                    <div class=\"title-wrap\">\n                        <span class=\"sign success\"></span>\n                        <h3 class=\"title\">".concat(title, "</h3>\n                    </div>\n                    <a href=\"javascript:;\" class=\"close-notify\">\n                        <span class=\"iconfont icon-cuowu\"></span>\n                    </a>\n                </div>\n                <div class=\"info\">\n                    <span class=\"msg\">").concat(msg, "</span>\n                </div>\n                </div>")
       },
       beforeMount: function beforeMount() {
         var _this2 = this;
@@ -71,53 +73,80 @@ proto.destroy = function () {
     //     limitYT: 2,
     //     limitYB: 2
     // });
+
+    return note;
   };
 
-  Notify.warn = function (msg) {
-    return new Notify(Object.assign(notifyConfig, {
+  Notify.warn = function (options) {
+    var msg = _typeof(options) === "object" ? options.msg : options;
+    var title = _typeof(options) === "object" ? options.title || "警告" : "警告";
+    var note = new Notify(Object.assign(notifyConfig, {
       type: "warn",
       slot: {
-        "default": "<div class=\"notify\">\n                <span class=\"sign warn\"></span>\n                <span class=\"msg\">".concat(msg, "</span>\n                <a href=\"javascript:;\" class=\"close-notify\">\n                    <span class=\"iconfont icon-cuowu\"></span>\n                </a>\n                </div>")
+        "default": "<div class=\"notify\">\n                <div class=\"operation\">\n                    <div class=\"title-wrap\">\n                        <span class=\"sign warn\"></span>\n                        <h3 class=\"title\">".concat(title, "</h3>\n                    </div>\n                    <a href=\"javascript:;\" class=\"close-notify\">\n                        <span class=\"iconfont icon-cuowu\"></span>\n                    </a>\n                </div>\n                <div class=\"info\">\n                    <span class=\"msg\">").concat(msg, "</span>\n                </div>\n                </div>")
       },
       beforeMount: function beforeMount() {
+        var _this3 = this;
+
         console.log("beforeMount");
+        setTimeout(function () {
+          _this3.destroy();
+        }, 3000);
       },
       mounted: function mounted() {
-        console.log("mounted");
+        console.log(this.el.firstElementChild);
+        this.el.firstElementChild.querySelector(".close-notify").addEventListener("click", this.destroy.bind(this), false);
       },
       msg: msg
     })).mount(".notify-list");
+    return note;
   };
 
-  Notify.info = function (msg) {
-    return new Notify(Object.assign(notifyConfig, {
+  Notify.info = function (options) {
+    var msg = _typeof(options) === "object" ? options.msg : options;
+    var title = _typeof(options) === "object" ? options.title || "消息" : "消息";
+    var note = new Notify(Object.assign(notifyConfig, {
       type: "info",
       slot: {
-        "default": "<div class=\"notify\">\n                <span class=\"sign info\"></span>\n                <span class=\"msg\">".concat(msg, "</span>\n                <a href=\"javascript:;\" class=\"close-notify\">\n                    <span class=\"iconfont icon-cuowu\"></span>\n                </a>\n                </div>")
+        "default": "<div class=\"notify\">\n                <div class=\"operation\">\n                    <div class=\"title-wrap\">\n                        <span class=\"sign info\"></span>\n                        <h3 class=\"title\">".concat(title, "</h3>\n                    </div>\n                    <a href=\"javascript:;\" class=\"close-notify\">\n                        <span class=\"iconfont icon-cuowu\"></span>\n                    </a>\n                </div>\n                <div class=\"info\">\n                    <span class=\"msg\">").concat(msg, "</span>\n                </div>\n                </div>")
       },
       beforeMount: function beforeMount() {
-        console.log("beforeMount");
-        document.createElement("a").addEventListener;
-      },
-      mounted: function mounted() {},
-      msg: msg
-    })).mount(".notify-list");
-  };
-
-  Notify.danger = function (msg) {
-    return new Notify(Object.assign(notifyConfig, {
-      type: "danger",
-      slot: {
-        "default": "<div class=\"notify\">\n                <span class=\"sign danger\"></span>\n                <span class=\"msg\">".concat(msg, "</span>\n                <a href=\"javascript:;\" class=\"close-notify\">\n                    <span class=\"iconfont icon-cuowu\"></span>\n                </a>\n                </div>")
-      },
-      beforeMount: function beforeMount() {
-        console.log("beforeMount");
+        console.log("beforeMount"); // setTimeout(() => {
+        //     this.destroy();
+        // }, 3000)
       },
       mounted: function mounted() {
-        console.log("mounted");
+        console.log(this.el.firstElementChild);
+        this.el.firstElementChild.querySelector(".close-notify").addEventListener("click", this.destroy.bind(this), false);
       },
       msg: msg
     })).mount(".notify-list");
+    return note;
+  };
+
+  Notify.danger = function (options) {
+    var msg = _typeof(options) === "object" ? options.msg : options;
+    var title = _typeof(options) === "object" ? options.title || "失败" : "失败";
+    var note = new Notify(Object.assign(notifyConfig, {
+      type: "danger",
+      slot: {
+        "default": "<div class=\"notify\">\n                <div class=\"operation\">\n                    <div class=\"title-wrap\">\n                        <span class=\"sign danger\"></span>\n                        <h3 class=\"title\">".concat(title, "</h3>\n                    </div>\n                    <a href=\"javascript:;\" class=\"close-notify\">\n                        <span class=\"iconfont icon-cuowu\"></span>\n                    </a>\n                </div>\n                <div class=\"info\">\n                    <span class=\"msg\">").concat(msg, "</span>\n                </div>\n                </div>")
+      },
+      beforeMount: function beforeMount() {
+        var _this4 = this;
+
+        console.log("beforeMount");
+        setTimeout(function () {
+          _this4.destroy();
+        }, 3000);
+      },
+      mounted: function mounted() {
+        console.log(this.el.firstElementChild);
+        this.el.firstElementChild.querySelector(".close-notify").addEventListener("click", this.destroy.bind(this), false);
+      },
+      msg: msg
+    })).mount(".notify-list");
+    return note;
   };
 
   window.notify = Notify;

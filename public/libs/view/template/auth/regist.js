@@ -65,7 +65,7 @@ let regist = {
     
     goRegist.addEventListener("click", () => {
         location.hash = "/auth/login";
-        notify.success("前往登录");
+        notify.warn("测试警告");
     })
     `
 };

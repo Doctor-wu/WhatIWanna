@@ -6,6 +6,11 @@ let wanna = {
     <section class="myInfo">
         Wanna
     </section>
+    `,
+    plainScript: `
+        notify.danger({
+            msg: "测试错误"
+        })
     `
 };
 

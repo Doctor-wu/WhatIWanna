@@ -7,13 +7,13 @@
     z-index: 998;
     // background-color: lightseagreen;
     width: 80vw;
-    @include flex();
-    flex-direction: column;
-    justify-items: flex-start;
+    .msg {
+        width: 100%;
+    }
     .notify {
         @include flex();
+        flex-direction: column;
         justify-content: space-between;
-        font-size: .37rem;
         text-align: left;
         padding: .2rem .2rem;
         margin: .1rem 0;
@@ -21,42 +21,65 @@
         animation: shadeSlideIn ease-in-out .3s;
         border: 1px solid #ccc;
         border-radius: 8px;
-        .msg {
-            width: 80%;
-            padding: .4rem 0;
+        .operation {
             display: inline-block;
-            word-break: break-all;
-            word-spacing: .05rem;
-            line-height: .4rem;
+            @include flex();
+            width: 100%;
+            justify-content: space-between;
+            .title-wrap {
+                @include flex()
+            }
+            .title {
+                padding-left: .1rem;
+                font-size: .35rem;
+                font-weight: bold;
+                @include ellipse(1);
+            }
+            .sign {
+                display: inline-block;
+                width: .35rem;
+                height: .35rem;
+                margin-right: .1rem;
+                border-radius: 50%;
+                background-color: yellow;
+                &.success {
+                    background-color: lightgreen;
+                }
+                &.danger {
+                    background-color: lightcoral;
+                }
+                &.warn {
+                    background-color: lightsalmon;
+                }
+                &.info {
+                    background-color: lightgrey;
+                }
+            }
+            .close-notify {
+                float: right;
+                margin-right: .1rem;
+                display: inline-block;
+                height: .4rem;
+                .iconfont {
+                    font-size: .3rem;
+                    vertical-align: middle;
+                    display: block;
+                }
+            }
         }
-        .close-notify {
-            float: right;
-            margin-right: .1rem;
-            display: inline-block;
-            height: .4rem;
-            .iconfont {
-                font-size: .3rem;
-                vertical-align: middle;
-            }
-        }
-        .sign {
-            display: inline-block;
-            width: .3rem;
-            height: .3rem;
-            margin-right: .1rem;
-            border-radius: 50%;
-            background-color: yellow;
-            &.success {
-                background-color: lightgreen;
-            }
-            &.danger {
-                background-color: lightcoral;
-            }
-            &.warn {
-                background-color: lightsalmon;
-            }
-            &.info {
-                background-color: lightgrey;
+        &>.info {
+            @include flex();
+            flex-direction: column;
+            justify-content: space-evenly;
+            padding: .1rem 0 0 .55rem;
+            .msg {
+                font-size: .30rem;
+                width: 95%;
+                padding: .15rem 0 .1rem;
+                display: inline-block;
+                word-break: break-all;
+                word-spacing: .05rem;
+                line-height: .4rem;
             }
         }
     }

@@ -833,20 +833,16 @@ html {
   right: 5vw;
   max-width: 300px;
   z-index: 998;
-  width: 80vw;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  flex-direction: column;
-  justify-items: flex-start; }
+  width: 80vw; }
+  .notify-list .msg {
+    width: 100%; }
   .notify-list .notify {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    font-size: .37rem;
     text-align: left;
     padding: .2rem .2rem;
     margin: .1rem 0;
@@ -854,36 +850,68 @@ html {
     animation: shadeSlideIn ease-in-out .3s;
     border: 1px solid #ccc;
     border-radius: 8px; }
-    .notify-list .notify .msg {
-      width: 80%;
-      padding: .4rem 0;
+    .notify-list .notify .operation {
       display: inline-block;
-      word-break: break-all;
-      word-spacing: .05rem;
-      line-height: .4rem; }
-    .notify-list .notify .close-notify {
-      float: right;
-      margin-right: .1rem;
-      display: inline-block;
-      height: .4rem; }
-      .notify-list .notify .close-notify .iconfont {
-        font-size: .3rem;
-        vertical-align: middle; }
-    .notify-list .notify .sign {
-      display: inline-block;
-      width: .3rem;
-      height: .3rem;
-      margin-right: .1rem;
-      border-radius: 50%;
-      background-color: yellow; }
-      .notify-list .notify .sign.success {
-        background-color: lightgreen; }
-      .notify-list .notify .sign.danger {
-        background-color: lightcoral; }
-      .notify-list .notify .sign.warn {
-        background-color: lightsalmon; }
-      .notify-list .notify .sign.info {
-        background-color: lightgrey; }
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      width: 100%;
+      justify-content: space-between; }
+      .notify-list .notify .operation .title-wrap {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex; }
+      .notify-list .notify .operation .title {
+        padding-left: .1rem;
+        font-size: .35rem;
+        font-weight: bold;
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+        display: -webkit-box; }
+      .notify-list .notify .operation .sign {
+        display: inline-block;
+        width: .35rem;
+        height: .35rem;
+        margin-right: .1rem;
+        border-radius: 50%;
+        background-color: yellow; }
+        .notify-list .notify .operation .sign.success {
+          background-color: lightgreen; }
+        .notify-list .notify .operation .sign.danger {
+          background-color: lightcoral; }
+        .notify-list .notify .operation .sign.warn {
+          background-color: lightsalmon; }
+        .notify-list .notify .operation .sign.info {
+          background-color: lightgrey; }
+      .notify-list .notify .operation .close-notify {
+        float: right;
+        margin-right: .1rem;
+        display: inline-block;
+        height: .4rem; }
+        .notify-list .notify .operation .close-notify .iconfont {
+          font-size: .3rem;
+          vertical-align: middle;
+          display: block; }
+    .notify-list .notify > .info {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      padding: .1rem 0 0 .55rem; }
+      .notify-list .notify > .info .msg {
+        font-size: .30rem;
+        width: 95%;
+        padding: .15rem 0 .1rem;
+        display: inline-block;
+        word-break: break-all;
+        word-spacing: .05rem;
+        line-height: .4rem; }
   .notify-list .notify-leave {
     animation: shadeSlideOut ease-in-out .4s; }
 

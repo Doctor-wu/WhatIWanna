@@ -9,11 +9,11 @@ var _view = _interopRequireDefault(require("../view.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var wanna = {
-  name: "wanna",
-  template: "\n    <section class=\"myInfo\">\n        Wanna\n    </section>\n    ",
-  plainScript: "\n        notify.danger({\n            msg: \"\u6D4B\u8BD5\u9519\u8BEF\"\n        })\n    "
+var myInfo = {
+  name: "myInfo",
+  template: "\n    <section class=\"myInfo\">\n        MyInfo\n    </section>\n    ",
+  plainScript: "\n        notify.info({\n            msg: \"\u6D4B\u8BD5\u6D88\u606F\"\n        })\n    "
 };
-wanna = new _view["default"](wanna);
-var _default = wanna;
+myInfo = new _view["default"](myInfo);
+var _default = myInfo;
 exports["default"] = _default;

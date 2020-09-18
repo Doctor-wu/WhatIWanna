@@ -47,16 +47,25 @@ proto.destroy = function() {
 
 
 
-    Notify.success = function(msg) {
+    Notify.success = function(options) {
+        let msg = typeof options === "object" ? options.msg : options;
+        let title = typeof options === "object" ? options.title || "成功" : "成功";
         let note = new Notify(Object.assign(notifyConfig, {
             type: "success",
             slot: {
                 default: `<div class="notify">
-                <span class="sign success"></span>
-                <span class="msg">${msg}</span>
-                <a href="javascript:;" class="close-notify">
-                    <span class="iconfont icon-cuowu"></span>
-                </a>
+                <div class="operation">
+                    <div class="title-wrap">
+                        <span class="sign success"></span>
+                        <h3 class="title">${title}</h3>
+                    </div>
+                    <a href="javascript:;" class="close-notify">
+                        <span class="iconfont icon-cuowu"></span>
+                    </a>
+                </div>
+                <div class="info">
+                    <span class="msg">${msg}</span>
+                </div>
                 </div>`
             },
             beforeMount() {
@@ -76,71 +85,118 @@ proto.destroy = function() {
         //     limitYT: 2,
         //     limitYB: 2
         // });
+        return note;
     }
 
-    Notify.warn = function(msg) {
-        return new Notify(Object.assign(notifyConfig, {
+    Notify.warn = function(options) {
+        let msg = typeof options === "object" ? options.msg : options;
+        let title = typeof options === "object" ? options.title || "警告" : "警告";
+        let note = new Notify(Object.assign(notifyConfig, {
             type: "warn",
             slot: {
                 default: `<div class="notify">
-                <span class="sign warn"></span>
-                <span class="msg">${msg}</span>
-                <a href="javascript:;" class="close-notify">
-                    <span class="iconfont icon-cuowu"></span>
-                </a>
+                <div class="operation">
+                    <div class="title-wrap">
+                        <span class="sign warn"></span>
+                        <h3 class="title">${title}</h3>
+                    </div>
+                    <a href="javascript:;" class="close-notify">
+                        <span class="iconfont icon-cuowu"></span>
+                    </a>
+                </div>
+                <div class="info">
+                    <span class="msg">${msg}</span>
+                </div>
                 </div>`
             },
             beforeMount() {
                 console.log("beforeMount");
+                setTimeout(() => {
+                    this.destroy();
+                }, 3000)
             },
             mounted() {
-                console.log("mounted");
+                console.log(this.el.firstElementChild)
+                this.el.firstElementChild.querySelector(".close-notify")
+                    .addEventListener("click", this.destroy.bind(this), false);
             },
             msg
-        })).mount(".notify-list")
+        })).mount(".notify-list");
+        return note;
     }
 
-    Notify.info = function(msg) {
-        return new Notify(Object.assign(notifyConfig, {
+    Notify.info = function(options) {
+        let msg = typeof options === "object" ? options.msg : options;
+        let title = typeof options === "object" ? options.title || "消息" : "消息";
+        let note = new Notify(Object.assign(notifyConfig, {
             type: "info",
             slot: {
                 default: `<div class="notify">
-                <span class="sign info"></span>
-                <span class="msg">${msg}</span>
-                <a href="javascript:;" class="close-notify">
-                    <span class="iconfont icon-cuowu"></span>
-                </a>
+                <div class="operation">
+                    <div class="title-wrap">
+                        <span class="sign info"></span>
+                        <h3 class="title">${title}</h3>
+                    </div>
+                    <a href="javascript:;" class="close-notify">
+                        <span class="iconfont icon-cuowu"></span>
+                    </a>
+                </div>
+                <div class="info">
+                    <span class="msg">${msg}</span>
+                </div>
                 </div>`
             },
             beforeMount() {
                 console.log("beforeMount");
-                document.createElement("a").addEventListener
+                // setTimeout(() => {
+                //     this.destroy();
+                // }, 3000)
             },
-            mounted() {},
+            mounted() {
+                console.log(this.el.firstElementChild)
+                this.el.firstElementChild.querySelector(".close-notify")
+                    .addEventListener("click", this.destroy.bind(this), false);
+            },
             msg
-        })).mount(".notify-list")
+        })).mount(".notify-list");
+        return note;
     }
 
-    Notify.danger = function(msg) {
-        return new Notify(Object.assign(notifyConfig, {
+    Notify.danger = function(options) {
+        let msg = typeof options === "object" ? options.msg : options;
+        let title = typeof options === "object" ? options.title || "失败" : "失败";
+        let note = new Notify(Object.assign(notifyConfig, {
             type: "danger",
             slot: {
                 default: `<div class="notify">
-                <span class="sign danger"></span>
-                <span class="msg">${msg}</span>
-                <a href="javascript:;" class="close-notify">
-                    <span class="iconfont icon-cuowu"></span>
-                </a>
+                <div class="operation">
+                    <div class="title-wrap">
+                        <span class="sign danger"></span>
+                        <h3 class="title">${title}</h3>
+                    </div>
+                    <a href="javascript:;" class="close-notify">
+                        <span class="iconfont icon-cuowu"></span>
+                    </a>
+                </div>
+                <div class="info">
+                    <span class="msg">${msg}</span>
+                </div>
                 </div>`
             },
             beforeMount() {
                 console.log("beforeMount");
+                setTimeout(() => {
+                    this.destroy();
+                }, 3000)
             },
             mounted() {
-                console.log("mounted");
+                console.log(this.el.firstElementChild)
+                this.el.firstElementChild.querySelector(".close-notify")
+                    .addEventListener("click", this.destroy.bind(this), false);
             },
             msg
-        })).mount(".notify-list")
+        })).mount(".notify-list");
+        return note;
     }
 
     window.notify = Notify;

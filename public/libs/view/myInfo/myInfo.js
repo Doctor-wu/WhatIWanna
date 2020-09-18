@@ -6,6 +6,11 @@ let myInfo = {
     <section class="myInfo">
         MyInfo
     </section>
+    `,
+    plainScript: `
+        notify.info({
+            msg: "测试消息"
+        })
     `
 };
 

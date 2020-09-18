@@ -36,11 +36,13 @@ function matcher(map) {
   function flush(route) {
     if (route) {
       if (route.parent) {
+        notify.success({
+          title: "路由切换",
+          msg: route.name
+        });
         flush.call(this, route.parent);
         route.parent.view.renderView(route.view);
       } else {
-        notify.success(route.name);
-
         if (this.curRootRoute !== route.pathArr[0]) {
           route.view.firstLoad = true;
           this.curRootRoute = route.pathArr[0];

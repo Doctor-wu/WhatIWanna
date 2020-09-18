@@ -127,20 +127,17 @@ html {
   max-width: 300px;
   z-index: 998;
   width: 80vw;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  flex-direction: column;
-  justify-items: flex-start;
+}
+.notify-list .msg {
+  width: 100%;
 }
 .notify-list .notify {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  font-size: 0.37rem;
   text-align: left;
   padding: 0.2rem 0.2rem;
   margin: 0.1rem 0;
@@ -149,43 +146,79 @@ html {
   border: 1px solid #ccc;
   border-radius: 8px;
 }
-.notify-list .notify .msg {
-  width: 80%;
-  padding: 0.4rem 0;
+.notify-list .notify .operation {
   display: inline-block;
-  word-break: break-all;
-  word-spacing: 0.05rem;
-  line-height: 0.4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
-.notify-list .notify .close-notify {
+.notify-list .notify .operation .title-wrap {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.notify-list .notify .operation .title {
+  padding-left: 0.1rem;
+  font-size: 0.35rem;
+  font-weight: bold;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  display: -webkit-box;
+}
+.notify-list .notify .operation .sign {
+  display: inline-block;
+  width: 0.35rem;
+  height: 0.35rem;
+  margin-right: 0.1rem;
+  border-radius: 50%;
+  background-color: yellow;
+}
+.notify-list .notify .operation .sign.success {
+  background-color: lightgreen;
+}
+.notify-list .notify .operation .sign.danger {
+  background-color: lightcoral;
+}
+.notify-list .notify .operation .sign.warn {
+  background-color: lightsalmon;
+}
+.notify-list .notify .operation .sign.info {
+  background-color: lightgrey;
+}
+.notify-list .notify .operation .close-notify {
   float: right;
   margin-right: 0.1rem;
   display: inline-block;
   height: 0.4rem;
 }
-.notify-list .notify .close-notify .iconfont {
+.notify-list .notify .operation .close-notify .iconfont {
   font-size: 0.3rem;
   vertical-align: middle;
+  display: block;
 }
-.notify-list .notify .sign {
+.notify-list .notify > .info {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0.1rem 0 0 0.55rem;
+}
+.notify-list .notify > .info .msg {
+  font-size: 0.3rem;
+  width: 95%;
+  padding: 0.15rem 0 0.1rem;
   display: inline-block;
-  width: 0.3rem;
-  height: 0.3rem;
-  margin-right: 0.1rem;
-  border-radius: 50%;
-  background-color: yellow;
-}
-.notify-list .notify .sign.success {
-  background-color: lightgreen;
-}
-.notify-list .notify .sign.danger {
-  background-color: lightcoral;
-}
-.notify-list .notify .sign.warn {
-  background-color: lightsalmon;
-}
-.notify-list .notify .sign.info {
-  background-color: lightgrey;
+  word-break: break-all;
+  word-spacing: 0.05rem;
+  line-height: 0.4rem;
 }
 .notify-list .notify-leave {
   animation: shadeSlideOut ease-in-out 0.4s;
