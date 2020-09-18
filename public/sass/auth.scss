@@ -67,7 +67,7 @@
         left: 0;
     }
     .left {
-        $animateTime: 4s;
+        $animateTime: 5s;
         li {
             position: absolute;
             left: -2.5rem;
@@ -78,24 +78,24 @@
             &:nth-child(1) {
                 background-color: #07689f;
                 animation: rotate ease-in-out $animateTime infinite;
-                border-radius: 43%;
+                border-radius: 45%;
             }
             &:nth-child(2) {
                 background-color: rgba($color: #07689f, $alpha: .6);
                 animation: rotate ease $animateTime infinite;
-                animation-delay: .4s;
-                border-radius: 46%;
+                animation-delay: 1s;
+                border-radius: 43%;
             }
             &:nth-child(3) {
                 background-color: rgba($color: #07689f, $alpha: .4);
                 animation: rotate linear $animateTime infinite;
-                animation-delay: .9s;
+                animation-delay: 2s;
                 border-radius: 39%;
             }
         }
     }
     .right {
-        $animateTime: 4s;
+        $animateTime: 5s;
         li {
             position: absolute;
             right: -2.5rem;
@@ -106,19 +106,19 @@
             &:nth-child(1) {
                 background-color: #ffc93c;
                 animation: rotate ease-in-out $animateTime infinite;
-                border-radius: 43%;
+                border-radius: 45%;
             }
             &:nth-child(2) {
                 background-color: rgba($color: #ffc93c, $alpha: .6);
                 animation: rotate ease $animateTime infinite;
-                animation-delay: .4s;
-                border-radius: 46%;
+                animation-delay: 1s;
+                border-radius: 43%;
             }
             &:nth-child(3) {
                 background-color: rgba($color: #ffc93c, $alpha: .4);
                 animation: rotate linear $animateTime infinite;
-                animation-delay: .9s;
-                border-radius: 39%;
+                animation-delay: 2s;
+                border-radius: 49%;
             }
         }
     }

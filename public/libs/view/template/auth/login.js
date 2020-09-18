@@ -53,9 +53,11 @@ let login = {
     
     goLogin.addEventListener("click", () => {
         location.hash = "/home/whatList";
+        notify.success("登陆成功😀");
     })
     goRegist.addEventListener("click", () => {
         location.hash = "/auth/regist";
+        notify.success("前往注册");
     })
     `
 };

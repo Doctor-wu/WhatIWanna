@@ -8,6 +8,7 @@ exports["default"] = View;
 var _utils = require("../../js/utils/utils.js");
 
 var vid = 0;
+var hooks = ["beforeMount", "mounted"];
 
 function View(options) {
   if (!this instanceof View) {
@@ -17,11 +18,11 @@ function View(options) {
   this.options = options;
   this.vid = vid++;
   this.init();
+  this.loadHooks();
   this.parseTemplate();
 }
 
 var proto = View.prototype;
-proto.scriptHref = document.querySelector("#VIEW_SCRIPTS");
 
 proto.init = function () {
   _utils.utils.assert(this.options.template != null, "View needs a template");
@@ -30,6 +31,9 @@ proto.init = function () {
 
   this.name = this.options.name;
   this.template = this.options.template;
+  this.slot = this.options.slot || {};
+  this.hooks = {};
+  this.renderType = this.options.renderType || "default";
   this.routeCurrView = [];
   this.target = this.template;
   this.firstLoad = true;
@@ -37,15 +41,23 @@ proto.init = function () {
   this.components = this.options.components || [];
 };
 
-proto.parseTemplate = function () {
+proto.loadHooks = function () {
   var _this = this;
+
+  hooks.forEach(function (hook) {
+    _this.hooks[hook] = _this.options.hook;
+  });
+};
+
+proto.parseTemplate = function () {
+  var _this2 = this;
 
   this.target = this.template;
   this.target = this.target.replace(/__routeView__/g, "<span style='display:none' class='__view__'></span>");
   if (this.components.length === 0) return;
   this.components.forEach(function (component) {
     var name = "__".concat(component.name, "__");
-    _this.target = _this.target.replace(new RegExp(name, "g"), component.target);
+    _this2.target = _this2.target.replace(new RegExp(name, "g"), component.target);
   });
 };
 
@@ -55,27 +67,65 @@ proto.component = function (component) {
 };
 
 proto.mount = function (el) {
-  var _this2 = this;
+  var _this3 = this;
 
   el = typeof el === "string" ? document.querySelector(el) : el;
   this.el = el;
+  this.renderSlot();
+  this.executeHooks("beforeMount");
 
   if (el instanceof HTMLElement) {
-    el.innerHTML = this.target;
+    if (this.renderType === "default") {
+      el.innerHTML = this.target;
+    } else if (this.renderType === "append") {
+      var wrap = document.createElement("span");
+      wrap.innerHTML = this.target;
+      el.appendChild(wrap);
+      this.parentEl = wrap.parentElement;
+      wrap.outerHTML = wrap.innerHTML;
+      this.el = this.parentEl.lastElementChild;
+    }
   }
 
   if (this.firstLoad) {
     this.components.forEach(function (component) {
-      component.mount(_this2);
+      component.mount(_this3);
     });
     this.firstLoad = false;
   }
 
   this.flushScripts();
+  this.executeHooks("mounted");
+  return this;
+};
+
+proto.executeHooks = function (hookName) {
+  if (this.hooks[hookName]) {
+    this.hooks[hookName].call(this);
+  }
+};
+
+proto.renderSlot = function () {
+  for (var key in this.slot) {
+    if (this.slot.hasOwnProperty(key)) {
+      var element = this.slot[key];
+
+      if (element instanceof HTMLElement) {
+        element = element.outerHTML;
+      }
+
+      if (key === "default") {
+        key = "slot";
+      }
+
+      var name = "__".concat(key, "__");
+      this.target = this.target.replace(new RegExp(name, "g"), element);
+    }
+  }
 };
 
 proto.flushScripts = function () {
-  var _this3 = this;
+  var _this4 = this;
 
   if (this.options.plainScript) {
     var script = document.createElement("script");
@@ -113,10 +163,10 @@ proto.flushScripts = function () {
         var s = document.createElement("script");
         s.innerHTML = data.replace(/<br>/g, "");
         s.type = "module";
-        _this3.scripts[i] = s;
+        _this4.scripts[i] = s;
       });
 
-      _this3.scripts.forEach(function (s) {
+      _this4.scripts.forEach(function (s) {
         document.body.appendChild(s);
       });
     });
@@ -124,7 +174,7 @@ proto.flushScripts = function () {
 };
 
 proto.renderView = function (view) {
-  var _this4 = this;
+  var _this5 = this;
 
   if (this.routeCurrView.length > 0) {
     [].forEach.call(this.routeCurrView, function (route) {
@@ -136,7 +186,7 @@ proto.renderView = function (view) {
   this.routeViews = this.el.querySelectorAll(".__view__");
   [].forEach.call(this.routeViews, function (routeView) {
     routeView.outerHTML = "\n        <span style='display:none' class='__view__'></span>\n        ".concat(view.target, "\n        ");
-    _this4.routeCurrView = _this4.el.querySelectorAll(".__view__");
+    _this5.routeCurrView = _this5.el.querySelectorAll(".__view__");
   });
   this.flushScripts.call(view);
 };

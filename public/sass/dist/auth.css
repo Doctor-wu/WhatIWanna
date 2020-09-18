@@ -3,14 +3,6 @@ html {
   height: 100%;
 }
 
-.iconfont {
-  font-family: "iconfont" !important;
-  font-size: 16px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 .clearfix::after {
   content: "";
   display: block;
@@ -257,19 +249,19 @@ html {
 }
 .auth .left li:nth-child(1) {
   background-color: #07689f;
-  animation: rotate ease-in-out 4s infinite;
-  border-radius: 43%;
+  animation: rotate ease-in-out 5s infinite;
+  border-radius: 45%;
 }
 .auth .left li:nth-child(2) {
   background-color: rgba(7, 104, 159, 0.6);
-  animation: rotate ease 4s infinite;
-  animation-delay: 0.4s;
-  border-radius: 46%;
+  animation: rotate ease 5s infinite;
+  animation-delay: 1s;
+  border-radius: 43%;
 }
 .auth .left li:nth-child(3) {
   background-color: rgba(7, 104, 159, 0.4);
-  animation: rotate linear 4s infinite;
-  animation-delay: 0.9s;
+  animation: rotate linear 5s infinite;
+  animation-delay: 2s;
   border-radius: 39%;
 }
 .auth .right li {
@@ -282,20 +274,20 @@ html {
 }
 .auth .right li:nth-child(1) {
   background-color: #ffc93c;
-  animation: rotate ease-in-out 4s infinite;
-  border-radius: 43%;
+  animation: rotate ease-in-out 5s infinite;
+  border-radius: 45%;
 }
 .auth .right li:nth-child(2) {
   background-color: rgba(255, 201, 60, 0.6);
-  animation: rotate ease 4s infinite;
-  animation-delay: 0.4s;
-  border-radius: 46%;
+  animation: rotate ease 5s infinite;
+  animation-delay: 1s;
+  border-radius: 43%;
 }
 .auth .right li:nth-child(3) {
   background-color: rgba(255, 201, 60, 0.4);
-  animation: rotate linear 4s infinite;
-  animation-delay: 0.9s;
-  border-radius: 39%;
+  animation: rotate linear 5s infinite;
+  animation-delay: 2s;
+  border-radius: 49%;
 }
 @keyframes rotate {
   0% {

@@ -1,0 +1,88 @@
+@import "_nc_share.scss";
+.notify-list {
+    position: fixed;
+    top: .2rem;
+    right: 5vw;
+    max-width: 300px;
+    z-index: 998;
+    // background-color: lightseagreen;
+    width: 80vw;
+    @include flex();
+    flex-direction: column;
+    justify-items: flex-start;
+    .notify {
+        @include flex();
+        justify-content: space-between;
+        font-size: .37rem;
+        text-align: left;
+        padding: .2rem .2rem;
+        margin: .1rem 0;
+        background-color: #fff;
+        animation: shadeSlideIn ease-in-out .3s;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        .msg {
+            width: 80%;
+            padding: .4rem 0;
+            display: inline-block;
+            word-break: break-all;
+            word-spacing: .05rem;
+            line-height: .4rem;
+        }
+        .close-notify {
+            float: right;
+            margin-right: .1rem;
+            display: inline-block;
+            height: .4rem;
+            .iconfont {
+                font-size: .3rem;
+                vertical-align: middle;
+            }
+        }
+        .sign {
+            display: inline-block;
+            width: .3rem;
+            height: .3rem;
+            margin-right: .1rem;
+            border-radius: 50%;
+            background-color: yellow;
+            &.success {
+                background-color: lightgreen;
+            }
+            &.danger {
+                background-color: lightcoral;
+            }
+            &.warn {
+                background-color: lightsalmon;
+            }
+            &.info {
+                background-color: lightgrey;
+            }
+        }
+    }
+    .notify-leave {
+        animation: shadeSlideOut ease-in-out .4s;
+    }
+}
+
+@keyframes shadeSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shadeSlideOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+}

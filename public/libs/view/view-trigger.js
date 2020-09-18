@@ -32,6 +32,7 @@ function matcher(map) {
                 flush.call(this, route.parent);
                 route.parent.view.renderView(route.view);
             } else {
+                notify.success(route.name)
                 if (this.curRootRoute !== route.pathArr[0]) {
                     route.view.firstLoad = true;
                     this.curRootRoute = route.pathArr[0];

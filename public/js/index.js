@@ -12,7 +12,7 @@ let viewMap = {
     home: '/auth/login',
     map: [{
         path: '/home',
-        name: 'layout',
+        name: '首页',
         view: whatPage,
         children: [{
             path: 'whatList',
@@ -29,7 +29,7 @@ let viewMap = {
         }]
     }, {
         path: "/auth",
-        name: "auth",
+        name: "认证",
         view: auth,
         children: [{
                 path: 'login',
