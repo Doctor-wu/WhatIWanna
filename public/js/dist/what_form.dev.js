@@ -17,7 +17,7 @@ var _utils = require("./js/utils/utils.js");
   var popDrag = new _drag.Drag('.add-schedule', {
     limitYT: 10,
     limitYB: 17,
-    snapX: ".25rem"
+    snapX: 3
   });
   var popOut = popDrag.el; // 新增事件表单
 

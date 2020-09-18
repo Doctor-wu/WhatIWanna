@@ -13,7 +13,7 @@ import { utils } from './js/utils/utils.js';
     let popDrag = new Drag('.add-schedule', {
         limitYT: 10,
         limitYB: 17,
-        snapX: ".25rem"
+        snapX: 3
     });
     let popOut = popDrag.el;
 

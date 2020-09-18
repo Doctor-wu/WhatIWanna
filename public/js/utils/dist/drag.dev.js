@@ -76,31 +76,105 @@ function handleTouchMove(ev) {
 }
 
 function handleTouchEnd(ev) {
+  var _this = this;
+
   ev.stopPropagation();
   ev.stopImmediatePropagation();
   var touch = ev.changedTouches[0];
 
   if (this.snap) {
     if (touch.clientX > this.windowWidth / 2) {
-      this.el.style.right = this.snapX;
+      move({
+        type: 'left',
+        el: this.el,
+        location: window.outerWidth * ((100 - this.snapX) / 100) - this.el.offsetWidth,
+        time: 200
+      });
       this.el.style.left = "unset";
     } else {
-      this.el.style.left = this.snapX;
+      move({
+        type: 'left',
+        el: this.el,
+        location: window.outerWidth * (this.snapX / 100),
+        time: 200
+      });
       this.el.style.right = "unset";
     }
   }
 
   if (this.limitYT || this.limitYB) {
     if (this.limitYT > this.el.offsetTop) {
-      this.el.style.top = this.limitYT + 'px';
+      // this.el.style.top = this.limitYT + 'px';
+      move({
+        type: 'top',
+        el: this.el,
+        location: this.limitYT,
+        time: 200
+      });
     } else if (window.outerHeight - this.limitYB < this.el.offsetTop) {
-      this.el.style.top = window.outerHeight - this.limitYB + 'px';
+      // this.el.style.top = window.outerHeight - this.limitYB + 'px';
+      move({
+        type: 'top',
+        el: this.el,
+        location: window.outerHeight - this.limitYB,
+        time: 200
+      });
     }
   }
 
   document.removeEventListener('touchmove', this.handleM, false);
   document.removeEventListener('touchend', this.handleE, false);
-  this.currX = this.el.offsetLeft;
-  this.currY = this.el.offsetTop;
-  this.once && this.destroy();
+  setTimeout(function () {
+    _this.currX = _this.el.offsetLeft;
+    _this.currY = _this.el.offsetTop;
+    _this.once && _this.destroy();
+  }, 500);
+}
+
+function move(options) {
+  var type = options.type,
+      location = options.location,
+      time = options.time,
+      el = options.el;
+  console.log(parseFloat(getComputedStyle(el).getPropertyValue(type)), el.style[type]);
+  var now = parseFloat(getComputedStyle(el).getPropertyValue(type));
+
+  if (String(location).endsWith("rem")) {
+    location = parseFloat(location) * 100;
+  }
+
+  var distance = location - now,
+      symbol;
+
+  if (distance > 0) {
+    symbol = true;
+  } else {
+    distance = -distance;
+    symbol = false;
+  }
+
+  var frame = distance / time;
+  var start;
+  console.log(distance, now, frame);
+
+  function step(timestamp) {
+    if (start === undefined) start = timestamp;
+    var elapsed = timestamp - start; // `Math.min()` is used here to make sure that the element stops at exactly 200px.
+    // console.log(now - (frame * elapsed))
+
+    if (symbol) {
+      el.style[type] = now + frame * elapsed + 'px';
+    } else {
+      // console.log(now - (frame * elapsed))
+      el.style[type] = now - frame * elapsed + 'px';
+    } // 'translateX(' + Math.min(0.1 * elapsed, 200) + 'px)';
+
+
+    if (elapsed < time) {
+      // Stop the animation after 2 seconds
+      window.requestAnimationFrame(step);
+    }
+  }
+
+  window.requestAnimationFrame(step);
 }

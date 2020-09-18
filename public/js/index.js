@@ -9,7 +9,7 @@ import regist from "../libs/view/template/auth/regist.js";
 
 
 let viewMap = {
-    home: '/auth/login',
+    home: '/home/whatList',
     map: [{
         path: '/home',
         name: '首页',

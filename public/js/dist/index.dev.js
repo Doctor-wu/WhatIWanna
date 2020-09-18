@@ -19,7 +19,7 @@ var _regist = _interopRequireDefault(require("../libs/view/template/auth/regist.
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var viewMap = {
-  home: '/auth/login',
+  home: '/home/whatList',
   map: [{
     path: '/home',
     name: '首页',
