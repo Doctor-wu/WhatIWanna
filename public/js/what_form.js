@@ -104,7 +104,10 @@ import { utils } from './js/utils/utils.js';
     popOut.addEventListener('click', showForm);
     close.addEventListener('click', hideForm);
 
-    function showForm() {
+    function showForm(ev) {
+        ev.stopPropagation();
+        ev.stopImmediatePropagation();
+        ev.preventDefault();
         formWrap.classList.remove("hide");
         whatList.classList.add("hide");
         setTimeout(() => {

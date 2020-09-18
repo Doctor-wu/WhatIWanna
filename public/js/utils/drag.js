@@ -135,7 +135,6 @@ function handleTouchEnd(ev) {
 
 function move(options) {
     let { type, location, time, el } = options;
-    console.log(parseFloat(getComputedStyle(el).getPropertyValue(type)), el.style[type])
     let now = parseFloat(getComputedStyle(el).getPropertyValue(type));
     if (String(location).endsWith("rem")) {
         location = parseFloat(location) * 100;
@@ -151,7 +150,6 @@ function move(options) {
     }
     let frame = distance / time;
     let start;
-    console.log(distance, now, frame);
 
     function step(timestamp) {
         if (start === undefined)

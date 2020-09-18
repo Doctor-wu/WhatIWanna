@@ -2,7 +2,7 @@ import { Viewtrigger } from "../libs/view/view-trigger.js";
 import whatPage from "../libs/view/template/whatPage/what-page.js";
 import myInfo from "../libs/view/myInfo/myInfo.js";
 import whatList from "../libs/view/template/whatPage/whatList.js";
-import wanna from "../libs/view/wanna/wanna.js";
+import wanna from "../libs/view/template/wanna/wanna.js";
 import auth from "../libs/view/template/auth/auth.js";
 import login from "../libs/view/template/auth/login.js";
 import regist from "../libs/view/template/auth/regist.js";

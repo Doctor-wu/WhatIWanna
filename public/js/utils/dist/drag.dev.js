@@ -136,7 +136,6 @@ function move(options) {
       location = options.location,
       time = options.time,
       el = options.el;
-  console.log(parseFloat(getComputedStyle(el).getPropertyValue(type)), el.style[type]);
   var now = parseFloat(getComputedStyle(el).getPropertyValue(type));
 
   if (String(location).endsWith("rem")) {
@@ -155,7 +154,6 @@ function move(options) {
 
   var frame = distance / time;
   var start;
-  console.log(distance, now, frame);
 
   function step(timestamp) {
     if (start === undefined) start = timestamp;

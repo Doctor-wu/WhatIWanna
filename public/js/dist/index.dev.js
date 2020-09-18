@@ -8,7 +8,7 @@ var _myInfo = _interopRequireDefault(require("../libs/view/myInfo/myInfo.js"));
 
 var _whatList = _interopRequireDefault(require("../libs/view/template/whatPage/whatList.js"));
 
-var _wanna = _interopRequireDefault(require("../libs/view/wanna/wanna.js"));
+var _wanna = _interopRequireDefault(require("../libs/view/template/wanna/wanna.js"));
 
 var _auth = _interopRequireDefault(require("../libs/view/template/auth/auth.js"));
 

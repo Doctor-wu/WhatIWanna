@@ -17,19 +17,37 @@ function Notify(options) {
 
   _view["default"].call(this, options);
 
-  this.hooks.beforeMount = options.beforeMount;
-  this.hooks.mounted = options.mounted;
+  this.options = options;
+  this.initHooks();
 }
 
 var proto = Notify.prototype = Object.create(_view["default"].prototype);
 proto.constructor = Notify;
 
+proto.initHooks = function () {
+  this.hooks.beforeMount = [function () {
+    var _this = this;
+
+    setTimeout(function () {
+      _this.destroy();
+    }, 3000);
+  }];
+  this.hooks.mounted = [function () {
+    this.el.firstElementChild.querySelector(".close-notify").addEventListener("click", this.destroy.bind(this), false);
+  }];
+  this.options.beforeMount && this.hooks.beforeMount.push(this.options.beforeMount);
+  this.options.mounted && this.hooks.mounted.push(this.options.mounted);
+};
+
 proto.destroy = function () {
-  var _this = this;
+  var _this2 = this;
 
   this.el.classList.add("notify-leave");
   setTimeout(function () {
-    _this.el.parentNode.removeChild(_this.el);
+    _this2.el.parentNode.removeChild(_this2.el);
+
+    _this2.el = null;
+    _this2.destroyed = true;
   }, 300);
 };
 
@@ -56,18 +74,6 @@ proto.destroy = function () {
       slot: {
         "default": "<div class=\"notify\">\n                <div class=\"operation\">\n                    <div class=\"title-wrap\">\n                        <span class=\"sign success\"></span>\n                        <h3 class=\"title\">".concat(title, "</h3>\n                    </div>\n                    <a href=\"javascript:;\" class=\"close-notify\">\n                        <span class=\"iconfont icon-cuowu\"></span>\n                    </a>\n                </div>\n                <div class=\"info\">\n                    <span class=\"msg\">").concat(msg, "</span>\n                </div>\n                </div>")
       },
-      beforeMount: function beforeMount() {
-        var _this2 = this;
-
-        console.log("beforeMount");
-        setTimeout(function () {
-          _this2.destroy();
-        }, 3000);
-      },
-      mounted: function mounted() {
-        console.log(this.el.firstElementChild);
-        this.el.firstElementChild.querySelector(".close-notify").addEventListener("click", this.destroy.bind(this), false);
-      },
       msg: msg
     })).mount(".notify-list"); // new Drag(note.el, {
     //     limitYT: 2,
@@ -85,18 +91,6 @@ proto.destroy = function () {
       slot: {
         "default": "<div class=\"notify\">\n                <div class=\"operation\">\n                    <div class=\"title-wrap\">\n                        <span class=\"sign warn\"></span>\n                        <h3 class=\"title\">".concat(title, "</h3>\n                    </div>\n                    <a href=\"javascript:;\" class=\"close-notify\">\n                        <span class=\"iconfont icon-cuowu\"></span>\n                    </a>\n                </div>\n                <div class=\"info\">\n                    <span class=\"msg\">").concat(msg, "</span>\n                </div>\n                </div>")
       },
-      beforeMount: function beforeMount() {
-        var _this3 = this;
-
-        console.log("beforeMount");
-        setTimeout(function () {
-          _this3.destroy();
-        }, 3000);
-      },
-      mounted: function mounted() {
-        console.log(this.el.firstElementChild);
-        this.el.firstElementChild.querySelector(".close-notify").addEventListener("click", this.destroy.bind(this), false);
-      },
       msg: msg
     })).mount(".notify-list");
     return note;
@@ -110,18 +104,6 @@ proto.destroy = function () {
       slot: {
         "default": "<div class=\"notify\">\n                <div class=\"operation\">\n                    <div class=\"title-wrap\">\n                        <span class=\"sign info\"></span>\n                        <h3 class=\"title\">".concat(title, "</h3>\n                    </div>\n                    <a href=\"javascript:;\" class=\"close-notify\">\n                        <span class=\"iconfont icon-cuowu\"></span>\n                    </a>\n                </div>\n                <div class=\"info\">\n                    <span class=\"msg\">").concat(msg, "</span>\n                </div>\n                </div>")
       },
-      beforeMount: function beforeMount() {
-        var _this4 = this;
-
-        console.log("beforeMount");
-        setTimeout(function () {
-          _this4.destroy();
-        }, 3000);
-      },
-      mounted: function mounted() {
-        console.log(this.el.firstElementChild);
-        this.el.firstElementChild.querySelector(".close-notify").addEventListener("click", this.destroy.bind(this), false);
-      },
       msg: msg
     })).mount(".notify-list");
     return note;
@@ -134,18 +116,6 @@ proto.destroy = function () {
       type: "danger",
       slot: {
         "default": "<div class=\"notify\">\n                <div class=\"operation\">\n                    <div class=\"title-wrap\">\n                        <span class=\"sign danger\"></span>\n                        <h3 class=\"title\">".concat(title, "</h3>\n                    </div>\n                    <a href=\"javascript:;\" class=\"close-notify\">\n                        <span class=\"iconfont icon-cuowu\"></span>\n                    </a>\n                </div>\n                <div class=\"info\">\n                    <span class=\"msg\">").concat(msg, "</span>\n                </div>\n                </div>")
-      },
-      beforeMount: function beforeMount() {
-        var _this5 = this;
-
-        console.log("beforeMount");
-        setTimeout(function () {
-          _this5.destroy();
-        }, 3000);
-      },
-      mounted: function mounted() {
-        console.log(this.el.firstElementChild);
-        this.el.firstElementChild.querySelector(".close-notify").addEventListener("click", this.destroy.bind(this), false);
       },
       msg: msg
     })).mount(".notify-list");

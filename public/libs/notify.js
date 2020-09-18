@@ -9,16 +9,35 @@ function Notify(options) {
         return new Notify(options);
     }
     View.call(this, options);
-    this.hooks.beforeMount = options.beforeMount;
-    this.hooks.mounted = options.mounted;
+    this.options = options;
+    this.initHooks();
 }
 let proto = Notify.prototype = Object.create(View.prototype);
 proto.constructor = Notify;
+
+
+proto.initHooks = function() {
+    this.hooks.beforeMount = [function() {
+        setTimeout(() => {
+            this.destroy();
+        }, 3000)
+    }];
+    this.hooks.mounted = [function() {
+        this.el.firstElementChild.querySelector(".close-notify")
+            .addEventListener("click", this.destroy.bind(this), false);
+    }];
+
+
+    this.options.beforeMount && this.hooks.beforeMount.push(this.options.beforeMount);
+    this.options.mounted && this.hooks.mounted.push(this.options.mounted);
+}
 
 proto.destroy = function() {
     this.el.classList.add("notify-leave");
     setTimeout(() => {
         this.el.parentNode.removeChild(this.el);
+        this.el = null;
+        this.destroyed = true;
     }, 300)
 };
 
@@ -68,17 +87,6 @@ proto.destroy = function() {
                 </div>
                 </div>`
             },
-            beforeMount() {
-                console.log("beforeMount");
-                setTimeout(() => {
-                    this.destroy();
-                }, 3000)
-            },
-            mounted() {
-                console.log(this.el.firstElementChild)
-                this.el.firstElementChild.querySelector(".close-notify")
-                    .addEventListener("click", this.destroy.bind(this), false);
-            },
             msg
         })).mount(".notify-list");
         // new Drag(note.el, {
@@ -109,17 +117,6 @@ proto.destroy = function() {
                 </div>
                 </div>`
             },
-            beforeMount() {
-                console.log("beforeMount");
-                setTimeout(() => {
-                    this.destroy();
-                }, 3000)
-            },
-            mounted() {
-                console.log(this.el.firstElementChild)
-                this.el.firstElementChild.querySelector(".close-notify")
-                    .addEventListener("click", this.destroy.bind(this), false);
-            },
             msg
         })).mount(".notify-list");
         return note;
@@ -146,17 +143,6 @@ proto.destroy = function() {
                 </div>
                 </div>`
             },
-            beforeMount() {
-                console.log("beforeMount");
-                setTimeout(() => {
-                    this.destroy();
-                }, 3000)
-            },
-            mounted() {
-                console.log(this.el.firstElementChild)
-                this.el.firstElementChild.querySelector(".close-notify")
-                    .addEventListener("click", this.destroy.bind(this), false);
-            },
             msg
         })).mount(".notify-list");
         return note;
@@ -182,17 +168,6 @@ proto.destroy = function() {
                     <span class="msg">${msg}</span>
                 </div>
                 </div>`
-            },
-            beforeMount() {
-                console.log("beforeMount");
-                setTimeout(() => {
-                    this.destroy();
-                }, 3000)
-            },
-            mounted() {
-                console.log(this.el.firstElementChild)
-                this.el.firstElementChild.querySelector(".close-notify")
-                    .addEventListener("click", this.destroy.bind(this), false);
             },
             msg
         })).mount(".notify-list");

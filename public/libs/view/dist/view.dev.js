@@ -45,7 +45,8 @@ proto.loadHooks = function () {
   var _this = this;
 
   hooks.forEach(function (hook) {
-    _this.hooks[hook] = _this.options.hook;
+    if (!_this.hooks[hook]) _this.hooks[hook] = [];
+    _this.options.hook && _this.hooks[hook].push(_this.options.hook);
   });
 };
 
@@ -100,8 +101,12 @@ proto.mount = function (el) {
 };
 
 proto.executeHooks = function (hookName) {
+  var _this4 = this;
+
   if (this.hooks[hookName]) {
-    this.hooks[hookName].call(this);
+    this.hooks[hookName].forEach(function (hook) {
+      hook.call(_this4);
+    });
   }
 };
 
@@ -125,7 +130,7 @@ proto.renderSlot = function () {
 };
 
 proto.flushScripts = function () {
-  var _this4 = this;
+  var _this5 = this;
 
   if (this.options.plainScript) {
     var script = document.createElement("script");
@@ -163,10 +168,10 @@ proto.flushScripts = function () {
         var s = document.createElement("script");
         s.innerHTML = data.replace(/<br>/g, "");
         s.type = "module";
-        _this4.scripts[i] = s;
+        _this5.scripts[i] = s;
       });
 
-      _this4.scripts.forEach(function (s) {
+      _this5.scripts.forEach(function (s) {
         document.body.appendChild(s);
       });
     });
@@ -174,7 +179,7 @@ proto.flushScripts = function () {
 };
 
 proto.renderView = function (view) {
-  var _this5 = this;
+  var _this6 = this;
 
   if (this.routeCurrView.length > 0) {
     [].forEach.call(this.routeCurrView, function (route) {
@@ -186,7 +191,7 @@ proto.renderView = function (view) {
   this.routeViews = this.el.querySelectorAll(".__view__");
   [].forEach.call(this.routeViews, function (routeView) {
     routeView.outerHTML = "\n        <span style='display:none' class='__view__'></span>\n        ".concat(view.target, "\n        ");
-    _this5.routeCurrView = _this5.el.querySelectorAll(".__view__");
+    _this6.routeCurrView = _this6.el.querySelectorAll(".__view__");
   });
   this.flushScripts.call(view);
 };

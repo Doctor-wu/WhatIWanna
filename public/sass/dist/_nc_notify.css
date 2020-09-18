@@ -127,6 +127,7 @@ html {
   max-width: 300px;
   z-index: 998;
   width: 80vw;
+  transition: all ease-in-out 0.3s;
 }
 .notify-list .msg {
   width: 100%;
@@ -145,6 +146,7 @@ html {
   animation: shadeSlideIn ease-in-out 0.3s;
   border: 1px solid #ccc;
   border-radius: 8px;
+  transition: all ease-in-out 0.3s;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.04), 0 0 8px rgba(0, 0, 0, 0.08), 0 0 4px rgba(0, 0, 0, 0.12);
 }
 .notify-list .notify .operation {
@@ -196,7 +198,6 @@ html {
 }
 .notify-list .notify .operation .close-notify {
   padding: 0.1rem 0;
-  float: right;
   margin-right: 0.1rem;
   display: inline-block;
   height: 0.4rem;

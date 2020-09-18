@@ -36,7 +36,8 @@ proto.init = function() {
 
 proto.loadHooks = function() {
     hooks.forEach(hook => {
-        this.hooks[hook] = this.options.hook;
+        if (!this.hooks[hook]) this.hooks[hook] = [];
+        this.options.hook && this.hooks[hook].push(this.options.hook);
     })
 }
 
@@ -88,7 +89,9 @@ proto.mount = function(el) {
 
 proto.executeHooks = function(hookName) {
     if (this.hooks[hookName]) {
-        this.hooks[hookName].call(this);
+        this.hooks[hookName].forEach(hook => {
+            hook.call(this)
+        });
     }
 }
 
