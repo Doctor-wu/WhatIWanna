@@ -147,13 +147,13 @@ html {
   border-radius: 8px;
 }
 .notify-list .notify .operation {
-  padding: 0.1rem 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   width: 100%;
   justify-content: space-between;
+  padding: 0.05rem 0;
 }
 .notify-list .notify .operation .title-wrap {
   display: -webkit-box;
@@ -162,6 +162,7 @@ html {
   display: flex;
 }
 .notify-list .notify .operation .title {
+  padding: 0.1rem 0;
   padding-left: 0.1rem;
   font-size: 0.35rem;
   font-weight: bold;
@@ -174,6 +175,7 @@ html {
 .notify-list .notify .operation .sign {
   display: inline-block;
   width: 0.35rem;
+  margin: 0.1rem 0;
   height: 0.35rem;
   margin-right: 0.1rem;
   border-radius: 50%;
@@ -192,6 +194,7 @@ html {
   background-color: lightgrey;
 }
 .notify-list .notify .operation .close-notify {
+  padding: 0.1rem 0;
   float: right;
   margin-right: 0.1rem;
   display: inline-block;
@@ -214,7 +217,7 @@ html {
 .notify-list .notify > .info .msg {
   font-size: 0.3rem;
   width: 95%;
-  padding: 0.15rem 0 0.1rem;
+  padding: 0.05rem 0 0.1rem;
   display: inline-block;
   word-break: break-all;
   word-spacing: 0.05rem;

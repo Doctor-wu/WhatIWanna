@@ -57,12 +57,9 @@ proto.destroy = function () {
         "default": "<div class=\"notify\">\n                <div class=\"operation\">\n                    <div class=\"title-wrap\">\n                        <span class=\"sign success\"></span>\n                        <h3 class=\"title\">".concat(title, "</h3>\n                    </div>\n                    <a href=\"javascript:;\" class=\"close-notify\">\n                        <span class=\"iconfont icon-cuowu\"></span>\n                    </a>\n                </div>\n                <div class=\"info\">\n                    <span class=\"msg\">").concat(msg, "</span>\n                </div>\n                </div>")
       },
       beforeMount: function beforeMount() {
-        var _this2 = this;
-
-        console.log("beforeMount");
-        setTimeout(function () {
-          _this2.destroy();
-        }, 3000);
+        console.log("beforeMount"); // setTimeout(() => {
+        //     this.destroy();
+        // }, 3000)
       },
       mounted: function mounted() {
         console.log(this.el.firstElementChild);
@@ -86,11 +83,11 @@ proto.destroy = function () {
         "default": "<div class=\"notify\">\n                <div class=\"operation\">\n                    <div class=\"title-wrap\">\n                        <span class=\"sign warn\"></span>\n                        <h3 class=\"title\">".concat(title, "</h3>\n                    </div>\n                    <a href=\"javascript:;\" class=\"close-notify\">\n                        <span class=\"iconfont icon-cuowu\"></span>\n                    </a>\n                </div>\n                <div class=\"info\">\n                    <span class=\"msg\">").concat(msg, "</span>\n                </div>\n                </div>")
       },
       beforeMount: function beforeMount() {
-        var _this3 = this;
+        var _this2 = this;
 
         console.log("beforeMount");
         setTimeout(function () {
-          _this3.destroy();
+          _this2.destroy();
         }, 3000);
       },
       mounted: function mounted() {
@@ -111,11 +108,11 @@ proto.destroy = function () {
         "default": "<div class=\"notify\">\n                <div class=\"operation\">\n                    <div class=\"title-wrap\">\n                        <span class=\"sign info\"></span>\n                        <h3 class=\"title\">".concat(title, "</h3>\n                    </div>\n                    <a href=\"javascript:;\" class=\"close-notify\">\n                        <span class=\"iconfont icon-cuowu\"></span>\n                    </a>\n                </div>\n                <div class=\"info\">\n                    <span class=\"msg\">").concat(msg, "</span>\n                </div>\n                </div>")
       },
       beforeMount: function beforeMount() {
-        var _this4 = this;
+        var _this3 = this;
 
         console.log("beforeMount");
         setTimeout(function () {
-          _this4.destroy();
+          _this3.destroy();
         }, 3000);
       },
       mounted: function mounted() {
@@ -136,11 +133,11 @@ proto.destroy = function () {
         "default": "<div class=\"notify\">\n                <div class=\"operation\">\n                    <div class=\"title-wrap\">\n                        <span class=\"sign danger\"></span>\n                        <h3 class=\"title\">".concat(title, "</h3>\n                    </div>\n                    <a href=\"javascript:;\" class=\"close-notify\">\n                        <span class=\"iconfont icon-cuowu\"></span>\n                    </a>\n                </div>\n                <div class=\"info\">\n                    <span class=\"msg\">").concat(msg, "</span>\n                </div>\n                </div>")
       },
       beforeMount: function beforeMount() {
-        var _this5 = this;
+        var _this4 = this;
 
         console.log("beforeMount");
         setTimeout(function () {
-          _this5.destroy();
+          _this4.destroy();
         }, 3000);
       },
       mounted: function mounted() {

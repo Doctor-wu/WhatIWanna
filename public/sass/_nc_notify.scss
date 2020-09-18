@@ -22,14 +22,15 @@
         border: 1px solid #ccc;
         border-radius: 8px;
         .operation {
-            padding: .1rem 0;
             @include flex();
             width: 100%;
             justify-content: space-between;
+            padding: .05rem 0;
             .title-wrap {
                 @include flex()
             }
             .title {
+                padding: .1rem 0;
                 padding-left: .1rem;
                 font-size: .35rem;
                 font-weight: bold;
@@ -38,6 +39,7 @@
             .sign {
                 display: inline-block;
                 width: .35rem;
+                margin: .1rem 0;
                 height: .35rem;
                 margin-right: .1rem;
                 border-radius: 50%;
@@ -56,6 +58,7 @@
                 }
             }
             .close-notify {
+                padding: .1rem 0;
                 float: right;
                 margin-right: .1rem;
                 display: inline-block;
@@ -75,7 +78,7 @@
             .msg {
                 font-size: .30rem;
                 width: 95%;
-                padding: .15rem 0 .1rem;
+                padding: .05rem 0 .1rem;
                 display: inline-block;
                 word-break: break-all;
                 word-spacing: .05rem;
