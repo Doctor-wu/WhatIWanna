@@ -147,7 +147,7 @@ html {
   border-radius: 8px;
 }
 .notify-list .notify .operation {
-  display: inline-block;
+  padding: 0.1rem 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

@@ -851,7 +851,7 @@ html {
     border: 1px solid #ccc;
     border-radius: 8px; }
     .notify-list .notify .operation {
-      display: inline-block;
+      padding: .1rem 0;
       display: -webkit-box;
       display: -webkit-flex;
       display: -ms-flexbox;
