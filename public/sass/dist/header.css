@@ -177,7 +177,7 @@ html {
   background-color: #ffc93c;
   width: 100%;
   color: #222222;
-  padding-right: 3%;
+  padding-right: 0.2rem;
   transition: all ease-in-out 0.3s;
 }
 #main-header .date span {
