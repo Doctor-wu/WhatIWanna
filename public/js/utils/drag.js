@@ -72,7 +72,7 @@ function handleTouchStart(ev) {
 function handleTouchMove(ev) {
     ev.stopPropagation();
     ev.stopImmediatePropagation();
-    ev.preventDefault();
+    // ev.preventDefault();
     let touch = ev.changedTouches[0];
     let changedX = (touch.clientX - this.gapX) + 'px';
     let changedY = (touch.clientY - this.gapY) + 'px';
@@ -84,7 +84,6 @@ function handleTouchMove(ev) {
 function handleTouchEnd(ev) {
     ev.stopPropagation();
     ev.stopImmediatePropagation();
-    ev.preventDefault();
     let touch = ev.changedTouches[0];
     if (this.snap) {
         if (touch.clientX > this.windowWidth / 2) {

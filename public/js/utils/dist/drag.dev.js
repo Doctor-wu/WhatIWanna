@@ -65,8 +65,8 @@ function handleTouchStart(ev) {
 
 function handleTouchMove(ev) {
   ev.stopPropagation();
-  ev.stopImmediatePropagation();
-  ev.preventDefault();
+  ev.stopImmediatePropagation(); // ev.preventDefault();
+
   var touch = ev.changedTouches[0];
   var changedX = touch.clientX - this.gapX + 'px';
   var changedY = touch.clientY - this.gapY + 'px';
@@ -80,7 +80,6 @@ function handleTouchEnd(ev) {
 
   ev.stopPropagation();
   ev.stopImmediatePropagation();
-  ev.preventDefault();
   var touch = ev.changedTouches[0];
 
   if (this.snap) {
