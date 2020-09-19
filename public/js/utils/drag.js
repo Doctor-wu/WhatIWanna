@@ -85,6 +85,7 @@ function handleTouchMove(ev) {
 function handleTouchEnd(ev) {
     ev.stopPropagation();
     ev.stopImmediatePropagation();
+    ev.cancelBubble = true;
     let touch = ev.changedTouches[0];
     if (this.snap) {
         if (touch.clientX > this.windowWidth / 2) {

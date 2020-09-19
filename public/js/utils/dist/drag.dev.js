@@ -81,6 +81,7 @@ function handleTouchEnd(ev) {
 
   ev.stopPropagation();
   ev.stopImmediatePropagation();
+  ev.cancelBubble = true;
   var touch = ev.changedTouches[0];
 
   if (this.snap) {

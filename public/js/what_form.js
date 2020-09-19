@@ -105,15 +105,12 @@ import { utils } from './js/utils/utils.js';
     close.addEventListener('click', hideForm);
 
     function showForm(ev) {
-        ev.stopPropagation();
-        ev.stopImmediatePropagation();
-        ev.cancelBubble = true;
         console.log(ev)
         formWrap.classList.remove("hide");
         whatList.classList.add("hide");
         setTimeout(() => {
             document.addEventListener("click", handle);
-        }, 5);
+        }, 100);
     }
 
     function hideForm() {
