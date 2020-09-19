@@ -73,6 +73,7 @@
         outline: none;
         transition: all ease-in-out .3s;
         transform: translateY(.6rem);
+        opacity: 0;
     }
     .slideDown {
         transform: translateY(.6rem);

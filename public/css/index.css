@@ -327,7 +327,8 @@ html {
     border: none;
     outline: none;
     transition: all ease-in-out .3s;
-    transform: translateY(0.6rem); }
+    transform: translateY(0.6rem);
+    opacity: 0; }
   #main-header .slideDown {
     transform: translateY(0.6rem); }
 

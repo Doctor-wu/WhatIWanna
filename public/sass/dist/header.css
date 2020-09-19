@@ -200,6 +200,7 @@ html {
   outline: none;
   transition: all ease-in-out 0.3s;
   transform: translateY(0.6rem);
+  opacity: 0;
 }
 #main-header .slideDown {
   transform: translateY(0.6rem);
