@@ -24,6 +24,9 @@ proto.init = function() {
     this.template = this.options.template;
     this.slot = this.options.slot || {};
     this.hooks = {};
+    this.hooks["mounted"] = [function() {
+        console.log(this);
+    }]
     this.renderType = this.options.renderType || "default";
     this.routeCurrView = [];
     this.target = this.template;
