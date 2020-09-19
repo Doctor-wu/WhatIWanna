@@ -60,7 +60,6 @@ Drag.prototype.destroy = function() {
 function handleTouchStart(ev) {
     ev.stopPropagation();
     ev.stopImmediatePropagation();
-    ev.cancelBubble = true;
     this.el.style.transition = "";
     let touch = ev.changedTouches[0];
     this.gapX = touch.clientX - this.currX;
@@ -72,7 +71,7 @@ function handleTouchStart(ev) {
 function handleTouchMove(ev) {
     ev.stopPropagation();
     ev.stopImmediatePropagation();
-    // ev.preventDefault();
+    ev.preventDefault();
     ev.cancelBubble = true;
     let touch = ev.changedTouches[0];
     let changedX = (touch.clientX - this.gapX) + 'px';
@@ -85,7 +84,6 @@ function handleTouchMove(ev) {
 function handleTouchEnd(ev) {
     ev.stopPropagation();
     ev.stopImmediatePropagation();
-    ev.cancelBubble = true;
     let touch = ev.changedTouches[0];
     if (this.snap) {
         if (touch.clientX > this.windowWidth / 2) {
