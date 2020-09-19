@@ -22,7 +22,7 @@
 
   function changeDate() {
     picker.classList.toggle("slideDown");
-    date.innerText = this.value || new Date().toLocaleDateString().replace(/\//g, "-");
+    date.firstElementChild.innerText = this.value || new Date().toLocaleDateString().replace(/\//g, "-");
   }
 
   function hideDate(ev) {
