@@ -41,6 +41,8 @@ Drag.prototype.init = function(el, options) {
     this.el.style.right = "unset";
 
     this.el.style.bottom = "unset";
+
+    this.moved = false;
 }
 
 Drag.prototype.dragable = function() {
@@ -77,6 +79,7 @@ function handleTouchMove(ev) {
     let changedX = (touch.clientX - this.gapX) + 'px';
     let changedY = (touch.clientY - this.gapY) + 'px';
     if (parseFloat(changedX) + (parseFloat(changedY) > 16)) {
+        this.moved = true;
         this.el.style.left = changedX;
         this.el.style.top = changedY;
     }
@@ -87,43 +90,47 @@ function handleTouchEnd(ev) {
     ev.stopPropagation();
     ev.stopImmediatePropagation();
     let touch = ev.changedTouches[0];
-    if (this.snap) {
-        if (touch.clientX > this.windowWidth / 2) {
-            move({
-                type: 'left',
-                el: this.el,
-                location: (window.outerWidth * ((100 - this.snapX) / 100) - this.el.offsetWidth),
-                time: 200
-            });
-            this.el.style.left = "unset";
-        } else {
-            move({
-                type: 'left',
-                el: this.el,
-                location: (window.outerWidth * (this.snapX / 100)),
-                time: 200
-            });
-            this.el.style.right = "unset";
+    if (this.moved) {
+
+        if (this.snap) {
+            if (touch.clientX > this.windowWidth / 2) {
+                move({
+                    type: 'left',
+                    el: this.el,
+                    location: (window.outerWidth * ((100 - this.snapX) / 100) - this.el.offsetWidth),
+                    time: 200
+                });
+                this.el.style.left = "unset";
+            } else {
+                move({
+                    type: 'left',
+                    el: this.el,
+                    location: (window.outerWidth * (this.snapX / 100)),
+                    time: 200
+                });
+                this.el.style.right = "unset";
+            }
         }
-    }
-    if (this.limitYT || this.limitYB) {
-        if (this.limitYT > this.el.offsetTop) {
-            // this.el.style.top = this.limitYT + 'px';
-            move({
-                type: 'top',
-                el: this.el,
-                location: this.limitYT,
-                time: 200
-            });
-        } else if (window.outerHeight - this.limitYB < this.el.offsetTop) {
-            // this.el.style.top = window.outerHeight - this.limitYB + 'px';
-            move({
-                type: 'top',
-                el: this.el,
-                location: window.outerHeight - this.limitYB,
-                time: 200
-            });
+        if (this.limitYT || this.limitYB) {
+            if (this.limitYT > this.el.offsetTop) {
+                // this.el.style.top = this.limitYT + 'px';
+                move({
+                    type: 'top',
+                    el: this.el,
+                    location: this.limitYT,
+                    time: 200
+                });
+            } else if (window.outerHeight - this.limitYB < this.el.offsetTop) {
+                // this.el.style.top = window.outerHeight - this.limitYB + 'px';
+                move({
+                    type: 'top',
+                    el: this.el,
+                    location: window.outerHeight - this.limitYB,
+                    time: 200
+                });
+            }
         }
+        this.moved = false;
     }
     document.removeEventListener('touchmove', this.handleM, false);
     document.removeEventListener('touchend', this.handleE, false);

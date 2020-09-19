@@ -107,6 +107,7 @@ import { utils } from './js/utils/utils.js';
     function showForm(ev) {
         ev.cancelBubble = true;
         ev.stopPropagation();
+        ev.stopImmediatePropagation();
         console.log(ev)
         formWrap.classList.remove("hide");
         whatList.classList.add("hide");
