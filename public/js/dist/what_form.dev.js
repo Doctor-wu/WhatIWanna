@@ -108,6 +108,8 @@ var _utils = require("./js/utils/utils.js");
   close.addEventListener('click', hideForm);
 
   function showForm(ev) {
+    ev.cancelBubble = true;
+    ev.stopPropagation();
     console.log(ev);
     formWrap.classList.remove("hide");
     whatList.classList.add("hide");

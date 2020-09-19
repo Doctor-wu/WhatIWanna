@@ -76,8 +76,10 @@ function handleTouchMove(ev) {
     let touch = ev.changedTouches[0];
     let changedX = (touch.clientX - this.gapX) + 'px';
     let changedY = (touch.clientY - this.gapY) + 'px';
-    this.el.style.left = changedX;
-    this.el.style.top = changedY;
+    if (parseFloat(changedX) + (parseFloat(changedY) > 6)) {
+        this.el.style.left = changedX;
+        this.el.style.top = changedY;
+    }
     return false;
 }
 
