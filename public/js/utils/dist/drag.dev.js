@@ -67,6 +67,7 @@ function handleTouchMove(ev) {
   ev.stopPropagation();
   ev.stopImmediatePropagation(); // ev.preventDefault();
 
+  ev.cancelBubble = true;
   var touch = ev.changedTouches[0];
   var changedX = touch.clientX - this.gapX + 'px';
   var changedY = touch.clientY - this.gapY + 'px';
