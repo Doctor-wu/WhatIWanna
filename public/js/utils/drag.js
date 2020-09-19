@@ -138,7 +138,7 @@ function handleTouchEnd(ev) {
         this.currX = this.el.offsetLeft;
         this.currY = this.el.offsetTop;
         this.once && this.destroy();
-    }, 500)
+    }, 200)
 }
 
 

@@ -33,12 +33,14 @@ proto.initHooks = function() {
 }
 
 proto.destroy = function() {
-    this.el.classList.add("notify-leave");
-    setTimeout(() => {
-        this.el.parentNode.removeChild(this.el);
-        this.el = null;
-        this.destroyed = true;
-    }, 300)
+    if (!this.destroyed) {
+        this.el.classList.add("notify-leave");
+        setTimeout(() => {
+            this.el.parentNode.removeChild(this.el);
+            this.el = null;
+            this.destroyed = true;
+        }, 300)
+    }
 };
 
 

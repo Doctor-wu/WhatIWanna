@@ -20,7 +20,8 @@ let regist = {
         label: "用户名",
         key: "user",
         attrs: {
-            placeholder: "请输入用户名"
+            placeholder: "请输入用户名",
+            autocomplete: "current-password"
         },
         rules: [
             { prop: "required", msg: "请输入用户名", trigger: "blur" }
@@ -33,7 +34,8 @@ let regist = {
         key: "pwd",
         attrs: {
             type: "password",
-            placeholder: "请输入密码"
+            placeholder: "请输入密码",
+            autocomplete: "current-password"
         },
         rules: [
             { prop: "required", msg: "请输入密码", trigger: "blur" }
@@ -46,7 +48,8 @@ let regist = {
         key: "casId",
         attrs: {
             type: "input",
-            placeholder: "请输入学号"
+            placeholder: "请输入学号",
+            autocomplete: "current-password"
         },
         rules: [
             { prop: "required", msg: "请输入学号", trigger: "blur" }
