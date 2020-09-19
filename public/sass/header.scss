@@ -59,7 +59,7 @@
     .head-date {
         position: fixed;
         z-index: 2;
-        top: .7rem;
+        top: .6rem;
         right: 0;
         height: .6rem;
         line-height: .6rem;
@@ -72,6 +72,7 @@
         border: none;
         outline: none;
         transition: all ease-in-out .3s;
+        transform: translateY(.6rem);
     }
     .slideDown {
         transform: translateY(.6rem);

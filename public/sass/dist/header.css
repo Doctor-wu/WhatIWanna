@@ -1,15 +1,6 @@
 body,
 html {
   height: 100%;
-  background-color: rgba(162, 213, 242, 0.75);
-}
-
-.iconfont {
-  font-family: "iconfont" !important;
-  font-size: 16px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .clearfix::after {
@@ -195,7 +186,7 @@ html {
 #main-header .head-date {
   position: fixed;
   z-index: 2;
-  top: 0.7rem;
+  top: 0.6rem;
   right: 0;
   height: 0.6rem;
   line-height: 0.6rem;
@@ -208,6 +199,7 @@ html {
   border: none;
   outline: none;
   transition: all ease-in-out 0.3s;
+  transform: translateY(0.6rem);
 }
 #main-header .slideDown {
   transform: translateY(0.6rem);

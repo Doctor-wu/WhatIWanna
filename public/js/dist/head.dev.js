@@ -19,12 +19,6 @@
     what.classList.remove("active");
     location.hash = "/home/myInfo";
   });
-  date.addEventListener("click", function () {
-    picker.classList.toggle("slideDown");
-    setTimeout(function () {
-      document.body.addEventListener("click", hideDate);
-    }, 0);
-  });
 
   function changeDate() {
     picker.classList.toggle("slideDown");

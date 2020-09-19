@@ -19,14 +19,6 @@
         location.hash = "/home/myInfo";
     });
 
-
-    date.addEventListener("click", () => {
-        picker.classList.toggle("slideDown");
-        setTimeout(() => {
-            document.body.addEventListener("click", hideDate)
-        }, 0);
-    });
-
     function changeDate() {
         picker.classList.toggle("slideDown");
         date.innerText = this.value || (new Date()).toLocaleDateString().replace(/\//g, "-");

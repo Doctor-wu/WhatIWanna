@@ -154,7 +154,7 @@ html {
   #main-header .head-date {
     position: fixed;
     z-index: 2;
-    top: .7rem;
+    top: .6rem;
     right: 0;
     height: .6rem;
     line-height: .6rem;
@@ -166,6 +166,7 @@ html {
     width: 100%;
     border: none;
     outline: none;
-    transition: all ease-in-out .3s; }
+    transition: all ease-in-out .3s;
+    transform: translateY(0.6rem); }
   #main-header .slideDown {
     transform: translateY(0.6rem); }
