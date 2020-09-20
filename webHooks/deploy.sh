@@ -8,5 +8,7 @@ echo "pulling source code..."
 git pull
 git checkout master
 echo "changing permissions..."
+cnpm i
+echo "installing dependency..."
 chown -R $WEB_USER:$WEB_USERGROUP $WEB_PATH
 echo "Finished."
