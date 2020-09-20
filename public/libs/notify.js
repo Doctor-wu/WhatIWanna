@@ -77,7 +77,7 @@ proto.destroy = function() {
                 default: `<div class="notify">
                 <div class="operation">
                     <div class="title-wrap">
-                        <span class="sign success"></span>
+                        <span class="sign success iconfont icon-dui"></span>
                         <h3 class="title">${title}</h3>
                     </div>
                     <a href="javascript:;" class="close-notify">
@@ -107,7 +107,7 @@ proto.destroy = function() {
                 default: `<div class="notify">
                 <div class="operation">
                     <div class="title-wrap">
-                        <span class="sign warn"></span>
+                        <span class="sign warn iconfont icon-cuowu1"></span>
                         <h3 class="title">${title}</h3>
                     </div>
                     <a href="javascript:;" class="close-notify">
@@ -133,7 +133,7 @@ proto.destroy = function() {
                 default: `<div class="notify">
                 <div class="operation">
                     <div class="title-wrap">
-                        <span class="sign info"></span>
+                        <span class="sign info iconfont icon-info1"></span>
                         <h3 class="title">${title}</h3>
                     </div>
                     <a href="javascript:;" class="close-notify">
@@ -159,7 +159,7 @@ proto.destroy = function() {
                 default: `<div class="notify">
                 <div class="operation">
                     <div class="title-wrap">
-                        <span class="sign danger"></span>
+                        <span class="sign danger iconfont icon-cuowu2"></span>
                         <h3 class="title">${title}</h3>
                     </div>
                     <a href="javascript:;" class="close-notify">

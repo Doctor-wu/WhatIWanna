@@ -882,17 +882,17 @@ html {
         width: .35rem;
         margin: .05rem .1rem .1rem 0;
         height: .35rem;
+        font-size: .35rem;
         margin-right: .1rem;
-        border-radius: 50%;
-        background-color: yellow; }
+        border-radius: 50%; }
         .notify-list .notify .operation .sign.success {
-          background-color: lightgreen; }
+          color: lightseagreen; }
         .notify-list .notify .operation .sign.danger {
-          background-color: lightcoral; }
+          color: lightcoral; }
         .notify-list .notify .operation .sign.warn {
-          background-color: lightsalmon; }
+          color: lightsalmon; }
         .notify-list .notify .operation .sign.info {
-          background-color: lightgrey; }
+          color: lightgrey; }
       .notify-list .notify .operation .close-notify {
         padding: .1rem 0;
         margin-right: .1rem;
