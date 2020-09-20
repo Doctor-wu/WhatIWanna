@@ -880,7 +880,7 @@ html {
       .notify-list .notify .operation .sign {
         display: inline-block;
         width: .35rem;
-        margin: .05rem .1rem .1rem 0;
+        margin: .1rem .1rem .1rem 0;
         height: .35rem;
         font-size: .35rem;
         margin-right: .1rem;
