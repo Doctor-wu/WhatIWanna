@@ -860,8 +860,7 @@ html {
       display: -ms-flexbox;
       display: flex;
       width: 100%;
-      justify-content: space-between;
-      padding: .05rem 0; }
+      justify-content: space-between; }
       .notify-list .notify .operation .title-wrap {
         display: -webkit-box;
         display: -webkit-flex;
@@ -910,11 +909,10 @@ html {
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
-      padding: .1rem 0 0 .55rem; }
+      padding: 0 .5rem 0 .55rem; }
       .notify-list .notify > .info .msg {
         font-size: .30rem;
         width: 95%;
-        padding: .05rem 0 .1rem;
         display: inline-block;
         word-spacing: .05rem;
         line-height: .45rem; }
