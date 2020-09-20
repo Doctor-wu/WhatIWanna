@@ -57,7 +57,7 @@ function matcher(map) {
     function flush(route) {
         if (route) {
             if (route.parent) {
-                flush.call(this, route.parent)
+                flush.call(this, route.parent);
                 this.emit("beforeChildFlush", route);
                 route.parent.view.renderView(route.view);
                 this.curRoute = route;

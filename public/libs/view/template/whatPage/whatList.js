@@ -1,8 +1,9 @@
 import View from "../../view.js";
-
-let test1 = {
+import head from '../head.js';
+let whatList = {
     name: "whatList",
     template: `<div>
+    __head__
     <ul class="what-list">
     </ul>
 
@@ -18,12 +19,16 @@ let test1 = {
         <i class="what-form"></i>
     </div>
     </div>`,
+    components: [head],
     scripts: [
         "./js/what_module.js",
         "./js/what_form.js"
-    ]
+    ],
+    beforeMount() {
+        console.log(this)
+    }
 };
 
-test1 = new View(test1);
+whatList = new View(whatList);
 
-export default test1;
+export default whatList;

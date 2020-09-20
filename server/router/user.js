@@ -37,12 +37,10 @@ login.get('/', async(ctx) => {
     }
     let queryres = await User.queryCasId(data.casId);
     // console.log(queryres);
-    console.log(111);
     if (queryres) {
         let pwd = crypto.createHash("md5").update(data.password || "").digest("hex");
         if (queryres[0].password === pwd) {
             ctx.session.user = queryres[0];
-            console.log(ctx.session)
             ctx.body = {
                 'code': 1,
                 'data': queryres[0],

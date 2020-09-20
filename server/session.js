@@ -3,9 +3,11 @@ const fs = require('fs');
 
 const SESS_CONF = {
     key: 'dtwu:ssid', // cookie键名
-    maxAge: 864000 * 100, // 有效期
+    maxAge: 86400 * 1000, // 有效期
     httponly: true, // 仅服务器修改
-    signed: true // 签名cookie
+    signed: true, // 签名cookie
+    renew: true,
+    /** cookie快过期时自动重新设置*/
 }
 module.exports = function(app) {
     try {

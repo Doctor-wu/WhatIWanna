@@ -65,7 +65,7 @@ proto.mount = function(el) {
     el = typeof el === "string" ? document.querySelector(el) : el;
     this.el = el;
     this.renderSlot();
-    if (this.executeHooks("beforeMount") === false) return false;
+    this.executeHooks("beforeMount");
     if (el instanceof HTMLElement) {
         if (this.renderType === "default") {
             el.innerHTML = this.target;
@@ -82,12 +82,11 @@ proto.mount = function(el) {
     if (this.firstLoad) {
         this.components.forEach(component => {
             component.mount(this);
-        })
+        });
         this.firstLoad = false;
     }
     this.flushScripts();
-    if (this.executeHooks("mounted") === false) return false;
-    return this;
+    this.executeHooks("mounted");
 }
 
 proto.executeHooks = function(hookName) {
@@ -161,6 +160,14 @@ proto.flushScripts = function() {
 }
 
 proto.renderView = function(view) {
+    if (!view.el) {
+        view.mount(this)
+    } else {
+        view.components.forEach(component => {
+            component.mount(view);
+        });
+        view.flushScripts();
+    }
     if (this.routeCurrView.length > 0) {
         [].forEach.call(this.routeCurrView, (route => {
             route.parentNode.removeChild(route.nextElementSibling);
@@ -175,5 +182,4 @@ proto.renderView = function(view) {
         `
         this.routeCurrView = this.el.querySelectorAll(".__view__");
     }));
-    this.flushScripts.call(view);
 }

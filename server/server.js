@@ -8,9 +8,21 @@ require('./session')(app); // load koa-session
 app.use(static(path.resolve(__dirname, '../public'))); // load koa-static
 let whiteList = ['/login', '/register']
 app.use(async(ctx, next) => {
-    console.log(ctx.request.path === "/login");
-    if (!ctx.session.user && !whiteList.includes(ctx.request.path)) {
-        ctx.response.redirect("./#/auth/login");
+    if (ctx.session._expire < Date.now()) {
+        console.log(ctx.session._expire, Date.now())
+        ctx.body = {
+            'code': 999,
+            'data': {},
+            'msg': 'session已过期,请重新登录!'
+        }
+        return;
+    }
+    if (!ctx.session.user) {
+        if (!whiteList.includes(ctx.request.path)) {
+            ctx.response.redirect("./#/auth/login");
+        } else {
+            await next();
+        }
     } else {
         await next();
     }
