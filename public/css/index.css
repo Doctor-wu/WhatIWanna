@@ -866,7 +866,8 @@ html {
         display: -webkit-box;
         display: -webkit-flex;
         display: -ms-flexbox;
-        display: flex; }
+        display: flex;
+        line-height: .35rem; }
       .notify-list .notify .operation .title {
         padding: .1rem 0;
         padding-left: .1rem;
@@ -880,7 +881,7 @@ html {
       .notify-list .notify .operation .sign {
         display: inline-block;
         width: .35rem;
-        margin: .08rem .1rem .1rem 0;
+        margin: .065rem .1rem .1rem 0;
         height: .35rem;
         font-size: .35rem;
         margin-right: .1rem;

@@ -30,7 +30,8 @@
             justify-content: space-between;
             padding: .05rem 0;
             .title-wrap {
-                @include flex()
+                @include flex();
+                line-height: .35rem;
             }
             .title {
                 padding: .1rem 0;
@@ -42,7 +43,7 @@
             .sign {
                 display: inline-block;
                 width: .35rem;
-                margin: .08rem .1rem .1rem 0;
+                margin: .065rem .1rem .1rem 0;
                 height: .35rem;
                 font-size: .35rem;
                 margin-right: .1rem;
