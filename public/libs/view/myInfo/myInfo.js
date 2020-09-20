@@ -5,7 +5,7 @@ let myInfo = {
     template: `
     <section class="myInfo">
         <div class="btn-wrap">
-            <button class="btn btn-12 btn-success logout">退出登录</button>
+            <button class="btn btn-12 btn-danger logout">退出登录</button>
         </div>
     </section>
     `,
