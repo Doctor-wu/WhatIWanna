@@ -4,15 +4,24 @@ let myInfo = {
     name: "myInfo",
     template: `
     <section class="myInfo">
-        MyInfo
+        <div class="btn-wrap">
+            <button class="btn btn-12 btn-success logout">退出登录</button>
+        </div>
     </section>
     `,
     plainScript: `
+    import vt from "./js/index.js";
         notify.info({
             msg: "测试消息"
         })
+        let logout = document.querySelector(".logout");
+        logout.addEventListener("click",function(){
+            let username = vt.data.user.username
+            sessionStorage.removeItem("user");
+            notify.success(\`退出成功😀<br>欢迎[\${username}]下次访问\`);
+            location.hash = "/auth/login"
+        })
     `
 };
-
 myInfo = new View(myInfo);
 export default myInfo;

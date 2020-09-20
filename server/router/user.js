@@ -36,7 +36,8 @@ login.get('/', async(ctx) => {
         return;
     }
     let queryres = await User.queryCasId(data.casId);
-    console.log(queryres);
+    // console.log(queryres);
+    console.log(111);
     if (queryres) {
         let pwd = crypto.createHash("md5").update(data.password || "").digest("hex");
         if (queryres[0].password === pwd) {

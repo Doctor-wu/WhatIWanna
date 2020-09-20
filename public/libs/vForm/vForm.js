@@ -105,7 +105,6 @@ function resolveSubmit() {
             this.items.forEach(item => {
                 data[item.key] = item.value
             });
-            console.log(data, 123);
             this.emit("submit", { valid: valid, data });
         } else {
             console.warn(`[valid failed] ${JSON.stringify(valid)}`);

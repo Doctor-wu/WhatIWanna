@@ -11,9 +11,19 @@ let login = {
     </div>
     </div>`,
     plainScript: `
+    import vt from "./js/index.js";
+    try {
+        let user = JSON.parse(sessionStorage.getItem("user"));
+        if (user) {
+            vt.data.user = user;
+            location.hash = '/home/whatList';
+        }
+    } catch (e) {
+        console.error(e);
+    }
     import { VFormItem } from "./libs/vForm/vForm-item.js";
     import { VForm } from "./libs/vForm/vForm.js";
-    import vt from "./js/index.js";
+    (function(){
     let user = new VFormItem({
         tag: "input",
         label: "用户名",
@@ -54,18 +64,17 @@ let login = {
     vForm.mountBtn(goLogin);
     
     vForm.regist("submit",({valid,data})=>{
-        console.log(valid,data);
         axios.post("./login",data)
             .then(res => {
-                console.log(res.data,vForm);
                 if(res.data.code!==1){
                     notify.warn({
-                        title: "oops",
+                        title: "oops!",
                         msg: res.data.msg
                     });
                 }else{
                     vt.data.user = res.data.data;
-                    notify.success(\`登录成功😀<br/>欢迎你,\$\{vt.data.user["username"]\}\`);
+                    sessionStorage.setItem("user",JSON.stringify(vt.data.user));
+                    notify.success(\`登录成功😀<br/>欢迎你,[\$\{vt.data.user["username"]\}]\`);
                     location.hash = "/home/whatList";
                 }
             });
@@ -73,8 +82,10 @@ let login = {
     goRegist.addEventListener("click", () => {
         location.hash = "/auth/regist";
     })
+    })()
     `
 };
+
 
 
 

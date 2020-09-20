@@ -11,7 +11,7 @@ let whatPage = {
         __foot__
     </main>`,
     components: [head, foot],
-    name: "whatPage"
+    name: "whatPage",
 };
 whatPage = new View(whatPage);
 // whatPage.component(foot);
