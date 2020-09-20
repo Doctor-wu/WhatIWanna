@@ -11,18 +11,9 @@ let login = {
     </div>
     </div>`,
     plainScript: `
-    import vt from "./js/index.js";
-    try {
-        let user = JSON.parse(sessionStorage.getItem("user"));
-        if (user) {
-            vt.data.user = user;
-            location.hash = '/home/whatList';
-        }
-    } catch (e) {
-        console.error(e);
-    }
     import { VFormItem } from "./libs/vForm/vForm-item.js";
     import { VForm } from "./libs/vForm/vForm.js";
+    import vt from "./js/index.js";
     (function(){
     let user = new VFormItem({
         tag: "input",
@@ -94,5 +85,6 @@ let login = {
 
 
 login = new View(login);
+
 
 export default login;

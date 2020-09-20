@@ -24,9 +24,9 @@ proto.init = function() {
     this.template = this.options.template;
     this.slot = this.options.slot || {};
     this.hooks = {};
-    this.hooks["mounted"] = [function() {
-        console.log(this);
-    }]
+    // this.hooks["mounted"] = [function() {
+    //     console.log(this);
+    // }]
     this.renderType = this.options.renderType || "default";
     this.routeCurrView = [];
     this.target = this.template;
@@ -40,7 +40,7 @@ proto.init = function() {
 proto.loadHooks = function() {
     hooks.forEach(hook => {
         if (!this.hooks[hook]) this.hooks[hook] = [];
-        this.options.hook && this.hooks[hook].push(this.options.hook);
+        this.options[hook] && this.hooks[hook].push(this.options[hook]);
     })
 }
 
@@ -65,7 +65,7 @@ proto.mount = function(el) {
     el = typeof el === "string" ? document.querySelector(el) : el;
     this.el = el;
     this.renderSlot();
-    this.executeHooks("beforeMount");
+    if (this.executeHooks("beforeMount") === false) return false;
     if (el instanceof HTMLElement) {
         if (this.renderType === "default") {
             el.innerHTML = this.target;
@@ -86,16 +86,20 @@ proto.mount = function(el) {
         this.firstLoad = false;
     }
     this.flushScripts();
-    this.executeHooks("mounted");
+    if (this.executeHooks("mounted") === false) return false;
     return this;
 }
 
 proto.executeHooks = function(hookName) {
+    let result;
     if (this.hooks[hookName]) {
         this.hooks[hookName].forEach(hook => {
-            hook.call(this)
+            if (!(result === false)) {
+                result = hook.call(this);
+            }
         });
     }
+    return result;
 }
 
 proto.renderSlot = function() {
