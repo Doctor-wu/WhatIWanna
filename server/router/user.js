@@ -18,7 +18,23 @@ const login = new Router()
 login.get('/', async(ctx) => {
     ctx.body = "login";
 }).post('/', async(ctx) => {
-    const data = ctx.request.body
+    const data = ctx.request.body;
+    if (!data.casId) {
+        ctx.body = {
+            'code': 0,
+            'data': {},
+            'msg': '用户名[学号]不能为空!'
+        };
+        return;
+    }
+    if (!data.password) {
+        ctx.body = {
+            'code': 0,
+            'data': {},
+            'msg': '密码不能为空!'
+        };
+        return;
+    }
     let queryres = await User.queryCasId(data.casId);
     console.log(queryres);
     if (queryres) {
@@ -43,7 +59,7 @@ login.get('/', async(ctx) => {
         ctx.body = {
             'code': 0,
             'data': {},
-            'msg': '没有该用户，去注册吧'
+            'msg': '没有该用户，用户名需要输入注册时的学号噢'
         }
     }
 })

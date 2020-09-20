@@ -16,15 +16,15 @@ let viewMap = {
         view: whatPage,
         children: [{
             path: 'whatList',
-            name: 'whatList',
+            name: '事项列表',
             view: whatList
         }, {
             path: 'myInfo',
-            name: 'myInfo',
+            name: '关于我的',
             view: myInfo
         }, {
             path: 'wanna',
-            name: 'wanna',
+            name: '我的目标',
             view: wanna
         }]
     }, {
@@ -33,18 +33,38 @@ let viewMap = {
         view: auth,
         children: [{
                 path: 'login',
-                name: 'login',
+                name: '登录',
                 view: login
             },
             {
                 path: 'regist',
-                name: 'regist',
+                name: '注册',
                 view: regist
             }
         ]
     }]
 }
 
-new Viewtrigger({
+let vt = new Viewtrigger({
     root: document.querySelector("#app")
 }).route(viewMap);
+
+let whiteList = ["/auth/login", "/auth/regist"]
+
+vt.regist("beforeChildFlush", (route) => {
+    // notify.success({
+    //     title: "路由切换",
+    //     msg: route.name
+    // });
+});
+
+vt.beforeRoute((from, to, next, reject) => {
+    if (!vt.data.user && !whiteList.includes(to.path)) {
+        next("/auth/login");
+        notify.warn("您尚未登录，请登陆后重试。")
+    } else {
+        next();
+    }
+});
+
+export default vt;

@@ -3,11 +3,13 @@ export function Pipe() {
 }
 
 Pipe.prototype.emit = function emit(ev, ...args) {
+    let result = [];
     if (this.events[ev]) {
         this.events[ev].forEach(cb => {
-            cb.apply(this, args);
+            result.push(cb.apply(this, args));
         })
     }
+    return result;
 }
 
 Pipe.prototype.regist = function regist(ev, cb) {

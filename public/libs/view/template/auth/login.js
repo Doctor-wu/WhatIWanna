@@ -13,23 +13,24 @@ let login = {
     plainScript: `
     import { VFormItem } from "./libs/vForm/vForm-item.js";
     import { VForm } from "./libs/vForm/vForm.js";
+    import vt from "./js/index.js";
     let user = new VFormItem({
         tag: "input",
         label: "用户名",
-        key: "user",
+        key: "casId",
         attrs: {
-            placeholder: "请输入用户名",
+            placeholder: "请输入用户名[学号]",
             autocomplete: "username"
         },
         rules: [
-            { prop: "required", msg: "请输入用户名", trigger: "blur" }
+            { prop: "required", msg: "请输入用户名[学号]", trigger: "blur" }
         ]
     });
     
     let pwd = new VFormItem({
         tag: "input",
         label: "密码",
-        key: "pwd",
+        key: "password",
         attrs: {
             type: "password",
             placeholder: "请输入密码",
@@ -50,18 +51,32 @@ let login = {
 
     let goLogin = document.querySelector(".goLogin");
     let goRegist = document.querySelector(".goRegist");
+    vForm.mountBtn(goLogin);
     
-    goLogin.addEventListener("click", () => {
-        location.hash = "/home/whatList";
-        notify.success({
-            msg: "登陆成功😀"
-        });
+    vForm.regist("submit",({valid,data})=>{
+        console.log(valid,data);
+        axios.post("./login",data)
+            .then(res => {
+                console.log(res.data,vForm);
+                if(res.data.code!==1){
+                    notify.warn({
+                        title: "oops",
+                        msg: res.data.msg
+                    });
+                }else{
+                    vt.data.user = res.data.data;
+                    notify.success(\`登录成功😀<br/>欢迎你,\$\{vt.data.user["username"]\}\`);
+                    location.hash = "/home/whatList";
+                }
+            });
     })
     goRegist.addEventListener("click", () => {
         location.hash = "/auth/regist";
     })
     `
 };
+
+
 
 
 

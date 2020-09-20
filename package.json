@@ -4,6 +4,7 @@
     "github-webhook-handler": "^1.0.0"
   },
   "devDependencies": {
+    "axios": "^0.20.0",
     "node-cmd": "^3.0.0"
   }
 }

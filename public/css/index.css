@@ -916,9 +916,8 @@ html {
         width: 95%;
         padding: .05rem 0 .1rem;
         display: inline-block;
-        word-break: break-all;
         word-spacing: .05rem;
-        line-height: .4rem; }
+        line-height: .45rem; }
   .notify-list .notify-leave {
     animation: shadeSlideOut ease-in-out .4s; }
 

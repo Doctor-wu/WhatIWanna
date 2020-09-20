@@ -1,5 +1,5 @@
 import { VFormItem } from './vForm-item.js';
-import { Pipe } from './Pipe.js';
+import { Pipe } from '../Pipe.js';
 export function VForm(options = {}) {
     if (!this instanceof VForm) {
         return new VForm(options);
@@ -9,10 +9,9 @@ export function VForm(options = {}) {
     this.init(options);
     this.loadItem();
 }
+// 继承 发布订阅类
 VForm.prototype = Object.create(Pipe.prototype);
-
 let proto = VForm.prototype;
-
 Object.defineProperty(proto, "constructor", {
     enumerable: false,
     value: VForm
@@ -69,26 +68,36 @@ VForm.prototype.mount = function(el) {
 }
 
 VForm.prototype.initBtn = function() {
-    let btnGrp = document.createElement("div");
-    btnGrp.className = "btn-wrap";
-    this.resetEL = document.createElement("button");
-    this.resetEL.className = "btn btn-6 btn-default";
-    this.resetEL.type = "reset";
-    this.resetEL.innerHTML = "重置";
-    this.submitEL = document.createElement("button");
-    this.submitEL.className = "btn btn-6 btn-success";
-    this.submitEL.type = "submit";
-    this.submitEL.innerHTML = "提交";
+    if (this.showBtn) {
+        let btnGrp = document.createElement("div");
+        btnGrp.className = "btn-wrap";
+        this.resetEL = document.createElement("button");
+        this.resetEL.className = "btn btn-6 btn-default";
+        this.resetEL.type = "reset";
+        this.resetEL.innerHTML = "重置";
+        this.submitEL = document.createElement("button");
+        this.submitEL.className = "btn btn-6 btn-success";
+        this.submitEL.type = "submit";
+        this.submitEL.innerHTML = "提交";
+        resolveSubmit.call(this);
+        btnGrp.appendChild(this.resetEL);
+        btnGrp.appendChild(this.submitEL);
+        this.el.appendChild(btnGrp);
+    }
+}
+
+VForm.prototype.mountBtn = function(el, elReset) {
+    el = typeof el === "string" ? document.querySelector(el) : el;
+    elReset = elReset && typeof elReset === "string" ? document.querySelector(elReset) : elReset;
+    this.submitEL = el;
+    this.resetEL = elReset;
     resolveSubmit.call(this);
-    btnGrp.appendChild(this.resetEL);
-    btnGrp.appendChild(this.submitEL);
-    this.el.appendChild(btnGrp);
 }
 
 
 
 function resolveSubmit() {
-    this.submitEL.addEventListener("click", (ev) => {
+    this.submitEL && this.submitEL.addEventListener("click", (ev) => {
         ev.preventDefault();
         let valid = this.validate();
         if (valid.state === "success") {
@@ -96,6 +105,7 @@ function resolveSubmit() {
             this.items.forEach(item => {
                 data[item.key] = item.value
             });
+            console.log(data, 123);
             this.emit("submit", { valid: valid, data });
         } else {
             console.warn(`[valid failed] ${JSON.stringify(valid)}`);

@@ -55,18 +55,15 @@ VFormItem.prototype.initEL = function() {
     let msgBox = document.createElement("div");
     msgBox.className = "vform-item-msgbox"
     this.msgBox = msgBox;
-    // msgBox.innerText = "测试数据"
 
     label && this.el.appendChild(label);
     this.el.appendChild(this.control);
-    this.el.appendChild(msgBox);
+    this.el.appendChild(this.msgBox);
 }
 
 // 可在这个方法扩展表单控件
 VFormItem.prototype.buildControl = function() {
     let control = document.createElement(this.tag);
-
-
 
     if (this.tag === "select") {
         utils.assert(this.opts, "select need some options");
@@ -100,12 +97,10 @@ VFormItem.prototype.buildControl = function() {
         }
     }
 
-
-
     control.className = "vform-item-control";
     control.id = `item${this.id}`;
+    // 此属性不做校验，仅作为表单控件的伸缩条件
     control.setAttribute("required", true);
-    // Object.assign(control, this.options.attrs || {});
     for (const key in this.options.attrs) {
         if (this.options.attrs.hasOwnProperty(key)) {
             control.setAttribute(key, this.options.attrs[key]);
