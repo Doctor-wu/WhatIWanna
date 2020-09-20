@@ -23,10 +23,7 @@ let whatList = {
     scripts: [
         "./js/what_module.js",
         "./js/what_form.js"
-    ],
-    beforeMount() {
-        console.log(this)
-    }
+    ]
 };
 
 whatList = new View(whatList);
