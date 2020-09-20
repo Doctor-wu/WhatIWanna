@@ -91,15 +91,11 @@ proto.mount = function(el) {
 }
 
 proto.executeHooks = function(hookName) {
-    let result;
     if (this.hooks[hookName]) {
         this.hooks[hookName].forEach(hook => {
-            if (!(result === false)) {
-                result = hook.call(this);
-            }
+            hook.call(this);
         });
     }
-    return result;
 }
 
 proto.renderSlot = function() {

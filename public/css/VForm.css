@@ -1,5 +1,7 @@
 .vform {
   overflow: auto; }
+  .vform::-webkit-scrollbar {
+    width: 0 !important; }
   .vform .btn-wrap {
     margin-bottom: .2rem; }
     .vform .btn-wrap button {

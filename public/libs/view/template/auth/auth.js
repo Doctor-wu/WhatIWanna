@@ -22,13 +22,12 @@ let auth = {
             let user = JSON.parse(sessionStorage.getItem("user"));
             if (user) {
                 vt.data.user = user;
+                vt.data.isLogin = true;
                 location.hash = '/home/whatList';
-                return false;
             }
         } catch (e) {
             console.error(e);
         }
-        return true;
     }
 };
 auth = new View(auth);

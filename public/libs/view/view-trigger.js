@@ -57,7 +57,7 @@ function matcher(map) {
     function flush(route) {
         if (route) {
             if (route.parent) {
-                if (flush.call(this, route.parent) === false) return;
+                flush.call(this, route.parent)
                 this.emit("beforeChildFlush", route);
                 route.parent.view.renderView(route.view);
                 this.curRoute = route;
@@ -69,7 +69,6 @@ function matcher(map) {
                     this.curRootRoute = route.pathArr[0];
                 }
                 let goon = route.view.firstLoad && route.view.mount(this.root);
-                if (goon === false) return false;
                 this.emit("afterParentFlush", route);
             }
         }

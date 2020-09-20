@@ -46,7 +46,6 @@ import { utils } from "./js/utils/utils.js";
                     break;
                 }
         }
-        console.log(path)
     })
 
 })()
