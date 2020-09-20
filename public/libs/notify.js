@@ -18,9 +18,9 @@ proto.constructor = Notify;
 
 proto.initHooks = function() {
     this.hooks.beforeMount = [function() {
-        // setTimeout(() => {
-        //     this.destroy();
-        // }, 3000)
+        setTimeout(() => {
+            this.destroy();
+        }, 3000)
     }];
     this.hooks.mounted = [function() {
         this.el.firstElementChild.querySelector(".close-notify")
