@@ -66,7 +66,7 @@ let login = {
                         }else{
                             vt.data.user = res.data.data;
                             sessionStorage.setItem("user",JSON.stringify(vt.data.user));
-                            notify.success(\`登录成功😀<br/>欢迎你,[\$\{vt.data.user["username"]\}]\`);
+                            notify.success(\`登录成功😀<br/>欢迎你, [\$\{vt.data.user["username"]\}] \`);
                             location.hash = "/home/whatList";
                         }
                     });

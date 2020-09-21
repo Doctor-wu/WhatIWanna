@@ -2,6 +2,7 @@ const {
     error,
     login,
     register,
+    avatar
 } = require("./user");
 const Router = require('koa-router');
 
@@ -125,6 +126,7 @@ router.use('/getWhatList', listRouter.routes(), listRouter.allowedMethods());
 router.use('/page', error.routes(), error.allowedMethods());
 router.use('/login', login.routes(), login.allowedMethods());
 router.use('/register', register.routes(), register.allowedMethods());
+router.use('/changeAvatar', avatar.routes(), avatar.allowedMethods());
 
 
 module.exports = router;
