@@ -23,11 +23,13 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: [true, '密码不能为空']
+    },
+    avatar: {
+        type: String
     }
 });
 
 const MyModel = mongoose.model('User', userSchema);
-
 
 class Userdb {
     constructor() {
@@ -103,6 +105,11 @@ class Userdb {
             };
         })
 
+    }
+
+    // 更新头像
+    updateAvatar(conditions, doc, callback) {
+        MyModel.updateOne(conditions, doc, callback);
     }
 }
 module.exports = new Userdb()

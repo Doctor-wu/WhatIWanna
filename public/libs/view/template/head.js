@@ -5,7 +5,7 @@ let head = {
     template: `<!-- head -->
     <header id="main-header">
         <section class="head">
-            <img style="width: 2rem;height:2rem;" src="./source/img/avatar.jpg" alt="avatar" class="head-avatar">
+            <img style="width: 2rem;height:2rem;" src="" alt="avatar" class="head-avatar">
             <div class="head-info">
                 <h3 class="head-title">What I Wanna</h3>
                 <span class="username"></span>
@@ -23,7 +23,13 @@ let head = {
             picker = document.querySelector('.head-date'),
             head = document.querySelector('.head-avatar'),
             nameWrap = document.querySelector('.username'),
-            today = (new Date()).toLocaleDateString().replace(/\\//g, "-");
+            today = (new Date()).toLocaleDateString().replace(/\\//g, "-"),
+            avatar = document.querySelector('.head-avatar');
+        if(vt.data.user.avatar){
+            avatar.src = \`./avatars/\${vt.data.user.avatar}\`;
+        }else{
+            avatar.src = "./source/img/avatar.jpg";
+        }
         nameWrap.innerText = vt.data.user.username;
         today = today.split("-");
         today[1] = today[1] >= 10 ? today[1] : "0" + today[1];
