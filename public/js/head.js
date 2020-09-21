@@ -20,8 +20,8 @@
     });
 
     function changeDate() {
-        picker.classList.toggle("slideDown");
         date.firstElementChild.innerText = this.value || (new Date()).toLocaleDateString().replace(/\//g, "-");
+
     }
 
     function hideDate(ev) {
