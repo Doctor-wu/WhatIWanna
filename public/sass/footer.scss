@@ -20,7 +20,7 @@
         align-items: center;
         justify-content: space-around;
         .active {
-            color: #40a8c4;
+            color: lightgray;
         }
         .foot-item {
             @include flex();

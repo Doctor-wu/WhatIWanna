@@ -122,7 +122,9 @@ let whatList = {
             },
             opts: {
                 "日常": "日常-#ffc93c",
-                "生活": "生活-lightgreen"
+                "生活": "生活-lightgreen",
+                "学习": "学习-#40a8c4",
+                "其他": "其他-gray"
             },
             rules: [
                 { prop: "required", msg: "请至少选择一个标签类型", trigger: "blur" }
