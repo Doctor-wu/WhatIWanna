@@ -91,7 +91,7 @@ VFormItem.prototype.buildControl = function() {
                     return arr.toString();
                 },
                 set(value) {
-                    _this.value = value;
+                    _this.control.value = value;
                 }
             })
         }
@@ -126,6 +126,9 @@ VFormItem.prototype.validate = function() {
             this.rejectValid(item.msg);
         }
     });
+    if (!this.valid) {
+        this.resolveValid();
+    }
     return this.valid;
 }
 

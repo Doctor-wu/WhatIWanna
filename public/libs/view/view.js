@@ -87,6 +87,7 @@ proto.mount = function(el) {
     }
     this.flushScripts();
     this.executeHooks("mounted");
+    return this;
 }
 
 proto.executeHooks = function(hookName) {
@@ -161,7 +162,7 @@ proto.flushScripts = function() {
 
 proto.renderView = function(view) {
     if (!view.el) {
-        view.mount(this)
+        view.mount(this);
     } else {
         view.components.forEach(component => {
             component.mount(view);
@@ -182,4 +183,5 @@ proto.renderView = function(view) {
         `
         this.routeCurrView = this.el.querySelectorAll(".__view__");
     }));
+
 }

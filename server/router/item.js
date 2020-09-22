@@ -35,13 +35,45 @@ Item.post('/addItem', async(ctx) => {
             msg: "date is requried"
         }
     }
-    console.log(ctx.session.user._id + "");
     let raw = await ItemDB.getItem(ctx.session.user._id + "", date);
     ctx.body = {
         code: 1,
         data: raw,
         msg: "获取成功"
     };
+}).post('/updateItem', async ctx => {
+    const data = ctx.request.body;
+    try {
+        let raw = await ItemDB.updateItem(data.id, data);
+        ctx.body = {
+            code: 1,
+            data: raw,
+            msg: "更新成功"
+        };
+    } catch (e) {
+        ctx.body = {
+            code: 0,
+            data: 3,
+            msg: "更新失败"
+        }
+    }
+}).delete("/deleteItem", async ctx => {
+    const { id } = ctx.request.query;
+    try {
+        let raw = await ItemDB.deleteItem(id);
+        ctx.body = {
+            code: 1,
+            data: raw || {},
+            msg: "删除成功"
+        };
+    } catch (e) {
+        console.log(e);
+        ctx.body = {
+            code: 0,
+            data: {},
+            msg: "删除失败"
+        }
+    }
 });
 
 

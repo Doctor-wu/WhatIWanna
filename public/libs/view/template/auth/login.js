@@ -14,6 +14,7 @@ let login = {
     import { VFormItem } from "./libs/vForm/vForm-item.js";
     import { VForm } from "./libs/vForm/vForm.js";
     import vt from "./js/index.js";
+    
     if(!vt.data.isLogin){
         (function(){
             let user = new VFormItem({

@@ -94,6 +94,10 @@ VForm.prototype.mountBtn = function(el, elReset) {
     resolveSubmit.call(this);
 }
 
+VForm.prototype.reset = function() {
+    this.el.reset();
+}
+
 
 
 function resolveSubmit() {

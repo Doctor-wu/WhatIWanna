@@ -78,6 +78,11 @@ html {
   color: #efefef;
   border: 1px solid #ddd; }
 
+.btn.btn-warning {
+  background-color: lightsalmon;
+  color: #efefef;
+  border: 1px solid #ddd; }
+
 @keyframes shadeIn {
   0% {
     display: none;

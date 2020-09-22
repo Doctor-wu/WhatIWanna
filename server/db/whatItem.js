@@ -81,8 +81,33 @@ class WhatItemdb {
                     console.log(err);
                     reject(err);
                 }
-                console.log(raw);
                 resolve(raw);
+            })
+        })
+    }
+
+
+    updateItem(id, data) {
+        return new Promise((resolve, reject) => {
+            MyModel.updateOne({ _id: id }, data, function(err, raw) {
+                if (err) {
+                    reject(err)
+                }
+                resolve(raw);
+            })
+        })
+    }
+
+
+    deleteItem(id) {
+        return new Promise((resolve, reject) => {
+            console.log(id);
+            MyModel.remove({ _id: id }, function(err) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
             })
         })
     }

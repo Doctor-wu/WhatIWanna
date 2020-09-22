@@ -10,5 +10,7 @@ git checkout master
 echo "changing permissions..."
 cnpm i
 echo "installing dependency..."
+forever restartall
+echo "restarting serves.."
 chown -R $WEB_USER:$WEB_USERGROUP $WEB_PATH
 echo "Finished."

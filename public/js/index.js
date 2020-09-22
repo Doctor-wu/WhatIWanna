@@ -45,6 +45,7 @@ let viewMap = {
     }]
 }
 
+
 let vt = new Viewtrigger({
     root: document.querySelector("#app")
 }).route(viewMap);
