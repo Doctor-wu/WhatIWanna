@@ -96,6 +96,8 @@ VForm.prototype.mountBtn = function(el, elReset) {
 
 VForm.prototype.reset = function() {
     this.el.reset();
+    delete this.itemId;
+    delete this.type;
 }
 
 

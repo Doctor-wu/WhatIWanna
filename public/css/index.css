@@ -467,7 +467,7 @@ html {
     align-items: center;
     justify-content: space-around; }
     .main-footer .foot-list .active {
-      color: lightgray; }
+      color: #40a8c4; }
     .main-footer .foot-list .foot-item {
       display: -webkit-box;
       display: -webkit-flex;

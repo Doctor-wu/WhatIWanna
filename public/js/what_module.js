@@ -76,16 +76,24 @@ export function refreshList() {
                                                         update && update.addEventListener("click",utils.debounce(()=>{
                                                             vForm.type = "update";
                                                             console.log(vForm);
-                                                            item.tag = item.tag.map(v=>v.tagInfo+"-"+v.color).join(",");
+                                                            if(typeof item.tag[0] !== "string") item.tag = item.tag.map(v=>v.tagInfo+"-"+v.color);
+                                                            console.log(item.tag);
                                                             vForm.items.forEach(i=>{
                                                                 i.value = item[i.key];
+                                                                if(i.key === "tag"){
+                                                                    // i.value = item[tag].split
+                                                                    [].forEach.call(i.control,option=>{
+                                                                        if(item.tag.includes(option.value)){
+                                                                            option.selected = true;
+                                                                        }
+                                                                    })
+                                                                }
                                                             });
                                                             vForm.itemId = item._id;
                                                             vForm.show();
                                                             console.log(item);
                                                         },null,true));
                                                         del && del.addEventListener("click",utils.debounce(()=>{
-                                                            
                                                             axios.delete(`./Item/deleteItem?id=${item._id}`)
                                                             .then(res=>{
                                                                 if (res.data.code === 1) {
