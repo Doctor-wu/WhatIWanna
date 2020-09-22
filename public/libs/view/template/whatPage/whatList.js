@@ -124,6 +124,7 @@ let whatList = {
                 "日常": "日常-#ffc93c",
                 "生活": "生活-lightgreen",
                 "学习": "学习-#40a8c4",
+                "运动": "运动-hotpink",
                 "其他": "其他-gray"
             },
             rules: [
@@ -171,6 +172,9 @@ let whatList = {
                         vForm.reset();
                         refreshList();
                         hideForm();
+
+                        delete vForm.itemId;
+                        delete vForm.type;
                     } else {
                         notify.danger(res.data.msg);
                     }

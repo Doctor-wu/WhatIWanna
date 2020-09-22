@@ -73,8 +73,9 @@ VForm.prototype.initBtn = function() {
         btnGrp.className = "btn-wrap";
         this.resetEL = document.createElement("button");
         this.resetEL.className = "btn btn-6 btn-default";
-        this.resetEL.type = "reset";
+        // this.resetEL.type = "reset";
         this.resetEL.innerHTML = "重置";
+        this.resetEL.addEventListener("click", this.reset.bind(this));
         this.submitEL = document.createElement("button");
         this.submitEL.className = "btn btn-6 btn-success";
         this.submitEL.type = "submit";
@@ -95,9 +96,9 @@ VForm.prototype.mountBtn = function(el, elReset) {
 }
 
 VForm.prototype.reset = function() {
-    this.el.reset();
     delete this.itemId;
     delete this.type;
+    this.el.reset();
 }
 
 

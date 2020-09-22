@@ -91,7 +91,6 @@ export function refreshList() {
                                                             });
                                                             vForm.itemId = item._id;
                                                             vForm.show();
-                                                            console.log(item);
                                                         },null,true));
                                                         del && del.addEventListener("click",utils.debounce(()=>{
                                                             axios.delete(`./Item/deleteItem?id=${item._id}`)
