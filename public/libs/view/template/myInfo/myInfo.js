@@ -13,9 +13,13 @@ let myInfo = {
     `,
     plainScript: `
     import vt from "./js/index.js";
+    import Dialog from "./libs/dialog.js";
         notify.info({
             msg: "测试消息"
         })
+        console.log(new Dialog({
+            msg: "测试消息"
+        }));
         let logout = document.querySelector(".logout");
         let changeAvatar = document.querySelector(".changeAvatar");
         let avatarFile = document.querySelector("#avatarFile");

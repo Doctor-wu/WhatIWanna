@@ -3,7 +3,7 @@ const mongoose = require('./db');
 const crypto = require("crypto");
 const Schema = mongoose.Schema;
 
-const whatItemSchema = new Schema({
+const whatModuleSchema = new Schema({
     itemID: {
         type: String,
         required: [true, 'ItemModuleID不能为空']
@@ -14,20 +14,21 @@ const whatItemSchema = new Schema({
     }
 });
 
-const MyModel = mongoose.model('WhatItem', whatItemSchema);
+const MyModel = mongoose.model('WhatModule', whatModuleSchema);
+const ItemDB = require('./whatItem');
 
-class WhatItemdb {
+class WhatModuledb {
     constructor() {
 
     }
 
-    addItem(data) {
-        return new Promise((resolve, reject) => {
+    addModule(data) {
+        return new Promise(async(resolve, reject) => {
             const m = new MyModel(data);
-
             try {
                 let error = m.validateSync();
                 console.log(error);
+                await ItemDB.updateItemModule(data.itemID, true);
             } catch (e) {
                 reject(e);
                 return;
@@ -45,5 +46,22 @@ class WhatItemdb {
             });
         })
     }
+
+    removeModule(id) {
+        return new Promise(async(resolve, reject) => {
+            try {
+                await ItemDB.updateItemModule(id, false);
+                MyModel.remove({ itemID: id }, function(err) {
+                    if (err) {
+                        reject(err);
+                    }
+                    resolve("删除模板成功");
+                })
+            } catch (e) {
+                console.log(e);
+                reject("删除模板失败");
+            }
+        })
+    }
 }
-module.exports = new WhatItemdb()
+module.exports = new WhatModuledb()

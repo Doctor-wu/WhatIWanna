@@ -77,11 +77,6 @@ Item.post('/addItem', async(ctx) => {
 });
 
 
-const getItem = new Router();
-
-getItem.post('/')
-
-
 module.exports = {
     Item: Item
 }

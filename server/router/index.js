@@ -7,6 +7,9 @@ const {
 const {
     Item
 } = require("./item");
+const {
+    Module
+} = require("./module");
 const Router = require('koa-router');
 
 
@@ -131,6 +134,7 @@ router.use('/login', login.routes(), login.allowedMethods());
 router.use('/register', register.routes(), register.allowedMethods());
 router.use('/changeAvatar', avatar.routes(), avatar.allowedMethods());
 router.use('/Item', Item.routes(), Item.allowedMethods());
+router.use('/Module', Module.routes(), Module.allowedMethods());
 
 
 module.exports = router;

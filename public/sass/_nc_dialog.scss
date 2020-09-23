@@ -1,0 +1,53 @@
+.dialog-wrap {
+    left: 0;
+    right: 0;
+    top: 20vh;
+    margin: auto;
+    position: fixed;
+    width: 80%;
+    min-height: 30vh;
+    background-color: #fff;
+    z-index: 99;
+    font-size: .35rem;
+    transition: all ease-in-out .3s;
+    opacity: 0;
+    .dialog-title {
+        @include flex();
+        justify-content: space-between;
+        margin: 0 .2rem;
+        padding: .2rem 0;
+        font-size: .40rem;
+        font-weight: bold;
+        border-bottom: 1px solid #ccc;
+        .iconfont {
+            color: lightcoral;
+            font-size: .45rem;
+            font-weight: 300;
+        }
+    }
+    .dialog-msg {
+        min-height: 20vh;
+        padding: .2rem .2rem;
+    }
+    .dialog-btn-wrap {
+        .btn {
+            // height: .8rem;
+            // padding: .1rem;
+            margin: 0;
+            border: none;
+            float: right;
+        }
+    }
+}
+
+.dialog-mask {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    opacity: 0;
+    left: 0;
+    top: 0;
+    z-index: 90;
+    background-color: rgba($color: #000000, $alpha: .3);
+    transition: all ease-in-out .3s;
+}

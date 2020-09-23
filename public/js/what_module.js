@@ -68,10 +68,27 @@ export function refreshList() {
                                                         let del = this.el.querySelector(".delete");
                                                         // console.log(delModule,saveModule,update,del);
                                                         saveModule && saveModule.addEventListener("click",utils.debounce(()=>{
-                                                            collapse.click();
+                                                            axios.post("./Module/addModule",{
+                                                                id: item._id
+                                                            }).then(res=>{
+                                                                console.log(res)
+                                                                if (res.data.code === 1) {
+                                                                    notify.success(res.data.msg);
+                                                                    refreshList();
+                                                                } else {
+                                                                    notify.danger(res.data.msg);
+                                                                }
+                                                            })
                                                         },null,true));
                                                         delModule && delModule.addEventListener("click",utils.debounce(()=>{
-                                                            collapse.click();
+                                                            axios.delete(`./Module/deleteModule?id=${item._id}`).then(res=>{
+                                                                if (res.data.code === 1) {
+                                                                    notify.success(res.data.msg);
+                                                                    refreshList();
+                                                                } else {
+                                                                    notify.danger(res.data.msg);
+                                                                }
+                                                            })
                                                         },null,true));
                                                         update && update.addEventListener("click",utils.debounce(()=>{
                                                             vForm.type = "update";

@@ -87,6 +87,21 @@ class WhatItemdb {
     }
 
 
+    getItemById(id) {
+        return new Promise((resolve, reject) => {
+            let query = MyModel.find({
+                _id: id
+            }, function(err, raw) {
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                }
+                resolve(raw);
+            })
+        })
+    }
+
+
     updateItem(id, data) {
         return new Promise((resolve, reject) => {
             MyModel.updateOne({ _id: id }, data, function(err, raw) {
@@ -94,6 +109,17 @@ class WhatItemdb {
                     reject(err)
                 }
                 resolve(raw);
+            })
+        })
+    }
+
+    updateItemModule(id, val) {
+        return new Promise((resolve, rejcet) => {
+            MyModel.updateOne({ _id: id }, { isModule: val }, function(err, raw) {
+                if (err) {
+                    rejcet(err);
+                }
+                resolve("更新模板成功");
             })
         })
     }
