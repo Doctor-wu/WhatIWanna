@@ -1,8 +1,8 @@
 import View from "../../view.js";
-import head from '../head.js';
+import head from "../head.js";
 let whatList = {
-    name: "whatList",
-    template: `<div>
+  name: "whatList",
+  template: `<div>
     __head__
     <ul class="what-list">
     </ul>
@@ -19,11 +19,11 @@ let whatList = {
         <i class="what-form"></i>
     </div>
     </div>`,
-    components: [head],
-    // scripts: [
-    //     "./js/what_form.js"
-    // ],
-    plainScript: `
+  components: [head],
+  // scripts: [
+  //     "./js/what_form.js"
+  // ],
+  plainScript: `
     import { refreshList } from "./js/what_module.js";
     import { Drag } from './js/utils/drag.js';
     import { VForm } from './libs/vForm/vForm.js'
@@ -199,6 +199,7 @@ let whatList = {
         function hideForm() {
             formWrap.classList.add("hide");
             whatList.classList.remove("hide");
+            vForm.reset();
             document.removeEventListener("click", handle);
         }
 
@@ -210,7 +211,7 @@ let whatList = {
         }
 
     })()
-    `
+    `,
 };
 
 whatList = new View(whatList);

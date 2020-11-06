@@ -609,6 +609,7 @@ html {
     font-size: .3rem;
     position: relative;
     padding: .1rem .1rem 0rem;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.12);
     margin: .2rem 0; }
     .what-list .what-list-item .up {
       padding: .1rem .2rem;
