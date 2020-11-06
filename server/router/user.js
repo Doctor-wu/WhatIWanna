@@ -79,7 +79,7 @@ register.get('/', async(ctx) => {
         ctx.body = {
             'code': 0,
             'data': {},
-            'msg': '用户名已存在'
+            'msg': '用户已存在'
         }
         return;
     }

@@ -8,9 +8,9 @@ let wanna = {
     </section>
     `,
     plainScript: `
-        notify.danger({
-            msg: "测试错误"
-        })
+        // notify.danger({
+        //     msg: "测试错误"
+        // })
     `
 };
 

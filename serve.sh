@@ -1,5 +1,5 @@
 #!/bin/sh
-cd C:/Users/uu/Desktop/WhatIWanna/public
+cd ~/projects/WhatIWanna/public
 yarn sass &
-cd C:/Users/uu/Desktop/WhatIWanna/server
+cd ~/projects/WhatIWanna/server
 nodemon server.js 

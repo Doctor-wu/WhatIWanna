@@ -46,6 +46,7 @@ let myInfo = {
                 if(res.data.code===1){
                     notify.success("上传成功!");
                     vt.data.user.avatar = res.data.data;
+                    location.hash = "#/home/whatList"
                 }else{
                     notify.danger(res.data.msg);
                 }
