@@ -1,8 +1,8 @@
 import View from "../../view.js";
 
 let myInfo = {
-    name: "myInfo",
-    template: `
+  name: "myInfo",
+  template: `
     <section class="myInfo">
         <div class="btn-wrap">
             <button class="btn btn-12 btn-success changeAvatar">更换头像</button>
@@ -11,12 +11,13 @@ let myInfo = {
         </div>
     </section>
     `,
-    plainScript: `
-    import vt from "./js/index.js";
+  plainScript: `
+  import vt from "./js/index.js";
+  import {Drag} from "./js/utils/drag.js";
     import Dialog from "./libs/dialog.js";
-        notify.info({
-            msg: "测试消息"
-        })
+        // notify.info({
+        //     msg: "测试消息"
+        // })
         console.log(new Dialog({
             msg: "测试消息"
         }));
@@ -57,7 +58,7 @@ let myInfo = {
         changeAvatar.addEventListener("click",function(ev){
             avatarFile.click();
         })
-    `
+    `,
 };
 myInfo = new View(myInfo);
 export default myInfo;

@@ -144,7 +144,7 @@ let whatList = {
         console.log(vForm);
 
         vForm.regist("submit", utils.debounce(function(data) {
-            data.data.date = headDate.innerText;
+            data.data.date = utils.formatTime('{0}-{1}-{2}', headDate.innerText);
             console.log(data);
             if(vForm.type === "update"){
                 data.data.id = vForm.itemId;
