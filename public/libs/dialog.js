@@ -32,8 +32,12 @@ proto.initEl = function () {
     </div>
     <div class="dialog-msg">${this.msg}</div>
     <div class="dialog-btn-wrap clearfix">
-    <button class="btn btn-primary btn-6 dialog-confirm">确认</button>
-        <button class="btn btn-default btn-6 dialog-cancel">取消</button>
+    <button class="btn btn-primary btn-6 dialog-confirm">${
+      this.confirmTxt || "确认"
+    }</button>
+        <button class="btn btn-default btn-6 dialog-cancel">${
+          this.cancelTxt || "取消"
+        }</button>
     </div>
     `;
   this.wrapEL = document.createElement("div");

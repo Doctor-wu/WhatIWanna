@@ -1,7 +1,7 @@
 .dialog-wrap {
     left: 0;
     right: 0;
-    top: 20vh;
+    top: 10vh;
     margin: auto;
     position: fixed;
     width: 80%;
@@ -28,6 +28,8 @@
     .dialog-msg {
         min-height: 20vh;
         padding: .2rem .2rem;
+        max-height: 60vh;
+        overflow: hidden auto;
     }
     .dialog-btn-wrap {
         .btn {

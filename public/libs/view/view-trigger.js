@@ -1,6 +1,9 @@
 import { Pipe } from "../Pipe.js";
 
 export function Viewtrigger(options = {}) {
+  if (!this instanceof Viewtrigger) {
+    return new Viewtrigger(options);
+  }
   Pipe.call(this);
   this.options = options;
   this.init();
