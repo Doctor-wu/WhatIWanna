@@ -1,8 +1,9 @@
 // router/index.js
 const Router = require('koa-router');
 
-// 
+//
 const ModuleDB = require('../db/itemModule');
+const ItemDB = require("../db/whatItem");
 
 // 子路由2
 
@@ -45,6 +46,17 @@ Module.post("/addModule", async ctx => {
             data: {},
             msg: e
         }
+    }
+}).get("/getModules", async ctx => {
+    try {
+        let modules = await ItemDB.getModules(ctx.session.user._id);
+        ctx.body = {
+            code: 1,
+            data: modules,
+            msg: ""
+        }
+    } catch (e) {
+        console.log(e)
     }
 })
 

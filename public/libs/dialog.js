@@ -1,4 +1,5 @@
-import { Pipe } from "./Pipe.js";
+import {Pipe} from "./Pipe.js";
+import View from "./view/view.js";
 
 export default function Dialog(options) {
   Pipe.call(this);
@@ -17,7 +18,6 @@ proto.constructor = Dialog;
 
 proto.init = function () {
   this.title = this.options.title || "提示";
-  this.msg = this.options.msg;
   this.confirmTxt = this.options.confirmTxt;
   this.cancelTxt = this.options.cancelTxt;
   this.msg = this.options.msg;
@@ -30,14 +30,14 @@ proto.initEl = function () {
         <div class="title-msg">${this.title}</div>
         <span class="iconfont icon-cuowu2"></span>
     </div>
-    <div class="dialog-msg">${this.msg}</div>
+    <div class="dialog-msg"></div>
     <div class="dialog-btn-wrap clearfix">
     <button class="btn btn-primary btn-6 dialog-confirm">${
       this.confirmTxt || "确认"
-    }</button>
+  }</button>
         <button class="btn btn-default btn-6 dialog-cancel">${
-          this.cancelTxt || "取消"
-        }</button>
+      this.cancelTxt || "取消"
+  }</button>
     </div>
     `;
   this.wrapEL = document.createElement("div");
@@ -45,6 +45,13 @@ proto.initEl = function () {
   this.maskEl.classList.add("dialog-mask");
   this.wrapEL.innerHTML = this.elStr;
   this.wrapEL.classList.add("dialog-wrap");
+  this.msgEl = this.wrapEL.querySelector(".dialog-msg");
+  if (typeof this.msg === "string") {
+    this.msgEl.innerHTML = this.msg;
+  } else if (this.msg instanceof View) {
+    this.msg.mount(this.msgEl);
+  }
+  console.log(this.msgEl);
   this.closeEl = this.wrapEL.querySelector(".iconfont");
   this.cancelEl = this.wrapEL.querySelector(".dialog-cancel");
   this.confirmEl = this.wrapEL.querySelector(".dialog-confirm");

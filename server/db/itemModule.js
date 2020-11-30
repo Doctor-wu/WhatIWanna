@@ -63,5 +63,16 @@ class WhatModuledb {
             }
         })
     }
+
+    getModules(belong) {
+        return new Promise(async (resolve, reject) => {
+            await ItemDB.find({belong}, (err, res) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve(res);
+            })
+        })
+    }
 }
 module.exports = new WhatModuledb()

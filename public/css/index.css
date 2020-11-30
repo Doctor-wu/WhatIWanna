@@ -981,7 +981,7 @@ html {
 .dialog-wrap {
   left: 0;
   right: 0;
-  top: 10vh;
+  top: 20vh;
   margin: auto;
   position: fixed;
   width: 80%;

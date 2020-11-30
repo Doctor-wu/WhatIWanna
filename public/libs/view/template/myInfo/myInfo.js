@@ -14,11 +14,11 @@ let myInfo = {
     </section>
     `,
   mounted() {
-    console.log(new Dialog({
-      msg: "测试消息测试消息测试消息测试消息测试消息",
-      confirmTxt: "提交",
-      cancelTxt: "关闭"
-    }));
+    // console.log(new Dialog({
+    //   msg: "测试消息测试消息测试消息测试消息测试消息",
+    //   confirmTxt: "提交",
+    //   cancelTxt: "关闭"
+    // }));
     let logout = document.querySelector(".logout");
     let changeAvatar = document.querySelector(".changeAvatar");
     let avatarFile = document.querySelector("#avatarFile");

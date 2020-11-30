@@ -128,12 +128,23 @@ class WhatItemdb {
     deleteItem(id) {
         return new Promise((resolve, reject) => {
             console.log(id);
-            MyModel.remove({ _id: id }, function(err) {
+            MyModel.remove({_id: id}, function (err) {
                 if (err) {
                     reject(err);
                 } else {
                     resolve();
                 }
+            })
+        })
+    }
+
+    getModules(belong) {
+        return new Promise(async (resolve, reject) => {
+            await MyModel.find({belong, isModule: true}, (err, res) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve(res);
             })
         })
     }

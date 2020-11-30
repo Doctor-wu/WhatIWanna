@@ -6,6 +6,7 @@ import {Drag} from '../../../../js/utils/drag.js';
 import {VForm} from '../../../../libs/vForm/vForm.js'
 import {VFormItem} from '../../../../libs/vForm/vForm-item.js'
 import {utils} from '../../../../js/utils/utils.js';
+import Dialog from "../../../dialog.js";
 
 let whatList = {
   name: "whatList",
@@ -26,6 +27,7 @@ let whatList = {
         <h2 class="form-title">
             新增事项
             <a href="javascript:0" class="close-what-form"><span class="iconfont icon-cuowu"></span></a>
+            <button style="margin-top: 10px" class="btn btn-12 btn-primary addByModule">从模板中添加事项</button>
         </h2>
         <i class="what-form"></i>
     </div>
@@ -53,9 +55,25 @@ let whatList = {
     (function () {
       let formWrap = document.querySelector(".what-form-wrap");
       let whatForm = document.querySelector(".what-form");
+      let addByModule = formWrap.querySelector(".addByModule");
       let close = document.querySelector('.close-what-form');
       let whatList = document.querySelector('.what-list');
       let headDate = document.querySelector('.head-date-span');
+
+      addByModule.addEventListener("click", async (e) => {
+        let {data} = await axios.get("./Module/getModules");
+        console.log(data.data)
+        new Dialog({
+          msg: new View({
+            name: "msg",
+            template: `${data.data.map(item => `<h3 style="padding: 10px 5px;border-bottom: 1px dashed #ccc">
+                                                        ${item.title}, ${item.desc}
+                                                </h3>`)}`.replace(/,/g, "")
+          }),
+          confirmTxt: "提交",
+          cancelTxt: "关闭"
+        })
+      })
 
       // 悬浮图标
       let popDrag = new Drag('.add-schedule', {
