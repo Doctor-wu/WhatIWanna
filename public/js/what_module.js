@@ -10,22 +10,28 @@ export function refreshList() {
       .get(
         `./Item/getItem?date=${utils.formatTime(
             "{0}-{1}-{2}",
-            // headDate.innerText
-            new Date().toLocaleDateString()
+            headDate.innerText
         )}`
       )
       .then((res) => {
         let data = res.data.data;
-        data = data.sort((a, b) => {
-          let [aS, aE] = a.startTime.split(":");
-          let [bS, bE] = b.startTime.split(":");
-          return (
-            parseInt(aS) * 100 +
-            parseInt(aE) -
-            parseInt(bS) * 100 -
-            parseInt(bE)
-          );
-        });
+        let noItem = document.querySelector(".no-item");
+        if (data.length === 0) {
+          noItem.classList.remove("hide");
+
+        } else {
+          noItem.classList.add("hide");
+          data = data.sort((a, b) => {
+            let [aS, aE] = a.startTime.split(":");
+            let [bS, bE] = b.startTime.split(":");
+            return (
+                parseInt(aS) * 100 +
+                parseInt(aE) -
+                parseInt(bS) * 100 -
+                parseInt(bE)
+            );
+          });
+        }
         whatList.innerHTML = "";
         data.forEach((item) => {
           item.tag = item.tag.split(",").map((i) => {

@@ -43,6 +43,9 @@ html {
 .btn.btn-12 {
   width: 100%; }
 
+.hide {
+  display: none; }
+
 .btn {
   display: inline-block;
   padding: .2rem .2rem;

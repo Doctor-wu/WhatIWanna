@@ -13,5 +13,7 @@
         "default-passive-events": "^2.0.0",
         "node-cmd": "^3.0.0"
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "node-sass": "^5.0.0"
+    }
 }

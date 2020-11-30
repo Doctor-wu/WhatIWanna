@@ -138,6 +138,23 @@
     }
 }
 
+
+.no-item {
+    //margin-top: 40vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: .8rem;
+    text-align: center;
+    .iconfont {
+        font-size: 1.2rem;
+        display: block;
+        margin-bottom: .4rem;
+    }
+    color: #07689f;
+}
+
 .what-list.hide {
     transform: translateY(100%);
 }
@@ -162,3 +179,5 @@
 @keyframes shadeIn {
     0% {}
 }
+
+

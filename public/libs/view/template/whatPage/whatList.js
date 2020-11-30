@@ -13,6 +13,10 @@ let whatList = {
     __head__
     <ul class="what-list">
     </ul>
+    <div class="no-item hide">
+         <span class="iconfont icon-jihua2"></span>
+         暂无事项
+    </div>
 
     <span class="add-schedule">
         <span class="iconfont icon-jia"></span>
@@ -146,7 +150,7 @@ let whatList = {
 
       vForm.regist("submit", utils.debounce(function (data) {
         console.log(data);
-        data.data.date = utils.formatTime('{0}-{1}-{2}', new Date().toLocaleDateString());//headDate.innerText
+        data.data.date = utils.formatTime('{0}-{1}-{2}', headDate.innerText);//
         if (vForm.type === "update") {
           data.data.id = vForm.itemId;
           axios.post("./Item/updateItem", data.data)
