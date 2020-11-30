@@ -60,6 +60,7 @@ function matcher(map) {
 
   function flush(route) {
     if (route) {
+      console.log(route)
       if (route.parent) {
         flush.call(this, route.parent);
         this.emit("beforeChildFlush", route);
@@ -67,12 +68,14 @@ function matcher(map) {
         this.curRoute = route;
         this.emit("afterChildFlush", route);
       } else {
+        if (this.curRootRoute === route.pathArr[0]) return;
         this.emit("beforeParentFlush", route);
         if (this.curRootRoute !== route.pathArr[0]) {
           route.view.firstLoad = true;
           this.curRootRoute = route.pathArr[0];
         }
-        let goon = route.view.firstLoad && route.view.mount(this.root);
+        route.view.mount(this.root);
+        // let goon = route.view.firstLoad && route.view.mount(this.root);
         this.emit("afterParentFlush", route);
       }
     }
@@ -119,6 +122,8 @@ function watchHash() {
     if (!hash) return;
     if (!destination) {
       notify.warn(`未知路由: ${hash}, 请检查URL`);
+      location.hash = this.curRoute.path;
+      console.log(this.curRoute)
       return;
     }
     let result = this.emit("beforeRouteHooks", this.curRoute, destination);
@@ -133,6 +138,7 @@ function watchHash() {
         }
       },
       (rej) => {
+        location.hash = rej;
         console.log(rej);
       }
     );

@@ -83,7 +83,7 @@ proto.mount = function (el) {
     });
     this.firstLoad = false;
   }
-  this.flushScripts();
+  // this.flushScripts();
   this.executeHooks("mounted");
   return this;
 };
@@ -111,6 +111,12 @@ proto.renderSlot = function () {
     }
   }
 };
+
+
+proto.addHooks = function (hookName, fn) {
+  this.hooks[hookName] = this.hooks[hookName] || [];
+  this.hooks[hookName].push(fn);
+}
 
 proto.flushScripts = function () {
   if (this.options.plainScript) {
@@ -159,12 +165,13 @@ proto.flushScripts = function () {
 
 proto.renderView = function (view) {
   if (!view.el) {
-    view.mount(this);
+    // view.mount(this);
   } else {
-    view.components.forEach((component) => {
-      component.mount(view);
-    });
-    view.flushScripts();
+    view.addHooks("mounted", () => {
+      view.components.forEach((component) => {
+        component.mount(view);
+      });
+    })
   }
   if (this.routeCurrView.length > 0) {
     [].forEach.call(this.routeCurrView, (route) => {
@@ -174,10 +181,13 @@ proto.renderView = function (view) {
   }
   this.routeViews = this.el.querySelectorAll(".__view__");
   [].forEach.call(this.routeViews, (routeView) => {
-    routeView.outerHTML = `
-        <span style='display:none' class='__view__'></span>
+    let append = document.createElement("div");
+    append.innerHTML = `
         ${view.target}
         `;
+    view.el = append;
+    routeView.parentNode.insertBefore(append, routeView.nextElementSibling);
+    view.mount(this);
     this.routeCurrView = this.el.querySelectorAll(".__view__");
   });
 };

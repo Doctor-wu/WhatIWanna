@@ -61,7 +61,7 @@ vt.regist("beforeChildFlush", (route) => {
 
 vt.beforeRoute((from, to, next, reject) => {
     if (!vt.data.user && !whiteList.includes(to.path)) {
-        next("/auth/login");
+        reject("/auth/login");
         notify.warn("您尚未登录，请登陆后重试。")
     } else {
         next();
