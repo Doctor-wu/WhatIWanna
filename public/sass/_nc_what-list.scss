@@ -147,12 +147,18 @@
     transform: translate(-50%, -50%);
     font-size: .8rem;
     text-align: center;
+
     .iconfont {
         font-size: 1.2rem;
         display: block;
         margin-bottom: .4rem;
     }
+
     color: #07689f;
+}
+
+.no-item.hide {
+    display: none;
 }
 
 .what-list.hide {
