@@ -9,8 +9,9 @@ export function refreshList() {
     axios
       .get(
         `./Item/getItem?date=${utils.formatTime(
-          "{0}-{1}-{2}",
-          headDate.innerText
+            "{0}-{1}-{2}",
+            // headDate.innerText
+            new Date().toLocaleDateString()
         )}`
       )
       .then((res) => {

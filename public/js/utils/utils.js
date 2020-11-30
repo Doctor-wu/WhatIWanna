@@ -252,7 +252,8 @@ const utils = (function () {
   function formatTime(template = `{0}年{1}月{2}日{3}时{4}分{5}秒`, timeStr) {
     // 首先获取时间字符串中的年月日等信息
     let timeArr = timeStr.match(/\d+/g);
-    template = template.replace(/\{(\d)\}/g, ([str, $1]) => {
+
+    template = template.replace(/{(\d)}/g, ([str, $1]) => {
       let time = timeArr[$1] || "00";
       time = time.length < 2 ? "0" + time : time;
       return time;
