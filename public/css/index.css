@@ -597,6 +597,9 @@ html {
     top: 0;
     height: 100%;
     width: 0;
+    font-size: 0;
+    display: block;
+    background-color: lightseagreen;
     border-left: 2px solid lightseagreen;
     border-right: 2px solid lightseagreen; }
   .what-list .what-list-item {
