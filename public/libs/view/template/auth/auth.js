@@ -17,7 +17,7 @@ let auth = {
         <li></li>
     </ul>
     </section>`,
-    "beforeMount": function() {
+    beforeMount() {
         try {
             let user = JSON.parse(sessionStorage.getItem("user"));
             if (user) {

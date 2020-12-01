@@ -68,6 +68,13 @@ proto.initEl = function () {
     ev.stopPropagation();
     this.emit("confirm", this);
   });
+  this.wrapEL.addEventListener("click", (e) => {
+    e.stopPropagation();
+  }, false);
+  this.maskEl.addEventListener("click", (e) => {
+    e.stopPropagation();
+    this.destroy();
+  }, true);
 
   this.regist("cancel", () => {
     this.destroy();

@@ -23,9 +23,11 @@ proto.init = function () {
   this.template = this.options.template;
   this.slot = this.options.slot || {};
   this.hooks = {};
-  // this.hooks["mounted"] = [function() {
-  //     console.log(this);
-  // }]
+  this.hooks["mounted"] = [() => {
+    this.components.forEach((component) => {
+      component.mount(this);
+    });
+  }]
   this.renderType = this.options.renderType || "default";
   this.routeCurrView = [];
   this.target = this.template;
@@ -50,7 +52,7 @@ proto.parseTemplate = function () {
   if (this.components.length === 0) return;
   this.components.forEach((component) => {
     let name = `__${component.name}__`;
-    this.target = this.target.replace(new RegExp(name, "g"), component.target);
+    this.target = this.target.replace(new RegExp(name, "g"), `<div id=COMPONENT${component.vid}>${component.target}</div>`);
   });
 };
 
@@ -61,7 +63,13 @@ proto.component = function (component) {
 
 proto.mount = function (el) {
   el = typeof el === "string" ? document.querySelector(el) : el;
-  this.el = el;
+  if (!this.el && el instanceof View) {
+    this.el = el.el.querySelector(`#COMPONENT${this.vid}`);
+  }
+  if (!this.el) {
+    this.el = el;
+  }
+
   this.renderSlot();
   this.executeHooks("beforeMount");
   if (el instanceof HTMLElement) {
@@ -78,9 +86,6 @@ proto.mount = function (el) {
   }
 
   if (this.firstLoad) {
-    this.components.forEach((component) => {
-      component.mount(this);
-    });
     this.firstLoad = false;
   }
   // this.flushScripts();
@@ -118,55 +123,53 @@ proto.addHooks = function (hookName, fn) {
   this.hooks[hookName].push(fn);
 }
 
-proto.flushScripts = function () {
-  if (this.options.plainScript) {
-    let script = document.createElement("script");
-    script.innerHTML = this.options.plainScript;
-    script.type = "module";
-    this.scripts.push(script);
-    script = null;
-    this.options.plainScript = null;
-  }
-  if (this.scripts.length === 0) return;
-  if (this.scripts[0] instanceof HTMLScriptElement) {
-    this.scripts.forEach((s) => {
-      try {
-        document.body.removeChild(s);
-      } catch (e) {}
-    });
-    this.scripts = this.scripts.map((script) => {
-      let data = script.innerHTML;
-      let s = document.createElement("script");
-      s.innerHTML = data;
-      s.type = "module";
-      document.body.appendChild(s);
-      return s;
-    });
-  } else {
-    let scripts = this.scripts.map((scriptSrc) => {
-      return axios.get(scriptSrc).then((res) => {
-        return res.data;
-      });
-    });
-
-    Promise.all(scripts).then((resArr) => {
-      resArr.forEach((data, i) => {
-        let s = document.createElement("script");
-        s.innerHTML = data.replace(/<br>/g, "");
-        s.type = "module";
-        this.scripts[i] = s;
-      });
-      this.scripts.forEach((s) => {
-        document.body.appendChild(s);
-      });
-    });
-  }
-};
+// proto.flushScripts = function () {
+//   if (this.options.plainScript) {
+//     let script = document.createElement("script");
+//     script.innerHTML = this.options.plainScript;
+//     script.type = "module";
+//     this.scripts.push(script);
+//     script = null;
+//     this.options.plainScript = null;
+//   }
+//   if (this.scripts.length === 0) return;
+//   if (this.scripts[0] instanceof HTMLScriptElement) {
+//     this.scripts.forEach((s) => {
+//       try {
+//         document.body.removeChild(s);
+//       } catch (e) {}
+//     });
+//     this.scripts = this.scripts.map((script) => {
+//       let data = script.innerHTML;
+//       let s = document.createElement("script");
+//       s.innerHTML = data;
+//       s.type = "module";
+//       document.body.appendChild(s);
+//       return s;
+//     });
+//   } else {
+//     let scripts = this.scripts.map((scriptSrc) => {
+//       return axios.get(scriptSrc).then((res) => {
+//         return res.data;
+//       });
+//     });
+//
+//     Promise.all(scripts).then((resArr) => {
+//       resArr.forEach((data, i) => {
+//         let s = document.createElement("script");
+//         s.innerHTML = data.replace(/<br>/g, "");
+//         s.type = "module";
+//         this.scripts[i] = s;
+//       });
+//       this.scripts.forEach((s) => {
+//         document.body.appendChild(s);
+//       });
+//     });
+//   }
+// };
 
 proto.renderView = function (view) {
-  if (!view.el) {
-    // view.mount(this);
-  } else {
+  if (view.el) {
     view.addHooks("mounted", () => {
       view.components.forEach((component) => {
         component.mount(view);
@@ -187,6 +190,7 @@ proto.renderView = function (view) {
         `;
     view.el = append;
     routeView.parentNode.insertBefore(append, routeView.nextElementSibling);
+    console.log(view, view.mount)
     view.mount(this);
     this.routeCurrView = this.el.querySelectorAll(".__view__");
   });
