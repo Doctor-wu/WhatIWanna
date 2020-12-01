@@ -55,19 +55,66 @@ let whatList = {
     let addByModule = formWrap.querySelector(".addByModule");
     let close = document.querySelector('.close-what-form');
     let headDate = document.querySelector('.head-date-span');
+    let activeItem;
 
     addByModule.addEventListener("click", async (e) => {
       let {data} = await axios.get("./Module/getModules");
       console.log(data.data)
+      let msg = new View({
+        name: "msg",
+        template: `<ul class="module-item-list">
+      ${data.data.map(item => `
+      <li data-id="${item._id}"><h3 style="padding: 10px 5px;border-bottom: 1px dashed #ccc">
+           ${item.title} | <small style="font-size: .3rem;font-weight: 600">${item.desc}</small>
+          </h3></li>`)}
+
+    </ul>`.replace(/,/g, ""),
+        mounted() {
+          let msgList = this.el.querySelector(".module-item-list");
+          msgList.addEventListener("click", (e) => {
+            if ("H3SMALL".indexOf(e.target.tagName) !== -1) {
+              activeItem && activeItem.classList.remove("active");
+              activeItem = (function findParent(tagName, curr) {
+                if (!curr) return;
+                if (curr.tagName === tagName) {
+                  return curr;
+                } else {
+                  return findParent(tagName, curr.parentNode)
+                }
+              })("LI", e.target);
+              activeItem.classList.add("active");
+            }
+          })
+        }
+      });
       new Dialog({
-        msg: new View({
-          name: "msg",
-          template: `${data.data.map(item => `<h3 style="padding: 10px 5px;border-bottom: 1px dashed #ccc">
-                                                        ${item.title}, ${item.desc}
-                                                </h3>`)}`.replace(/,/g, "")
-        }),
-        confirmTxt: "提交",
-        cancelTxt: "关闭"
+        msg,
+        confirmTxt: "确认",
+        cancelTxt: "关闭",
+        title: "选择模板",
+      }).regist("confirm", (dialog) => {
+        if (!activeItem) return;
+        let selected = data.data.find(item => item._id === activeItem.dataset.id);
+        console.log(selected)
+
+        if (typeof selected.tag[0] !== "string")
+          selected.tag = selected.tag.map(
+              (v) => v.tagInfo + "-" + v.color
+          );
+        console.log(selected.tag);
+        vForm.items.forEach((i) => {
+          i.value = selected[i.key];
+          if (i.key === "tag") {
+            // i.value = item[tag].split
+            [].forEach.call(i.control, (option) => {
+              if (selected.tag.includes(option.value)) {
+                option.selected = true;
+              }
+            });
+          }
+        });
+        dialog.destroy();
+        activeItem = undefined;
       })
     })
 

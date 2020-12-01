@@ -7,7 +7,6 @@ import View from '../../view.js';
 let whatPage = {
     template: `
     <main id="content">
-<!--    __head__-->
         __routeView__
         __foot__
     </main>`,

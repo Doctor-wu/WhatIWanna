@@ -51,7 +51,6 @@ proto.initEl = function () {
   } else if (this.msg instanceof View) {
     this.msg.mount(this.msgEl);
   }
-  console.log(this.msgEl);
   this.closeEl = this.wrapEL.querySelector(".iconfont");
   this.cancelEl = this.wrapEL.querySelector(".dialog-cancel");
   this.confirmEl = this.wrapEL.querySelector(".dialog-confirm");

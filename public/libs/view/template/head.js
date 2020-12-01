@@ -19,7 +19,6 @@ let head = {
         </section>
     </header>`,
     mounted() {
-        console.log(this)
         let date = document.querySelector('.date'),
             picker = document.querySelector('.head-date'),
             head = document.querySelector('.head-avatar'),

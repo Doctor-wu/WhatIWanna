@@ -697,6 +697,11 @@ html {
     .what-list .active .bottom .tag {
       display: inline-block; }
 
+.module-item-list {
+  border-top: 1px dashed #ccc; }
+  .module-item-list .active {
+    background-color: #d8edfa; }
+
 .no-item {
   position: absolute;
   top: 50%;

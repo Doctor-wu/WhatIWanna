@@ -190,7 +190,6 @@ proto.renderView = function (view) {
         `;
     view.el = append;
     routeView.parentNode.insertBefore(append, routeView.nextElementSibling);
-    console.log(view, view.mount)
     view.mount(this);
     this.routeCurrView = this.el.querySelectorAll(".__view__");
   });
