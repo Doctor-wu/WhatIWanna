@@ -990,7 +990,8 @@ html {
   margin: auto;
   position: fixed;
   width: 80%;
-  min-height: 30vh;
+  min-height: 20vh;
+  max-height: 60vh;
   background-color: #fff;
   z-index: 99;
   font-size: .35rem;
@@ -1014,7 +1015,7 @@ html {
   .dialog-wrap .dialog-msg {
     min-height: 20vh;
     padding: .2rem .2rem;
-    max-height: 60vh;
+    max-height: 44vh;
     overflow: hidden auto; }
   .dialog-wrap .dialog-btn-wrap .btn {
     margin: 0;

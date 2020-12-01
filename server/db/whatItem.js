@@ -137,16 +137,5 @@ class WhatItemdb {
             })
         })
     }
-
-    getModules(belong) {
-        return new Promise(async (resolve, reject) => {
-            await MyModel.find({belong, isModule: true}, (err, res) => {
-                if (err) {
-                    reject(err)
-                }
-                resolve(res);
-            })
-        })
-    }
 }
 module.exports = new WhatItemdb()

@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const Router = require('koa-router');
 
-// 
+//
 const User = require('../db/user')
 
 // 子路由2
@@ -53,7 +53,7 @@ login.get('/', async(ctx) => {
             ctx.body = {
                 'code': 0,
                 'data': {},
-                'msg': '密码错误'
+                'msg': '用户名或密码错误'
             }
         }
 
@@ -124,13 +124,13 @@ avatar.get('/', async(ctx) => {
         });
     }
     form.uploadDir = static; //文件保存的临时目录为static文件夹（文件夹不存在会报错，一会接受的file中的path就是这个）
-    form.maxFieldsSize = 1 * 1024 * 1024; //用户头像大小限制为最大1M    
-    form.keepExtensions = true; //使用文件的原扩展名  
+    form.maxFieldsSize = 1 * 1024 * 1024; //用户头像大小限制为最大1M
+    form.keepExtensions = true; //使用文件的原扩展名
     await new Promise((resolve, reject) => {
 
         form.parse(ctx.req, async function(err, fields, file) {
             var filePath = '';
-            //如果提交文件的form中将上传文件的input名设置为tmpFile，就从tmpFile中取上传文件。否则取for in循环第一个上传的文件。  
+            //如果提交文件的form中将上传文件的input名设置为tmpFile，就从tmpFile中取上传文件。否则取for in循环第一个上传的文件。
             if (file.tmpFile) {
                 filePath = file.tmpFile.path;
             } else {
@@ -141,7 +141,7 @@ avatar.get('/', async(ctx) => {
                     }
                 }
             }
-            //文件移动的目录文件夹，不存在时创建目标文件夹  
+            //文件移动的目录文件夹，不存在时创建目标文件夹
             var targetDir = path.join(__dirname, '../../public/avatars');
             if (!fs.existsSync(targetDir)) {
                 fs.mkdir(targetDir, function(err) {
@@ -151,7 +151,7 @@ avatar.get('/', async(ctx) => {
                 });
             }
             var fileExt = filePath.substring(filePath.lastIndexOf('.'));
-            //判断文件类型是否允许上传  
+            //判断文件类型是否允许上传
             if (('.jpg.jpeg.png.gif').indexOf(fileExt.toLowerCase()) === -1) {
                 ctx.body = {
                     code: 0,
@@ -160,10 +160,10 @@ avatar.get('/', async(ctx) => {
                 };
                 resolve();
             } else {
-                //以当前时间戳对上传文件进行重命名  
+                //以当前时间戳对上传文件进行重命名
                 var fileName = new Date().getTime() + ctx.session.user._id.slice(4) + fileExt;
                 var targetFile = path.join(targetDir, fileName);
-                //移动文件  
+                //移动文件
                 await fs.rename(filePath, targetFile, async function(err) {
                     if (err) {
                         console.info(err);

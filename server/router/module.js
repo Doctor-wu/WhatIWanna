@@ -10,12 +10,19 @@ const ItemDB = require("../db/whatItem");
 const Module = new Router();
 
 Module.post("/addModule", async ctx => {
-    const { id } = ctx.request.body;
+    const {id} = ctx.request.body;
+    let item = await ItemDB.getItemById(id);
+    item = item[0];
+    delete item['isModule'];
+    delete item['_id'];
+    delete item["belong"];
+    let resultItem = {};
+    for (const key in item) {
+        if (key.indexOf("_id") !== -1) continue;
+        resultItem[key] = item[key];
+    }
     try {
-        let res = await ModuleDB.addModule({
-            itemID: id,
-            belong: ctx.session.user._id
-        });
+        let res = await ModuleDB.addModule(resultItem);
 
         ctx.body = {
             code: 1,
@@ -49,14 +56,18 @@ Module.post("/addModule", async ctx => {
     }
 }).get("/getModules", async ctx => {
     try {
-        let modules = await ItemDB.getModules(ctx.session.user._id);
+        let modules = await ModuleDB.getModules(ctx.session.user._id);
         ctx.body = {
             code: 1,
             data: modules,
             msg: ""
         }
     } catch (e) {
-        console.log(e)
+        ctx.body = {
+            code: 0,
+            data: e,
+            msg: ""
+        }
     }
 })
 
