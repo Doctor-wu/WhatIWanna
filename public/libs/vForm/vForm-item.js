@@ -82,7 +82,7 @@ VFormItem.prototype.buildControl = function() {
         // 重写observe 以解决多选的value无法是多个option值的问题
         let _this = this;
         this.observe = function() {
-            Object.defineProperty(this, "value", {
+            Object.defineProperty(_this, "value", {
                 get() {
                     let arr = [];
                     [].forEach.call(_this.control.selectedOptions, option => {
@@ -92,6 +92,8 @@ VFormItem.prototype.buildControl = function() {
                 },
                 set(value) {
                     _this.control.value = value;
+                    // console.log(_this.control.value,_this.value)
+                    // _this.validate();
                 }
             })
         }
@@ -120,7 +122,10 @@ VFormItem.prototype.mount = function(form) {
 
 // 独立的验证模块
 VFormItem.prototype.validate = function() {
-    if (this.rules.length === 0) { return { state: "success", info: [] } };
+    this.valid = undefined;
+    if (this.rules.length === 0) {
+        return {state: "success", info: []}
+    }
     this.rules.map(rule => resolveRule(rule).call(this)).forEach(item => {
         if (!item.valid) {
             this.rejectValid(item.msg);
@@ -174,11 +179,13 @@ VFormItem.prototype.observe = function() {
         },
         set(value) {
             this.control.value = value;
+            // this.validate();
         }
     });
 }
 
 
+// 规则解析模块
 function resolveRule(rule) {
     var validFunc;
     if (rule.prop) {

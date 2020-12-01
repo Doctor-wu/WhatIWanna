@@ -1,6 +1,7 @@
 import View from "../view.js";
 import vt from "../../../js/index.js";
 import {refreshList} from "../../../js/what_module.js";
+import {utils} from "../../../js/utils/utils.js";
 
 let head = {
     name: "head",
@@ -33,9 +34,11 @@ let head = {
             avatar.src = "./source/img/avatar.jpg";
         }
         nameWrap.innerText = vt.data.user.username;
-        today = today.split("-");
-        today[1] = today[1] >= 10 ? today[1] : "0" + today[1];
-        today = today.join("-");
+        today = utils.formatTime("{0}-{1}-{2}",today);
+        // today = today.split("-");
+        // today[1] = today[1] >= 10 ? today[1] : "0" + today[1];
+        // today[2] = today[2] >= 10 ? today[2] : "0" + today[2];
+        // today = today.join("-");
         date.firstElementChild.innerText = today;
         picker.value = today;
         let wanna = document.querySelector(".foot-item.wanna"),

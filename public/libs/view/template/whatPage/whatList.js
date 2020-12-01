@@ -87,21 +87,26 @@ let whatList = {
           })
         }
       });
-      new Dialog({
+      let moduleDialog = new Dialog({
         msg,
         confirmTxt: "确认",
         cancelTxt: "关闭",
         title: "选择模板",
-      }).regist("confirm", (dialog) => {
-        if (!activeItem) return;
+      });
+      moduleDialog.regist("confirm", (dialog) => {
+        if (!activeItem) {
+          notify.warn({
+            title: "提示",
+            msg: "请选择模板"
+          })
+          return;
+        }
         let selected = data.data.find(item => item._id === activeItem.dataset.id);
-        console.log(selected)
 
         if (typeof selected.tag[0] !== "string")
           selected.tag = selected.tag.map(
               (v) => v.tagInfo + "-" + v.color
           );
-        console.log(selected.tag);
         vForm.items.forEach((i) => {
           i.value = selected[i.key];
           if (i.key === "tag") {
@@ -113,7 +118,10 @@ let whatList = {
             });
           }
         });
+        vForm.validate();
         dialog.destroy();
+      });
+      moduleDialog.regist("beforeDestroy", () => {
         activeItem = undefined;
       })
     })

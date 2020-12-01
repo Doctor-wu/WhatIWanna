@@ -142,12 +142,10 @@ export function refreshList() {
                   utils.debounce(
                     () => {
                       vForm.type = "update";
-                      console.log(vForm);
                       if (typeof item.tag[0] !== "string")
                         item.tag = item.tag.map(
                           (v) => v.tagInfo + "-" + v.color
                         );
-                      console.log(item.tag);
                       vForm.items.forEach((i) => {
                         i.value = item[i.key];
                         if (i.key === "tag") {
