@@ -1,12 +1,13 @@
 .myInfo {
     transform: translateY(0);
     position: relative;
-    height: 91vh;
+    height: 100vh;
+    padding-bottom: 10vh;
     box-sizing: border-box;
     transition: all ease-in-out .3s;
     .btn-wrap{
         position: absolute;
-        bottom: 0;
+        bottom: 10vh;
         left: 0;
         width: 100%;
         margin-left: 0;
