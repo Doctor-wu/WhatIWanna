@@ -749,7 +749,7 @@ html {
   transition: all ease-in-out .3s; }
   .myInfo .btn-wrap {
     position: fixed;
-    bottom: 0;
+    bottom: 8vh;
     left: 0;
     width: 100%;
     margin-left: 0;
