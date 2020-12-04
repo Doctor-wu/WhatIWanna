@@ -54,10 +54,10 @@ export let whiteList = ["/auth/login", "/auth/regist"];
 
 vt.regist("beforeChildFlush", (route) => {
     document.title = route.name + "-WhatIWanna"
-    notify.success({
-        title: "路由切换",
-        msg: route.name
-    });
+    // notify.success({
+    //     title: "路由切换",
+    //     msg: route.name
+    // });
 });
 
 vt.beforeRoute((from, to, next, reject) => {

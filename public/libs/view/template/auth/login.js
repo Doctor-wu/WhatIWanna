@@ -70,7 +70,8 @@ let login = {
                                     location.hash = "/home/whatList";
                                 }
                             });
-                    })
+                    });
+
                     goRegist.addEventListener("click", () => {
                         location.hash = "/auth/regist";
                     })
