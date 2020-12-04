@@ -1,4 +1,5 @@
-import { Pipe } from "../Pipe.js";
+import {Pipe} from "../Pipe.js";
+import {whiteList} from "../../js/index.js";
 
 export function Viewtrigger(options = {}) {
   if (!this instanceof Viewtrigger) {
@@ -18,15 +19,16 @@ proto.constructor = Viewtrigger;
 proto.init = function () {
   let _this = this;
   this._state = {};
-  this.cachedHash = new Proxy({}, {
+  Object.defineProperty(this, "cachedHash", {
     get(key) {
       return sessionStorage.getItem("cachedHash");
     },
     set(val) {
+      if (whiteList.includes(val)) return true;
       sessionStorage.setItem("cachedHash", val);
       return true;
     }
-  });
+  })
   this.root =
       typeof this.options.root === "string"
           ? document.querySelector(this.options.root)
@@ -126,7 +128,6 @@ function parseRoute(map, parent = null) {
 function watchHash() {
   location.hash = "";
   window.addEventListener("hashchange", (ev) => {
-    console.log(this.cachedHash.value)
     let hash = ev.newURL.split("#")[1],
         destination = this.matcher.match(hash);
     if (!hash) return;
@@ -144,7 +145,7 @@ function watchHash() {
         if (!destination) {
           notify.warn(`未知路由: ${customHash}`);
         } else {
-          this.cachedHash.value = destination.hash;
+          this.cachedHash = destination.path;
           this.matcher.flush.call(this, destination);
         }
       },

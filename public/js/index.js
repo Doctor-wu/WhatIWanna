@@ -50,7 +50,7 @@ let vt = new Viewtrigger({
     root: document.querySelector("#app")
 }).route(viewMap);
 
-let whiteList = ["/auth/login", "/auth/regist"]
+export let whiteList = ["/auth/login", "/auth/regist"];
 
 vt.regist("beforeChildFlush", (route) => {
     document.title = route.name + "-WhatIWanna"

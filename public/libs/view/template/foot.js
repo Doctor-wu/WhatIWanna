@@ -43,7 +43,7 @@ let foot = {
             location.hash = "/home/wanna";
         }
 
-        window.addEventListener("hashchange", function () {
+        function handler() {
             let path = location.hash.split("#")[1];
             switch (path) {
                 case "/home/whatList": {
@@ -65,7 +65,10 @@ let foot = {
                     break;
                 }
             }
-        })
+        }
+
+        window.addEventListener("hashchange", handler);
+        handler();
     }
 };
 foot = new View(foot);

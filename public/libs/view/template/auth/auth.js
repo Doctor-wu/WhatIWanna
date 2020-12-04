@@ -23,7 +23,7 @@ let auth = {
             if (user) {
                 vt.data.user = user;
                 vt.data.isLogin = true;
-                location.hash = '/home/whatList';
+                location.hash = vt.cachedHash || "/home/whatList";
             }
         } catch (e) {
             console.error(e);
