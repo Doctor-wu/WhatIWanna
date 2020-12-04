@@ -1,20 +1,21 @@
 import {Pipe} from "../Pipe.js";
 import {whiteList} from "../../js/index.js";
 
-export function Viewtrigger(options = {}) {
-  if (!this instanceof Viewtrigger) {
-    return new Viewtrigger(options);
+export function ViewTrigger(options = {}) {
+  if (!this instanceof ViewTrigger) {
+    return new ViewTrigger(options);
   }
+  Pipe.call(this);
   Pipe.call(this);
   this.options = options;
   this.init();
   watchHash.call(this);
 }
 
-Viewtrigger.prototype = Object.create(Pipe.prototype);
+ViewTrigger.prototype = Object.create(Pipe.prototype);
 
-let proto = Viewtrigger.prototype;
-proto.constructor = Viewtrigger;
+let proto = ViewTrigger.prototype;
+proto.constructor = ViewTrigger;
 
 proto.init = function () {
   let _this = this;

@@ -1,4 +1,4 @@
-import { Viewtrigger } from "../libs/view/view-trigger.js";
+import { ViewTrigger } from "../libs/view/view-trigger.js";
 import whatPage from "../libs/view/template/whatPage/what-page.js";
 import myInfo from "../libs/view/template/myInfo/myInfo.js";
 import whatList from "../libs/view/template/whatPage/whatList.js";
@@ -46,7 +46,7 @@ let viewMap = {
 }
 
 
-let vt = new Viewtrigger({
+let vt = new ViewTrigger({
     root: document.querySelector("#app")
 }).route(viewMap);
 

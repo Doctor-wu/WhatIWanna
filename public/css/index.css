@@ -743,15 +743,53 @@ html {
 
 .myInfo {
   transform: translateY(0);
-  position: fixed;
-  z-index: 2;
-  overflow: auto;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: .2rem 0.2rem 1rem;
+  position: relative;
+  height: 91vh;
   box-sizing: border-box;
   transition: all ease-in-out .3s; }
+  .myInfo .btn-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin-left: 0;
+    display: block; }
+  .myInfo .my-info-content {
+    height: 100%;
+    width: 100%; }
+    .myInfo .my-info-content .my-info-head {
+      height: 100%;
+      width: 100%; }
+      .myInfo .my-info-content .my-info-head .bg-wrapper {
+        box-shadow: 0 -1rem 8px rgba(0, 0, 0, 0.8) inset; }
+        .myInfo .my-info-content .my-info-head .bg-wrapper img {
+          width: 100%;
+          display: block; }
+      .myInfo .my-info-content .my-info-head .my-info_avatar__wrapper {
+        width: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        justify-content: flex-end; }
+        .myInfo .my-info-content .my-info-head .my-info_avatar__wrapper .may-info_avatar__right {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          margin-right: .5rem; }
+        .myInfo .my-info-content .my-info-head .my-info_avatar__wrapper .my-info_avatar__content {
+          width: 2rem;
+          height: 2rem;
+          border-radius: 50%;
+          margin-top: -1.3rem; }
+        .myInfo .my-info-content .my-info-head .my-info_avatar__wrapper .my-info_avatar__nickname {
+          font-size: .4rem;
+          text-align: center;
+          margin-top: .18rem;
+          margin-right: .2rem; }
 
 .add-schedule {
   position: fixed;

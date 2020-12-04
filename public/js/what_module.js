@@ -110,7 +110,7 @@ export function refreshList() {
                           }
                         });
                     },
-                    null,
+                    500,
                     true
                   )
                 );
@@ -130,7 +130,7 @@ export function refreshList() {
                           }
                         });
                     },
-                    null,
+                    500,
                     true
                   )
                 );
@@ -158,7 +158,7 @@ export function refreshList() {
                       vForm.itemId = item._id;
                       vForm.show();
                     },
-                    null,
+                    500,
                     true
                   )
                 );
@@ -180,7 +180,7 @@ export function refreshList() {
                           }
                         });
                     },
-                    null,
+                    500,
                     true
                   )
                 );

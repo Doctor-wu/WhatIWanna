@@ -1,11 +1,13 @@
 import View from "../../view.js";
 import vt from "../../../../js/index.js";
 import Dialog from "../../../dialog.js";
+import myInfoTop from "./my-info-top.js";
 
 let myInfo = {
   name: "myInfo",
   template: `
     <section class="myInfo">
+        __myInfoTop__
         <div class="btn-wrap">
             <button class="btn btn-12 btn-success changeAvatar">更换头像</button>
             <input type="file" style="display: none" id="avatarFile"></input>
@@ -13,6 +15,7 @@ let myInfo = {
         </div>
     </section>
     `,
+  components:[myInfoTop],
   mounted() {
     // console.log(new Dialog({
     //   msg: "测试消息测试消息测试消息测试消息测试消息",

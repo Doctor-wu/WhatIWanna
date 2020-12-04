@@ -59,7 +59,7 @@ proto.parseTemplate = function () {
   if (this.components.length === 0) return;
   this.components.forEach((component) => {
     let name = `__${component.name}__`;
-    this.target = this.target.replace(new RegExp(name, "g"), `<div id=COMPONENT${component.vid}>${component.target}</div>`);
+    this.target = this.target.replace(new RegExp(name, "g"), `<div class="view_component__wrapper" id=COMPONENT${component.vid}>${component.target}</div>`);
   });
 };
 
