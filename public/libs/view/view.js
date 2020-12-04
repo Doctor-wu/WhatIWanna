@@ -1,20 +1,27 @@
-import { utils } from "../../js/utils/utils.js";
+import {utils} from "../../js/utils/utils.js";
+import {Pipe} from "../Pipe.js";
+
 let vid = 0;
 
 let hooks = ["beforeMount", "mounted"];
+window.views = new WeakSet();
 
 export default function View(options) {
   if (!this instanceof View) {
     return new View(options);
   }
+  Pipe.call(this);
   this.options = options;
   this.vid = vid++;
   this.init();
   this.loadHooks();
   this.parseTemplate();
+  views.add(this);
+  // console.log(this)
 }
-
+View.prototype = Object.create(Pipe.prototype);
 let proto = View.prototype;
+proto.constructor = View;
 
 proto.init = function () {
   utils.assert(this.options.template != null, "View needs a template");

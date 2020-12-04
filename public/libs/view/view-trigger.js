@@ -18,10 +18,19 @@ proto.constructor = Viewtrigger;
 proto.init = function () {
   let _this = this;
   this._state = {};
+  this.cachedHash = new Proxy({}, {
+    get(key) {
+      return sessionStorage.getItem("cachedHash");
+    },
+    set(val) {
+      sessionStorage.setItem("cachedHash", val);
+      return true;
+    }
+  });
   this.root =
-    typeof this.options.root === "string"
-      ? document.querySelector(this.options.root)
-      : this.options.root;
+      typeof this.options.root === "string"
+          ? document.querySelector(this.options.root)
+          : this.options.root;
   this.curRootRoute = "";
   this.data = new Proxy(_this._state, {
     get(target, key, receiver) {
@@ -117,8 +126,9 @@ function parseRoute(map, parent = null) {
 function watchHash() {
   location.hash = "";
   window.addEventListener("hashchange", (ev) => {
+    console.log(this.cachedHash.value)
     let hash = ev.newURL.split("#")[1],
-      destination = this.matcher.match(hash);
+        destination = this.matcher.match(hash);
     if (!hash) return;
     if (!destination) {
       notify.warn(`未知路由: ${hash}, 请检查URL`);
@@ -134,6 +144,7 @@ function watchHash() {
         if (!destination) {
           notify.warn(`未知路由: ${customHash}`);
         } else {
+          this.cachedHash.value = destination.hash;
           this.matcher.flush.call(this, destination);
         }
       },

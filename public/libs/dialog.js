@@ -91,16 +91,17 @@ proto.initEl = function () {
 
 proto.destroy = function () {
   let result = this.emit("beforeDestroy", this);
+  this.el = null;
   Promise.all(result)
-    .then((res) => {
-      this.wrapEL.style.opacity = 0;
-      this.maskEl.style.opacity = 0;
-      setTimeout(() => {
-        document.body.removeChild(this.wrapEL);
-        document.body.removeChild(this.maskEl);
-        this.wrapEL = null;
-        this.maskEl = null;
-        this.emit("destroyed", this);
+      .then((res) => {
+        this.wrapEL.style.opacity = 0;
+        this.maskEl.style.opacity = 0;
+        setTimeout(() => {
+          document.body.removeChild(this.wrapEL);
+          document.body.removeChild(this.maskEl);
+          this.wrapEL = null;
+          this.maskEl = null;
+          this.emit("destroyed", this);
       }, 300);
     })
     .catch((e) => {

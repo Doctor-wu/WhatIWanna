@@ -231,12 +231,6 @@ function resolveRule(rule) {
     return validFunc;
 }
 
-
-
-
-
-
-
 function parseStyle(style) {
     if (!style) return "";
     let result = ``;

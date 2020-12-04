@@ -41,48 +41,46 @@ export function refreshList() {
             };
           });
           let v = new View({
-            template: `
-                                            <li class="what-list-item">
-                                            <div class="up clearfix">
-                                                <h3 class="list-item-title">${
-                                                  item.title
-                                                }</h3>
-                                                <strong class="list-item-time">${
-                                                  item.startTime
-                                                }-${item.endTime}</strong>
-                                            </div>
-                                            <div class="bottom">
-                                                <p class="info">
-                                                    <span class="label">事项详情</span>
-                                                    <small class="list-item-desc">${
-                                                      item.desc
-                                                    }</small>
-                                                </p>
-                                                <span class="label">事项标签</span>
-                                                <ul class="list-item-tags">
-                                                    ${(function () {
-                                                      let result = "";
-                                                      item.tag.forEach(
-                                                        (tag) => {
-                                                          result += `<li class="tag" style="background-color: ${tag.color}">${tag.tagInfo}</li>`;
-                                                        }
-                                                      );
-                                                      return result;
-                                                    })()}
-                                                </ul>
-                                                <div class="btn-wrap">
-                                                    <button class="btn btn-default btn-6 collapse">收起详情</button>
-                                                    ${(function () {
-                                                      return item.isModule
-                                                        ? '<button class="btn btn-warning btn-6 delete-module">删除模板</button>'
-                                                        : '<button class="btn btn-primary btn-6 save-module">添加模板</button>';
-                                                    })()}
-                                                    <button class="btn btn-success btn-6 update" style="margin-top:.1rem">修改事项</button>
-                                                    <button class="btn btn-danger btn-6 delete" style="margin-top:.1rem">删除事项</button>
-                                                </div>
-                                            </div>
-                                            </li>
-                                        `,
+            template: `<li class="what-list-item">
+                <div class="up clearfix">
+                  <h3 class="list-item-title">${
+                    item.title
+                  }</h3>
+                  <strong class="list-item-time">${
+                    item.startTime
+                  }-${item.endTime}</strong>
+                </div>
+                <div class="bottom">
+                    <p class="info">
+                        <span class="label">事项详情</span>
+                        <small class="list-item-desc">${
+                            item.desc
+                        }</small>
+                    </p>
+                    <span class="label">事项标签</span>
+                    <ul class="list-item-tags">
+                        ${(function () {
+                            let result = "";
+                            item.tag.forEach(
+                                (tag) => {
+                                  result += `<li class="tag" style="background-color: ${tag.color}">${tag.tagInfo}</li>`;
+                                }
+                            );
+                            return result;
+                        })()}
+                    </ul>
+                    <div class="btn-wrap">
+                    <button class="btn btn-default btn-6 collapse">收起详情</button>
+                    ${(function () {
+                         return item.isModule
+                           ? '<button class="btn btn-warning btn-6 delete-module">删除模板</button>'
+                           : '<button class="btn btn-primary btn-6 save-module">添加模板</button>';
+                    })()}
+                    <button class="btn btn-success btn-6 update" style="margin-top:.1rem">修改事项</button>
+                    <button class="btn btn-danger btn-6 delete" style="margin-top:.1rem">删除事项</button>
+                    </div>
+                </div>
+             </li>`,
             name: "whatitem",
             renderType: "append",
             mounted() {

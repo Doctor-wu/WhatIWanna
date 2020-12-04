@@ -186,6 +186,7 @@ let whatList = {
             {prop: "required", msg: "请选择结束时间", trigger: "blur"}
           ]
         });
+
     let tags = new VFormItem({
       tag: "select",
       label: "事项标签",

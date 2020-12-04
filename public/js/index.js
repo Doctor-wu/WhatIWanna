@@ -53,10 +53,11 @@ let vt = new Viewtrigger({
 let whiteList = ["/auth/login", "/auth/regist"]
 
 vt.regist("beforeChildFlush", (route) => {
-    // notify.success({
-    //     title: "路由切换",
-    //     msg: route.name
-    // });
+    document.title = route.name + "-WhatIWanna"
+    notify.success({
+        title: "路由切换",
+        msg: route.name
+    });
 });
 
 vt.beforeRoute((from, to, next, reject) => {

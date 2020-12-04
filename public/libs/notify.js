@@ -175,6 +175,10 @@ proto.destroy = function() {
         })).mount(".notify-list");
         return note;
     }
-
+    let oldNotify = window.notify;
+    Notify.noConflict = function () {
+        window.notify = oldNotify;
+        return Notify;
+    }
     window.notify = Notify;
 })(window)
