@@ -192,6 +192,8 @@ proto.renderView = function (view) {
   this.routeViews = this.el.querySelectorAll(".__view__");
   [].forEach.call(this.routeViews, (routeView) => {
     let append = document.createElement("div");
+    append.style.height = "100%";
+    append.style.width = "100%";
     append.innerHTML = `
         ${view.target}
         `;

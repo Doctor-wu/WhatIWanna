@@ -742,11 +742,12 @@ html {
   0% { } }
 
 .myInfo {
-  transform: translateY(0);
   position: relative;
-  height: 92vh;
+  height: 92%;
+  margin-bottom: 8%;
   box-sizing: border-box;
   transition: all ease-in-out .3s;
+  transform: translateY(0);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
