@@ -130,50 +130,6 @@ proto.addHooks = function (hookName, fn) {
   this.hooks[hookName].push(fn);
 }
 
-// proto.flushScripts = function () {
-//   if (this.options.plainScript) {
-//     let script = document.createElement("script");
-//     script.innerHTML = this.options.plainScript;
-//     script.type = "module";
-//     this.scripts.push(script);
-//     script = null;
-//     this.options.plainScript = null;
-//   }
-//   if (this.scripts.length === 0) return;
-//   if (this.scripts[0] instanceof HTMLScriptElement) {
-//     this.scripts.forEach((s) => {
-//       try {
-//         document.body.removeChild(s);
-//       } catch (e) {}
-//     });
-//     this.scripts = this.scripts.map((script) => {
-//       let data = script.innerHTML;
-//       let s = document.createElement("script");
-//       s.innerHTML = data;
-//       s.type = "module";
-//       document.body.appendChild(s);
-//       return s;
-//     });
-//   } else {
-//     let scripts = this.scripts.map((scriptSrc) => {
-//       return axios.get(scriptSrc).then((res) => {
-//         return res.data;
-//       });
-//     });
-//
-//     Promise.all(scripts).then((resArr) => {
-//       resArr.forEach((data, i) => {
-//         let s = document.createElement("script");
-//         s.innerHTML = data.replace(/<br>/g, "");
-//         s.type = "module";
-//         this.scripts[i] = s;
-//       });
-//       this.scripts.forEach((s) => {
-//         document.body.appendChild(s);
-//       });
-//     });
-//   }
-// };
 
 proto.renderView = function (view) {
   if (view.el) {
@@ -192,6 +148,7 @@ proto.renderView = function (view) {
   this.routeViews = this.el.querySelectorAll(".__view__");
   [].forEach.call(this.routeViews, (routeView) => {
     let append = document.createElement("div");
+    append.classList.add("route_view__wrapper")
     append.style.height = "100%";
     append.style.width = "100%";
     append.innerHTML = `

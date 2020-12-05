@@ -28,12 +28,19 @@ let myInfo = {
 
 
     logout.addEventListener("click", function () {
-      let username = vt.data.user.username;
-      sessionStorage.removeItem("user");
-      delete vt.data.user;
-      vt.data.isLogin = false;
-      notify.success(`退出成功😀<br>欢迎 [${username}] 下次访问`);
-      location.hash = "/auth/login"
+      let dig = new Dialog({
+        msg: "确认要退出登录吗?",
+        title: "退出登录"
+      });
+      dig.regist("confirm",()=>{
+        dig.destroy();
+        let username = vt.data.user.username;
+        sessionStorage.removeItem("user");
+        delete vt.data.user;
+        vt.data.isLogin = false;
+        notify.success(`退出成功😀<br>欢迎 [${username}] 下次访问`);
+        location.hash = "/auth/login";
+      })
     });
 
     avatarFile.addEventListener("change", function () {

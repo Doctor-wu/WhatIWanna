@@ -1,5 +1,6 @@
 import View from "../libs/view/view.js";
 import { utils } from "./utils/utils.js";
+import Dialog from "../libs/dialog.js";
 
 export function refreshList() {
   let headDate = document.querySelector(".head-date-span");
@@ -119,16 +120,16 @@ export function refreshList() {
                   "click",
                   utils.debounce(
                     () => {
-                      axios
-                        .delete(`./Module/deleteModule?id=${item._id}`)
-                        .then((res) => {
-                          if (res.data.code === 1) {
-                            notify.success(res.data.msg);
-                            refreshList();
-                          } else {
-                            notify.danger(res.data.msg);
-                          }
-                        });
+                        axios
+                            .delete(`./Module/deleteModule?id=${item._id}`)
+                            .then((res) => {
+                                if (res.data.code === 1) {
+                                    notify.success(res.data.msg);
+                                    refreshList();
+                                } else {
+                                    notify.danger(res.data.msg);
+                                }
+                            });
                     },
                     500,
                     true
@@ -167,18 +168,26 @@ export function refreshList() {
                   "click",
                   utils.debounce(
                     () => {
-                      axios
-                        .delete(`./Item/deleteItem?id=${item._id}`)
-                        .then((res) => {
-                          if (res.data.code === 1) {
-                            notify.success("删除成功");
-                            vForm.reset();
-                            refreshList();
-                            collapse.click();
-                          } else {
-                            notify.danger(res.data.msg);
-                          }
+                        let dig = new Dialog({
+                            title: "删除事项",
+                            msg: "确定要删除事项吗?"
                         });
+
+                        dig.regist("confirm", ()=>{
+                            axios
+                                .delete(`./Item/deleteItem?id=${item._id}`)
+                                .then((res) => {
+                                    if (res.data.code === 1) {
+                                        notify.success("删除成功");
+                                        vForm.reset();
+                                        refreshList();
+                                        collapse.click();
+                                    } else {
+                                        notify.danger(res.data.msg);
+                                    }
+                                });
+                            dig.destroy();
+                        })
                     },
                     500,
                     true

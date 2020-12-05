@@ -17,7 +17,7 @@ let whatList = {
     </ul>
     <div class="no-item hide">
          <span class="iconfont icon-jihua2"></span>
-         暂无事项
+         今日暂无事项
     </div>
 
     <span class="add-schedule">
@@ -143,10 +143,10 @@ let whatList = {
       label: "事项标题",
       key: "title",
       attrs: {
-        placeholder: "请输入标题"
+        placeholder: "请输入事项标题"
       },
       rules: [
-        {prop: "required", msg: "请输入标题", trigger: "blur"}
+        {prop: "required", msg: "请输入事项标题", trigger: "input"}
       ]
     });
 
@@ -156,10 +156,10 @@ let whatList = {
       key: "desc",
       attrs: {
         rows: 5,
-        placeholder: "请输入描述"
+        placeholder: "请输入事项描述"
       },
       rules: [
-        {prop: "required", msg: "请输入描述", trigger: "blur"}
+        {prop: "required", msg: "请输入事项描述", trigger: "blur"}
       ]
     });
 
@@ -168,24 +168,24 @@ let whatList = {
           label: "事项时间",
           key: "startTime",
           attrs: {
-            placeholder: "请选择开始时间",
+            placeholder: "请选择事项开始时间",
             type: "time"
           },
           style: "margin: 0 0 .2rem;width:50%;display:inline-block;padding-right:.1rem;",
           rules: [
-            {prop: "required", msg: "请选择开始时间", trigger: "blur"}
+            {prop: "required", msg: "请选择事项开始时间", trigger: "blur"}
           ]
         }),
         timeEnd = new VFormItem({
           tag: "input",
           key: "endTime",
           attrs: {
-            placeholder: "请选择结束时间",
+            placeholder: "请选择事项结束时间",
             type: "time"
           },
           style: "margin: .3rem 0 0.2rem 0;width:50%;display:inline-block;padding-left:0 .1rem;",
           rules: [
-            {prop: "required", msg: "请选择结束时间", trigger: "blur"}
+            {prop: "required", msg: "请选择事项结束时间", trigger: "blur"}
           ]
         });
 
@@ -194,7 +194,7 @@ let whatList = {
       label: "事项标签",
       key: "tag",
       attrs: {
-        placeholder: "请选择标签类型",
+        placeholder: "请选择事项标签类型",
         multiple: "multiple"
       },
       opts: {
@@ -205,7 +205,7 @@ let whatList = {
         "其他": "其他-gray"
       },
       rules: [
-        {prop: "required", msg: "请至少选择一个标签类型", trigger: "blur"}
+        {prop: "required", msg: "请至少选择一个事项标签类型", trigger: "blur"}
       ]
     })
 
@@ -258,6 +258,14 @@ let whatList = {
             })
       }
     }, 500, true))
+
+    vForm.regist("validate-failed",(data)=>{
+      console.log(data)
+      notify.danger({
+        title: "校验失败",
+        msg: data.info.filter(i=>i.state!=="success").map(i=>`<h4>${i.info}!</h4>`).toString().replace(/,/g,``)
+      })
+    })
 
     popOut.addEventListener('click', showForm);
     close.addEventListener('click', hideForm);

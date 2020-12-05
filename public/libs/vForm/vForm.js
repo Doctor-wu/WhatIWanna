@@ -117,6 +117,7 @@ function resolveSubmit() {
             });
             this.emit("submit", { valid: valid, data });
         } else {
+            this.emit("validate-failed", valid);
             console.warn(`[valid failed] ${JSON.stringify(valid)}`);
         };
     })
