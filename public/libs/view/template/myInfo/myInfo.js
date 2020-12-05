@@ -6,12 +6,12 @@ import myInfoTop from "./my-info-top.js";
 let myInfo = {
   name: "myInfo",
   template: `
-    <section class="myInfo">
+    <section class="myInfo clearfix">
         __myInfoTop__
         <div class="btn-wrap">
-            <button class="btn btn-12 btn-success changeAvatar">更换头像</button>
+            <button class="btn btn-6 btn-success changeAvatar">更换头像</button>
             <input type="file" style="display: none" id="avatarFile"></input>
-            <button class="btn btn-12 btn-danger logout">退出登录</button>
+            <button class="btn btn-6 btn-danger logout">退出登录</button>
         </div>
     </section>
     `,
