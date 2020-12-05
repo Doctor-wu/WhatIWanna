@@ -221,7 +221,7 @@ function resolveRule(rule) {
             } else {
                 return {
                     valid: false,
-                    msg: `未通过正则表达式验证:${rule.pattern}`
+                    msg: rule.msg || `未通过正则表达式验证:${rule.pattern}`
                 }
             }
         }

@@ -26,7 +26,8 @@ let login = {
                             autocomplete: "username"
                         },
                         rules: [
-                            {prop: "required", msg: "请输入用户名[学号]", trigger: "blur"}
+                            {prop: "required", msg: "请输入用户名[学号]", trigger: "blur"},
+                            {pattern: /^\d{12}$/, msg: "请输入正用户名[学号]", trigger: "input"}
                         ]
                     });
 

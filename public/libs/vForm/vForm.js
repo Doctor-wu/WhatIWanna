@@ -47,7 +47,8 @@ VForm.prototype.validate = function() {
     if (this.items.length === 0) return { state: 'success', info: [] };
     let arr = [];
     this.items.forEach((item) => {
-        arr.push(item.validate());
+        let res = item.validate();
+        arr.push({...res,item});
     });
     let success = arr.every(item => {
         return item.state === "success";
@@ -55,7 +56,9 @@ VForm.prototype.validate = function() {
     if (success) {
         return { state: 'success', info: arr }
     } else {
-        return { state: 'failed', info: arr }
+        console.log(arr.find(i=>i.state!=="success"));
+        arr.find(i=>i.state!=="success").item.el.scrollIntoView();
+        return { state: 'failed', info: arr.map(item=>({state:item.state,info:item.info})) }
     }
 }
 

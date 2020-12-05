@@ -5,7 +5,7 @@ export function refreshList() {
   let headDate = document.querySelector(".head-date-span");
   let whatList = document.querySelector(".what-list");
   setTimeout(() => {
-    let vForm = document.querySelector(".what-form-wrap>.vform")._data;
+    let vForm = document.querySelector(".what-form-wrap .vform")._data;
     axios
       .get(
         `./Item/getItem?date=${utils.formatTime(

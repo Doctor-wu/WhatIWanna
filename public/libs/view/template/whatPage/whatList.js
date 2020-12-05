@@ -28,9 +28,11 @@ let whatList = {
         <h2 class="form-title">
             新增事项
             <a href="javascript:0" class="close-what-form"><span class="iconfont icon-cuowu"></span></a>
-            <button style="margin-top: 10px" class="btn btn-12 btn-primary addByModule">从模板中添加事项</button>
         </h2>
-        <i class="what-form"></i>
+        <button style="margin-top: 10px" class="btn btn-12 btn-primary addByModule">从模板中添加事项</button>
+        <div class="form-wrapper">
+            <i class="what-form"></i>
+        </div>
     </div>
     </div>`,
   // scripts: [

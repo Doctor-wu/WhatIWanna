@@ -746,11 +746,14 @@ html {
   position: relative;
   height: 92vh;
   box-sizing: border-box;
-  transition: all ease-in-out .3s; }
+  transition: all ease-in-out .3s;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; }
   .myInfo .btn-wrap {
-    position: fixed;
-    bottom: 6vh;
-    left: 0;
     width: 100%;
     margin-left: 0;
     display: block;
