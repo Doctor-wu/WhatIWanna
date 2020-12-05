@@ -12,7 +12,6 @@
     padding: 2.2rem 0.2rem 1rem;
     box-sizing: border-box;
     transition: all ease-in-out .3s;
-
     .what-list-item::before {
         content: "";
         position: absolute;
@@ -25,6 +24,45 @@
         background-color: lightseagreen;
         border-left: 2px solid lightseagreen;
         border-right: 2px solid lightseagreen;
+    }
+
+    .what-list-item%tagColor::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 0;
+        font-size: 0;
+        display: block;
+        background-color: lightseagreen;
+        border-left: 2px solid lightseagreen;
+        border-right: 2px solid lightseagreen;
+    }
+
+    .hotpink::before{
+        background-color: hotpink!important;
+        border-color: hotpink!important;
+    }
+
+    .tc40a8c4::before{
+        background-color: #40a8c4!important;
+        border-color: #40a8c4!important;
+    }
+
+    .tcffc93c::before{
+        background-color: #ffc93c!important;
+        border-color: #ffc93c!important;
+    }
+
+    .gray::before{
+        background-color: gray!important;
+        border-color: gray!important;
+    }
+
+    .lightgreen::before{
+        background-color: lightgreen!important;
+        border-color: lightgreen!important;
     }
 
     .what-list-item {

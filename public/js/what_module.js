@@ -42,7 +42,9 @@ export function refreshList() {
             };
           });
           let v = new View({
-            template: `<li class="what-list-item">
+            template: `<li class="what-list-item ${item.tag[0].color.startsWith('#')
+                        ?('tc'+item.tag[0].color.slice(1))
+                        :item.tag[0].color}">
                 <div class="up clearfix">
                   <h3 class="list-item-title">${
                     item.title
