@@ -1,17 +1,26 @@
 @import './_nc_share.scss';
 
-.what-list {
+.what-list-wrap{
     transform: translateY(0);
     position: fixed;
     z-index: 2;
-    overflow: auto;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 2.2rem 0.2rem 1rem;
+    padding: 1.3rem 0.2rem 1rem;
     box-sizing: border-box;
     transition: all ease-in-out .3s;
+    overflow: hidden;
+}
+.what-list {
+    transform: translateY(0);
+    box-sizing: border-box;
+    transition: all ease-in-out .3s;
+    padding-top: .9rem;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
     .what-list-item::before {
         content: "";
         position: absolute;

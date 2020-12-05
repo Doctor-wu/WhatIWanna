@@ -116,12 +116,13 @@ html {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex; }
+    display: flex;
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.15); }
     #main-header .head .head-avatar {
       display: block;
       position: relative;
       border-radius: 50%;
-      border: 1px solid #3f3f3f; }
+      border: 1px solid rgba(0, 0, 0, 0.2); }
     #main-header .head .head-info {
       display: -webkit-box;
       display: -webkit-flex;

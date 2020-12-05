@@ -13,8 +13,10 @@ let whatList = {
   components: [head],
   template: `<div>
     __head__
-    <ul class="what-list">
-    </ul>
+    <div class="what-list-wrap" ">
+        <ul class="what-list">
+        </ul>
+    </div>
     <div class="no-item hide">
          <span class="iconfont icon-jihua2"></span>
          今日暂无事项
