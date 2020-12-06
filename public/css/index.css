@@ -825,8 +825,7 @@ html {
         .myInfo .my-info-content .my-info-head .my-info_avatar__wrapper .my-info_avatar__nickname {
           font-size: .4rem;
           text-align: center;
-          margin-top: .18rem;
-          margin-right: .2rem; }
+          margin-top: .18rem; }
 
 .add-schedule {
   position: fixed;
