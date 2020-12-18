@@ -116,8 +116,7 @@ html {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
-    display: flex;
-    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.15); }
+    display: flex; }
     #main-header .head .head-avatar {
       display: block;
       position: relative;
