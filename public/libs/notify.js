@@ -16,13 +16,13 @@ let proto = Notify.prototype = Object.create(View.prototype);
 proto.constructor = Notify;
 
 
-proto.initHooks = function() {
-    this.hooks.beforeMount = [function() {
+proto.initHooks = function () {
+    this.hooks.beforeMount = [function () {
         setTimeout(() => {
             this.destroy();
         }, 3000)
     }];
-    this.hooks.mounted = [function() {
+    this.hooks.mounted = [function () {
         this.el.firstElementChild.querySelector(".close-notify")
             .addEventListener("click", this.destroy.bind(this), false);
     }];
@@ -32,7 +32,7 @@ proto.initHooks = function() {
     this.options.mounted && this.hooks.mounted.push(this.options.mounted);
 }
 
-proto.destroy = function() {
+proto.destroy = function () {
     if (!this.destroyed) {
         this.el.classList.add("notify-leave");
         setTimeout(() => {
@@ -47,14 +47,25 @@ proto.destroy = function() {
 
 
 
-(function(window) {
+(function (window) {
     utils.assert(utils.isWindow(window) && typeof window.document === "object", "notify need a window with document");
     // let notify = Object.create(null);
 
     let notifyConfig = {
         template: `
-            <div class="msg">
-                __slot__
+            <div class="notify">
+                <div class="operation">
+                    <div class="title-wrap">
+                        <span class="sign __theme__ iconfont __tipIcon__"></span>
+                        <h3 class="title">__slot-title__</h3>
+                    </div>
+                    <a href="javascript:;" class="close-notify">
+                        <span class="iconfont icon-cuowu"></span>
+                    </a>
+                </div>
+                <div class="info">
+                    <span class="msg">__slot__</span>
+                </div>
             </div>
         `,
         type: "success",
@@ -68,26 +79,16 @@ proto.destroy = function() {
 
 
 
-    Notify.success = function(options) {
+    Notify.success = function (options) {
         let msg = typeof options === "object" ? options.msg : options;
         let title = typeof options === "object" ? options.title || "成功" : "成功";
         let note = new Notify(Object.assign(notifyConfig, {
             type: "success",
             slot: {
-                default: `<div class="notify">
-                <div class="operation">
-                    <div class="title-wrap">
-                        <span class="sign success iconfont icon-dui"></span>
-                        <h3 class="title">${title}</h3>
-                    </div>
-                    <a href="javascript:;" class="close-notify">
-                        <span class="iconfont icon-cuowu"></span>
-                    </a>
-                </div>
-                <div class="info">
-                    <span class="msg">${msg}</span>
-                </div>
-                </div>`
+                default: msg,
+                "slot-title": title,
+                tipIcon: "icon-dui",
+                theme: "success",
             },
             msg
         })).mount(".notify-list");
@@ -98,78 +99,48 @@ proto.destroy = function() {
         return note;
     }
 
-    Notify.warn = function(options) {
+    Notify.warn = function (options) {
         let msg = typeof options === "object" ? options.msg : options;
         let title = typeof options === "object" ? options.title || "警告" : "警告";
         let note = new Notify(Object.assign(notifyConfig, {
             type: "warn",
             slot: {
-                default: `<div class="notify">
-                <div class="operation">
-                    <div class="title-wrap">
-                        <span class="sign warn iconfont icon-cuowu1"></span>
-                        <h3 class="title">${title}</h3>
-                    </div>
-                    <a href="javascript:;" class="close-notify">
-                        <span class="iconfont icon-cuowu"></span>
-                    </a>
-                </div>
-                <div class="info">
-                    <span class="msg">${msg}</span>
-                </div>
-                </div>`
+                default: msg,
+                "slot-title": title,
+                tipIcon: "icon-cuowu1",
+                theme: "warn",
             },
             msg
         })).mount(".notify-list");
         return note;
     }
 
-    Notify.info = function(options) {
+    Notify.info = function (options) {
         let msg = typeof options === "object" ? options.msg : options;
         let title = typeof options === "object" ? options.title || "消息" : "消息";
         let note = new Notify(Object.assign(notifyConfig, {
             type: "info",
             slot: {
-                default: `<div class="notify">
-                <div class="operation">
-                    <div class="title-wrap">
-                        <span class="sign info iconfont icon-info1"></span>
-                        <h3 class="title">${title}</h3>
-                    </div>
-                    <a href="javascript:;" class="close-notify">
-                        <span class="iconfont icon-cuowu"></span>
-                    </a>
-                </div>
-                <div class="info">
-                    <span class="msg">${msg}</span>
-                </div>
-                </div>`
+                default: msg,
+                "slot-title": title,
+                tipIcon: "icon-info1",
+                theme: "info",
             },
             msg
         })).mount(".notify-list");
         return note;
     }
 
-    Notify.danger = function(options) {
+    Notify.danger = function (options) {
         let msg = typeof options === "object" ? options.msg : options;
         let title = typeof options === "object" ? options.title || "失败" : "失败";
         let note = new Notify(Object.assign(notifyConfig, {
             type: "danger",
             slot: {
-                default: `<div class="notify">
-                <div class="operation">
-                    <div class="title-wrap">
-                        <span class="sign danger iconfont icon-cuowu2"></span>
-                        <h3 class="title">${title}</h3>
-                    </div>
-                    <a href="javascript:;" class="close-notify">
-                        <span class="iconfont icon-cuowu"></span>
-                    </a>
-                </div>
-                <div class="info">
-                    <span class="msg">${msg}</span>
-                </div>
-                </div>`
+                default: msg,
+                "slot-title": title,
+                tipIcon: "icon-cuowu2",
+                theme: "danger",
             },
             msg
         })).mount(".notify-list");
