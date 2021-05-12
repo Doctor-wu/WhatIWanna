@@ -1,11 +1,11 @@
 import View from "../../view.js";
-import {VFormItem} from "../../../../libs/vForm/vForm-item.js";
-import {VForm} from "../../../../libs/vForm/vForm.js";
+import { VFormItem } from "../../../../libs/vForm/vForm-item.js";
+import { VForm } from "../../../../libs/vForm/vForm.js";
 
 let regist = {
     name: "regist",
     template: `<div class="login">
-    <h3>注册</h3>
+    <h3>注册账号</h3>
     <div id="regist" style="height: 6rem"></div>
     <div class=".btn-wrap">
     <button class="btn btn-12 btn-success goRegist">注册</button>
@@ -24,7 +24,7 @@ let regist = {
                 autocomplete: "current-password"
             },
             rules: [
-                {prop: "required", msg: "请输入用户名", trigger: "blur"}
+                { prop: "required", msg: "请输入用户名", trigger: "blur" }
             ]
         });
 
@@ -38,7 +38,7 @@ let regist = {
                 autocomplete: "current-password"
             },
             rules: [
-                {prop: "required", msg: "请输入密码", trigger: "blur"}
+                { prop: "required", msg: "请输入密码", trigger: "blur" }
             ]
         });
 
@@ -52,7 +52,7 @@ let regist = {
                 autocomplete: "current-password"
             },
             rules: [
-                {prop: "required", msg: "请输入学号", trigger: "blur"}
+                { prop: "required", msg: "请输入学号", trigger: "blur" }
             ]
         });
 
