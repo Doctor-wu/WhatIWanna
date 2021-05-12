@@ -22,13 +22,14 @@ let myInfoTop = {
             </div>
         </div>
     `,
-    mounted(){
+    mounted() {
         let avatar = document.querySelector(".my-info_avatar__content"),
             bgWrapper = document.querySelector(".bg-wrapper"),
             nickName = document.querySelector(".my-info_avatar__nickname");
         nickName.innerText = vt.data.user.username;
         bgWrapper.firstElementChild.src = "./assets/myInfoBG.jpg";
-        avatar.src = "./avatars/" +　vt.data.user.avatar;
+        console.log(vt);
+        avatar.src = vt.data.user.avatar ? "./avatars/" + vt.data.user.avatar : "./source/img/avatar.jpg";
         console.log(avatar);
     }
 }
