@@ -1,5 +1,5 @@
 import View from "../view.js";
-import {utils} from "../../../js/utils/utils.js"
+import { utils } from "../../../js/utils/utils.js"
 let foot = {
     name: "foot",
     template: `<!-- footer -->

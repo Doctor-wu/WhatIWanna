@@ -33,6 +33,7 @@ let myInfoTop = {
         console.log(avatar);
     }
 }
-myInfoTop = new View(myInfoTop);
+// myInfoTop = new View(myInfoTop);
+myInfoTop = View.extend(myInfoTop);
 
 export default myInfoTop;

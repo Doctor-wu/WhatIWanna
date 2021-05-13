@@ -1,11 +1,10 @@
-import {Pipe} from "../Pipe.js";
-import {whiteList} from "../../js/index.js";
+import { Pipe } from "../Pipe.js";
+import { whiteList } from "../../js/index.js";
 
 export function ViewTrigger(options = {}) {
   if (!this instanceof ViewTrigger) {
     return new ViewTrigger(options);
   }
-  Pipe.call(this);
   Pipe.call(this);
   this.options = options;
   this.init();
@@ -20,6 +19,7 @@ proto.constructor = ViewTrigger;
 proto.init = function () {
   let _this = this;
   this._state = {};
+  this._matched = [];
   Object.defineProperty(this, "cachedHash", {
     get(key) {
       return sessionStorage.getItem("cachedHash");
@@ -31,9 +31,9 @@ proto.init = function () {
     }
   })
   this.root =
-      typeof this.options.root === "string"
-          ? document.querySelector(this.options.root)
-          : this.options.root;
+    typeof this.options.root === "string"
+      ? document.querySelector(this.options.root)
+      : this.options.root;
   this.curRootRoute = "";
   this.data = new Proxy(_this._state, {
     get(target, key, receiver) {
@@ -47,11 +47,19 @@ proto.init = function () {
   this.beforeRouteHooks = [];
 };
 
+proto.getMatched = function () {
+  let target = this._matched.splice(0, 1)[0];
+  return target;
+}
+
 proto.route = function (routeMap) {
   this.map = routeMap.map;
   this.home = routeMap.home || "/";
-  this.matcher = matcher(this.map);
-  location.hash = this.home;
+  this.matcher = matcher.call(this, this.map);
+
+  const curRoute = this.matcher.match(location.hash.slice(1));
+  this.matcher.flush.call(this, curRoute);
+  // location.hash = this.home;
   return this;
 };
 
@@ -67,29 +75,46 @@ function matcher(map) {
   const routeMap = parseRoute(map);
 
   function match(hash) {
-    return routeMap[hash];
+    const target = routeMap[hash];
+    return target;
   }
 
-  function flush(route) {
+  function getView(route) {
+    if (route.view instanceof Function) route.view();
+    return route.view;
+  }
+
+  function flush(route, traversal) {
     if (route) {
-      // console.log(route)
-      if (route.parent) {
-        flush.call(this, route.parent);
-        this.emit("beforeChildFlush", route);
-        route.parent.view.renderView(route.view);
-        this.curRoute = route;
-        this.emit("afterChildFlush", route);
-      } else {
-        if (this.curRootRoute === route.pathArr[0]) return;
-        this.emit("beforeParentFlush", route);
-        if (this.curRootRoute !== route.pathArr[0]) {
-          route.view.firstLoad = true;
-          this.curRootRoute = route.pathArr[0];
-        }
-        route.view.mount(this.root);
-        // let goon = route.view.firstLoad && route.view.mount(this.root);
-        this.emit("afterParentFlush", route);
+
+      if (!traversal || true) {
+        this._matched.length = 0;
+        Object.keys(routeMap).forEach(path => {
+          if (route.path.startsWith(path)) {
+            this._matched.push(routeMap[path]);
+          }
+        });
+        this._matched.splice(0, 1);
       }
+      // console.log(route)
+      // if (route.parent) {
+      //   flush.call(this, route.parent, true);
+      //   this.emit("beforeChildFlush", route);
+      //   getView(route.parent).renderView(route.view);
+      //   this.curRoute = route;
+      //   this.emit("afterChildFlush", route);
+      // } else {
+      //   if (this.curRootRoute === route.pathArr[0]) return;
+      //   const view = getView(route);
+      //   this.emit("beforeParentFlush", route);
+      //   if (this.curRootRoute !== route.pathArr[0]) {
+      //     view.firstLoad = true;
+      //     this.curRootRoute = route.pathArr[0];
+      //   }
+      //   view.mount(this.root);
+      //   // let goon = route.view.firstLoad && route.view.mount(this.root);
+      //   this.emit("afterParentFlush", route);
+      // }
     }
   }
 
@@ -127,10 +152,10 @@ function parseRoute(map, parent = null) {
 }
 
 function watchHash() {
-  location.hash = "";
+  // location.hash = "";
   window.addEventListener("hashchange", (ev) => {
     let hash = ev.newURL.split("#")[1],
-        destination = this.matcher.match(hash);
+      destination = this.matcher.match(hash);
     if (!hash) return;
     if (!destination) {
       notify.warn(`未知路由: ${hash}, 请检查URL`);

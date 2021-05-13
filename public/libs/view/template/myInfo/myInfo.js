@@ -15,7 +15,7 @@ let myInfo = {
         </div>
     </section>
     `,
-  components:[myInfoTop],
+  components: [myInfoTop],
   mounted() {
     // console.log(new Dialog({
     //   msg: "测试消息测试消息测试消息测试消息测试消息",
@@ -32,7 +32,7 @@ let myInfo = {
         msg: "确认要退出登录吗?",
         title: "退出登录"
       });
-      dig.regist("confirm",()=>{
+      dig.regist("confirm", () => {
         dig.destroy();
         let username = vt.data.user.username;
         sessionStorage.removeItem("user");
@@ -69,5 +69,6 @@ let myInfo = {
     })
   }
 };
-myInfo = new View(myInfo);
-export default myInfo;
+export let myInfoConfig = myInfo;
+// myInfo = new View(myInfo);
+export default new View(myInfo);

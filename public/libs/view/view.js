@@ -1,5 +1,6 @@
-import {utils} from "../../js/utils/utils.js";
-import {Pipe} from "../Pipe.js";
+import { utils } from "../../js/utils/utils.js";
+import { Pipe } from "../Pipe.js";
+import { initGlobal } from "./init-global.js";
 
 let vid = 0;
 
@@ -16,9 +17,13 @@ export default function View(options) {
   this.init();
   this.loadHooks();
   this.parseTemplate();
+  this.mount(options.el);
   views.add(this);
-  // console.log(this)
 }
+
+initGlobal(View);
+
+
 View.prototype = Object.create(Pipe.prototype);
 let proto = View.prototype;
 proto.constructor = View;
@@ -29,18 +34,23 @@ proto.init = function () {
   this.name = this.options.name;
   this.template = this.options.template;
   this.slot = this.options.slot || {};
+  this.components = this.options.components || [];
+  // this.components.length && (this.components = this.components.map(comp => {
+  //   if (comp instanceof Function) {
+  //     return comp();
+  //   }
+  //   return comp;
+  // }))
   this.hooks = {};
-  this.hooks["mounted"] = [() => {
-    this.components.forEach((component) => {
-      component.mount(this);
-    });
-  }]
+  // this.hooks["mounted"] = [() => {
+  //   this.components.forEach((component) => {
+  //     component().mount(this);
+  //   });
+  // }]
   this.renderType = this.options.renderType || "default";
   this.routeCurrView = [];
   this.target = this.template;
   this.firstLoad = true;
-  this.scripts = this.options.scripts || [];
-  this.components = this.options.components || [];
 };
 
 proto.loadHooks = function () {
@@ -52,14 +62,26 @@ proto.loadHooks = function () {
 
 proto.parseTemplate = function () {
   this.target = this.template;
-  this.target = this.target.replace(
-    /__routeView__/g,
-    "<span style='display:none' class='__view__'></span>"
-  );
+  // this.target = this.target.replace(
+  //   /__routeView__/g,
+  //   "<span style='display:none' class='__view__'></span>"
+  // );
+  this.renderSlot();
   if (this.components.length === 0) return;
-  this.components.forEach((component) => {
-    let name = `__${component.name}__`;
-    this.target = this.target.replace(new RegExp(name, "g"), `<div class="view_component__wrapper" id=COMPONENT${component.vid}>${component.target}</div>`);
+  this.components.forEach((componentConfig) => {
+    let notEnd = true;
+    while (notEnd) {
+      notEnd = false;
+      const name = `__${componentConfig.name}__`;
+      if (this.target.indexOf(name) === -1) return;
+      console.log(name);
+      this.target = this.target.replace(new RegExp(name), () => {
+        notEnd = true;
+        const instance = new componentConfig.component;
+        console.log(instance);
+        return instance.target;
+      });
+    }
   });
 };
 
@@ -69,16 +91,16 @@ proto.component = function (component) {
 };
 
 proto.mount = function (el) {
-  el = typeof el === "string" ? document.querySelector(el) : el;
-  if (!this.el && el instanceof View) {
-    this.el = el.el.querySelector(`#COMPONENT${this.vid}`);
-  }
-  if (!this.el) {
-    this.el = el;
-  }
-
-  this.renderSlot();
   this.executeHooks("beforeMount");
+  // this.renderSlot();
+  if (!el) {
+    this.executeHooks("mounted");
+    return this.target;
+  }
+  el = typeof el === "string" ? document.querySelector(el) : el;
+  // if (!this.el && el instanceof View) {
+  //   this.el = el.el.querySelector(`#COMPONENT${this.vid}`);
+  // }
   if (el instanceof HTMLElement) {
     if (this.renderType === "default") {
       el.innerHTML = this.target;
@@ -90,6 +112,10 @@ proto.mount = function (el) {
       wrap.outerHTML = wrap.innerHTML;
       this.el = this.parentEl.lastElementChild;
     }
+  }
+
+  if (!this.el) {
+    this.el = el;
   }
 
   if (this.firstLoad) {
@@ -115,6 +141,9 @@ proto.renderSlot = function () {
       if (element instanceof HTMLElement) {
         element = element.outerHTML;
       }
+      if (element instanceof Function) {
+        element = element.call(this);
+      }
       if (key === "default") {
         key = "slot";
       }
@@ -131,32 +160,32 @@ proto.addHooks = function (hookName, fn) {
 }
 
 
-proto.renderView = function (view) {
-  if (view.el) {
-    view.addHooks("mounted", () => {
-      view.components.forEach((component) => {
-        component.mount(view);
-      });
-    })
-  }
-  if (this.routeCurrView.length > 0) {
-    [].forEach.call(this.routeCurrView, (route) => {
-      route.parentNode.removeChild(route.nextElementSibling);
-    });
-    this.routeCurrView = [];
-  }
-  this.routeViews = this.el.querySelectorAll(".__view__");
-  [].forEach.call(this.routeViews, (routeView) => {
-    let append = document.createElement("div");
-    append.classList.add("route_view__wrapper")
-    append.style.height = "100%";
-    append.style.width = "100%";
-    append.innerHTML = `
-        ${view.target}
-        `;
-    view.el = append;
-    routeView.parentNode.insertBefore(append, routeView.nextElementSibling);
-    view.mount(this);
-    this.routeCurrView = this.el.querySelectorAll(".__view__");
-  });
-};
+// proto.renderView = function (view) {
+//   if (view.el) {
+//     view.addHooks("mounted", () => {
+//       view.components.forEach((component) => {
+//         component.mount(view);
+//       });
+//     })
+//   }
+//   if (this.routeCurrView.length > 0) {
+//     [].forEach.call(this.routeCurrView, (route) => {
+//       route.parentNode.removeChild(route.nextElementSibling);
+//     });
+//     this.routeCurrView = [];
+//   }
+//   this.routeViews = this.el.querySelectorAll(".__view__");
+//   [].forEach.call(this.routeViews, (routeView) => {
+//     let append = document.createElement("div");
+//     append.classList.add("route_view__wrapper")
+//     append.style.height = "100%";
+//     append.style.width = "100%";
+//     append.innerHTML = `
+//         ${view.target}
+//         `;
+//     view.el = append;
+//     routeView.parentNode.insertBefore(append, routeView.nextElementSibling);
+//     view.mount(this);
+//     this.routeCurrView = this.el.querySelectorAll(".__view__");
+//   });
+// };
