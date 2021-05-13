@@ -4,7 +4,7 @@ let DetailView = {
   name: "detail",
   template: `
     <h2>
-      二级路由-详情
+      detail
     </h2>
   `,
 };

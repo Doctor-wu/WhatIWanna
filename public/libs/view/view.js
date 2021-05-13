@@ -60,12 +60,13 @@ proto.loadHooks = function () {
   });
 };
 
+proto.update = function () {
+  this.parseTemplate();
+  this.mount(this.el);
+}
+
 proto.parseTemplate = function () {
   this.target = this.template;
-  // this.target = this.target.replace(
-  //   /__routeView__/g,
-  //   "<span style='display:none' class='__view__'></span>"
-  // );
   this.renderSlot();
   if (this.components.length === 0) return;
   this.components.forEach((componentConfig) => {
@@ -78,7 +79,6 @@ proto.parseTemplate = function () {
       this.target = this.target.replace(new RegExp(name), () => {
         notEnd = true;
         const instance = new componentConfig.component;
-        console.log(instance);
         return instance.target;
       });
     }
@@ -114,9 +114,7 @@ proto.mount = function (el) {
     }
   }
 
-  if (!this.el) {
-    this.el = el;
-  }
+  this.el = el;
 
   if (this.firstLoad) {
     this.firstLoad = false;

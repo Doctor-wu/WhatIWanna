@@ -1,35 +1,36 @@
 import View from "../../view.js";
-import vt from "../../../../js/index.js";
+import RouteView from "../../route-view.js";
 
 let auth = {
-    name: "auth",
-    template: `
+  name: "auth",
+  template: `
     <section class="auth">
-    __routeView__
-    <ul class="left">
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
-    <ul class="right">
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
+        __router-view__
+        <ul class="left">
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <ul class="right">
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
     </section>`,
-    beforeMount() {
-        try {
-            let user = JSON.parse(sessionStorage.getItem("user"));
-            if (user) {
-                vt.data.user = user;
-                vt.data.isLogin = true;
-                location.hash = vt.cachedHash || "/home/whatList";
-            }
-        } catch (e) {
-            console.error(e);
-        }
+  beforeMount() {
+    try {
+      let user = JSON.parse(sessionStorage.getItem("user"));
+      if (user) {
+        this.$router.data.user = user;
+        this.$router.data.isLogin = true;
+        location.hash = this.$router.cachedHash || "/home/whatList";
+      }
+    } catch (e) {
+      console.error(e);
     }
+  },
+  components: [{ name: "router-view", component: RouteView }]
 };
-auth = new View(auth);
+auth = View.extend(auth);
 
 export default auth;

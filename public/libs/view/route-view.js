@@ -10,7 +10,6 @@ const RouteView = View.extend({
       const Comp = (this.$router.getMatched());
       if (Comp) {
         const code = new Comp.view().target;
-        console.log(code);
         return code;
       } else {
         return "No View Matched"

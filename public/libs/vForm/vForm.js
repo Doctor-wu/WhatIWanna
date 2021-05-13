@@ -19,7 +19,7 @@ Object.defineProperty(proto, "constructor", {
 
 
 
-VForm.prototype.init = function(options) {
+VForm.prototype.init = function (options) {
     this.el = options.el || document.createElement("form");
     this.el.className = "vform";
     this.items = options.items || [];
@@ -34,7 +34,7 @@ VForm.prototype.init = function(options) {
 }
 
 
-VForm.prototype.loadItem = function() {
+VForm.prototype.loadItem = function () {
     if (this.items.length <= 0) return;
     this.items = this.items.map(item => {
         if (item instanceof VFormItem) return item.mount(this);
@@ -43,12 +43,12 @@ VForm.prototype.loadItem = function() {
     this.showBtn && this.initBtn();
 }
 
-VForm.prototype.validate = function() {
+VForm.prototype.validate = function () {
     if (this.items.length === 0) return { state: 'success', info: [] };
     let arr = [];
     this.items.forEach((item) => {
         let res = item.validate();
-        arr.push({...res,item});
+        arr.push({ ...res, item });
     });
     let success = arr.every(item => {
         return item.state === "success";
@@ -56,21 +56,25 @@ VForm.prototype.validate = function() {
     if (success) {
         return { state: 'success', info: arr }
     } else {
-        console.log(arr.find(i=>i.state!=="success"));
-        arr.find(i=>i.state!=="success").item.el.scrollIntoView();
-        return { state: 'failed', info: arr.map(item=>({state:item.state,info:item.info})) }
+        console.log(arr.find(i => i.state !== "success"));
+        arr.find(i => i.state !== "success").item.el.scrollIntoView();
+        return { state: 'failed', info: arr.map(item => ({ state: item.state, info: item.info })) }
     }
 }
 
-VForm.prototype.mount = function(el) {
+VForm.prototype.mount = function (el) {
     if (!el) throw new Error("el is required in VForm");
     el = typeof el === "string" ? document.querySelector(el) : el;
-    el.parentNode.insertBefore(this.el, el);
-    el.parentNode.removeChild(el);
-    return this;
+    // el.parentNode.insertBefore(this.el, el);
+    // el.parentNode.removeChild(el);
+    if (el) {
+        el.innerHTML = this.el;
+        return this.el;
+    }
+    return this.el;
 }
 
-VForm.prototype.initBtn = function() {
+VForm.prototype.initBtn = function () {
     if (this.showBtn) {
         let btnGrp = document.createElement("div");
         btnGrp.className = "btn-wrap";
@@ -90,7 +94,7 @@ VForm.prototype.initBtn = function() {
     }
 }
 
-VForm.prototype.mountBtn = function(el, elReset) {
+VForm.prototype.mountBtn = function (el, elReset) {
     el = typeof el === "string" ? document.querySelector(el) : el;
     elReset = elReset && typeof elReset === "string" ? document.querySelector(elReset) : elReset;
     this.submitEL = el;
@@ -98,7 +102,7 @@ VForm.prototype.mountBtn = function(el, elReset) {
     resolveSubmit.call(this);
 }
 
-VForm.prototype.reset = function() {
+VForm.prototype.reset = function () {
     delete this.itemId;
     delete this.type;
     this.el.reset();

@@ -94,7 +94,8 @@ function matcher(map) {
             this._matched.push(routeMap[path]);
           }
         });
-        this._matched.splice(0, 1);
+        // this._matched.splice(0, 1);
+        this.emit('afterFlush', this._matched);
       }
       // console.log(route)
       // if (route.parent) {
