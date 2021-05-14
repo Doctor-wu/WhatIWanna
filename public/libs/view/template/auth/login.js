@@ -1,5 +1,4 @@
 import View from "../../view.js";
-// import {VFormItem} from "./libs/vForm/vForm-item.js";
 // import vt from "../../../../js/index.js";
 import { VFormItem } from "../../../vForm/vForm-item.js";
 import { VForm } from "../../../vForm/vForm.js";
