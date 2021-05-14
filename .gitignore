@@ -1,4 +1,5 @@
 view-render
 .vscode
+.idea
 node_modules
 /public/avatars/

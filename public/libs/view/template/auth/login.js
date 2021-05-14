@@ -2,6 +2,7 @@ import View from "../../view.js";
 // import vt from "../../../../js/index.js";
 import { VFormItem } from "../../../vForm/vForm-item.js";
 import { VForm } from "../../../vForm/vForm.js";
+import parseHTML from "../../compiler/parseHTML.js";
 
 let login = {
   name: "login",
@@ -49,7 +50,10 @@ let login = {
         showBtn: false
       });
       this.vForm = vForm;
-      return vForm.mount("#login").outerHTML;
+      let dom = vForm.mount("#login");
+      console.log(parseHTML(dom.outerHTML.trim()));
+      console.log(dom);
+      return dom.outerHTML;
     }
   },
   mounted() {

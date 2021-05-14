@@ -11,7 +11,7 @@ import View from "../libs/view/view.js";
 import routeTest from "../libs/view/template/route-test/app.js";
 import DetailView from "../libs/view/template/route-test/detail.js";
 import DetailView2 from "../libs/view/template/route-test/detail2.js";
-
+import parseHTML from "../libs/view/compiler/parseHTML.js";
 
 export let whiteList = ["/auth/login", "/auth/regist", "/route-test", "/route-test/detail"];
 
@@ -100,6 +100,17 @@ vt.regist('afterFlush', () => {
   console.log(vt._matched, vm);
   vm.update();
 })
+
+
+let html = `<div class="login">
+<h3>登录帐号</h3>
+<div id="login" style="height: 4rem">__login-form__</div>
+<div class=".btn-wrap">
+<button class="btn btn-12 btn-success goLogin">1{{登录}} {{state}}{{data}}2</button>
+<button class="btn btn-12 btn-default goRegist">注册</button>
+</div>
+</div>`;
+console.log(parseHTML(html.trim()));
 
 View.usePlugin({
   install(View) {
