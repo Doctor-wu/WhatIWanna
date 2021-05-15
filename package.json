@@ -4,6 +4,9 @@
     "github-webhook-handler": "^1.0.0",
     "mongoose": "^5.10.12"
   },
+  "scripts": {
+    "start": "node server/server.js"
+  },
   "devDependencies": {
     "axios": "^0.20.0",
     "node-cmd": "^3.0.0",

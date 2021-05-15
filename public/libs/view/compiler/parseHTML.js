@@ -1,3 +1,4 @@
+import resolveToken from "./token-helper.js";
 import {
   isCloseSelf
 } from "./utils.js";
@@ -13,8 +14,15 @@ let attribute = /\s*([^=]+)\s*=\s*['"`]([^'"`]*)['"`]\s*/;
 
 let expReg = /\s*\{\{([^\}]*)\}\}\s*/;
 
+const getBaseToken = () => ({
+  _static: true,
+});
+
+
+let oldhtml;
 
 function parseHTML(html, options) {
+  oldhtml = html; // 记录处理前的html
   let stack = [],
     ast = [],
     walkIndex = 0;
@@ -25,10 +33,10 @@ function parseHTML(html, options) {
     // 注释
     let commentMatch = html.match(commentReg);
     if (commentMatch && commentMatch.index === 0) {
-      const token = {
+      const token = Object.assign(getBaseToken(), {
         type: "comment",
         content: commentMatch[1],
-      }
+      });
       if (stack.length !== 0) {
         let parent = stack.slice(-1)[0];
         parent.children.push(token);
@@ -64,6 +72,10 @@ function parseHTML(html, options) {
 
     handleText();
 
+    if (html === oldhtml) {
+      // 如果旧的处理前后的HTML相同，那么此次处理无效，会造成死循环，故抛出错误
+      throw new Error("处理HTML失败，死循环抛出", html);
+    }
     // break;
   }
 
@@ -71,20 +83,24 @@ function parseHTML(html, options) {
     let tagStart = String(html).indexOf("<");
     let rest = html.slice(0, tagStart === -1 ? undefined : tagStart);
     let resolveVal;
+    // 解析表达式
     resolveVal = resolveText(rest);
     walk(rest.length - resolveVal.length);
-    if(!resolveVal) return;
+    // 如果是一段纯表达式，resolveval之后返回空字符串 "{{state}}" => ""
+    if (!resolveVal) return;
     rest = resolveVal;
-    const token = {
+    const token = Object.assign(getBaseToken(), {
       type: "text",
       content: rest,
-    };
+    });
     if (stack.length !== 0) {
       let parent = stack.slice(-1)[0];
+      token.parent = parent;
       parent.children.push(token);
     } else {
       ast.push(token);
     }
+    resolveToken(token);
     walk(rest.length);
   }
 
@@ -96,10 +112,11 @@ function parseHTML(html, options) {
       if (match.index !== 0) {
         let rest = text.slice(0, match.index);
 
-        let token = {
+        let token = Object.assign(getBaseToken(), {
           type: "text",
           content: rest,
-        };
+          _static: true,
+        });
 
         if (stack.length !== 0) {
           let parent = stack.slice(-1)[0];
@@ -110,18 +127,20 @@ function parseHTML(html, options) {
         text = text.slice(rest.length);
       } else {
         let pattern = match[1];
-        let token = {
+        let token = Object.assign(getBaseToken(), {
           type: "expr",
           content: pattern,
-        };
+          _static: false,
+        });
 
         if (stack.length !== 0) {
           let parent = stack.slice(-1)[0];
-          parent._static = false;
+          token.parent = parent;
           parent.children.push(token);
         } else {
           ast.push(token);
         }
+        resolveToken(token);
         text = text.slice(match[0].length);
       }
     }
@@ -135,19 +154,18 @@ function parseHTML(html, options) {
       let {
         index
       } = match;
-      let token = {
+      const token = Object.assign(getBaseToken(), {
         type: "element",
         tagName,
         attrs: {},
         children: [],
         _static: true,
         index: index + walkIndex,
-      }
+      });
       walk(source.length);
       while (html.indexOf(">") > 0) {
         let item = attribute.exec(html);
         token.attrs[item[1]] = resolveAttr(item[2]);
-        tagStaticToken(token.attrs[item[1]], token);
         walk(item[0].length);
       }
 
@@ -163,21 +181,25 @@ function parseHTML(html, options) {
       if (!isCloseSelf(tagName)) {
         stack.push(token);
       }
+      resolveToken(token);
     }
   }
 
   function resolveAttr(value) {
     let match = expReg.exec(value);
     if (match) {
-      return {
+      
+      return Object.assign(getBaseToken(), {
         type: "expr",
-        value: match[1]
-      }
+        value: match[1],
+        _static: false
+      });
     }
-    return {
+    return Object.assign(getBaseToken(), {
       type: "text",
       value,
-    };
+      _static: true
+    });
   }
 
   function walk(n) {
@@ -188,8 +210,5 @@ function parseHTML(html, options) {
   return ast;
 }
 
-function tagStaticToken(item, token) {
-  if (item.type === "expr") token._static = false;
-}
 
 export default parseHTML;
