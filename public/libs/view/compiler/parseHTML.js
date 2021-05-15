@@ -20,6 +20,7 @@ function parseHTML(html, options) {
     walkIndex = 0;
 
   while (html) {
+    // debugger;
 
     // 注释
     let commentMatch = html.match(commentReg);
@@ -68,10 +69,11 @@ function parseHTML(html, options) {
 
   function handleText() {
     let tagStart = String(html).indexOf("<");
-    let rest = html.slice(0, tagStart);
+    let rest = html.slice(0, tagStart === -1 ? undefined : tagStart);
     let resolveVal;
     resolveVal = resolveText(rest);
     walk(rest.length - resolveVal.length);
+    if(!resolveVal) return;
     rest = resolveVal;
     const token = {
       type: "text",
@@ -123,7 +125,7 @@ function parseHTML(html, options) {
         text = text.slice(match[0].length);
       }
     }
-    return true;
+    return text;
   }
 
   function handleTagStart() {

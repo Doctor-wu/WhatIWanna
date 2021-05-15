@@ -1,5 +1,6 @@
 import { utils } from "../../js/utils/utils.js";
 import { Pipe } from "../Pipe.js";
+import parseHTML from "./compiler/parseHTML.js";
 import { initGlobal } from "./init-global.js";
 
 let vid = 0;
@@ -33,6 +34,7 @@ proto.init = function () {
   utils.assert(this.options.name, "View needs a name");
   this.name = this.options.name;
   this.template = this.options.template;
+  this.vnode = parseHTML(this.template);
   this.slot = this.options.slot || {};
   this.components = this.options.components || [];
   // this.components.length && (this.components = this.components.map(comp => {

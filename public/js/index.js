@@ -109,8 +109,10 @@ let html = `<div class="login">
 <button class="btn btn-12 btn-success goLogin">1{{登录}} {{state}}{{data}}2</button>
 <button class="btn btn-12 btn-default goRegist">注册</button>
 </div>
-</div>`;
-console.log(parseHTML(html.trim()));
+</div>
+<button class="btn btn-12 btn-success goLogin">{{登录}}</button>
+<button class="btn btn-12 btn-default goRegist">注册</button>`;
+console.log(parseHTML(html));
 
 View.usePlugin({
   install(View) {
