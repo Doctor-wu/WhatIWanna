@@ -40,9 +40,8 @@ proto.init = function () {
     this[key] = this.data[key];
   });
   this.ast = parseHTML(this.template);
-  this._render = new Function('instance', `with(instance){try{return eval(${generate(this.ast[0])})}catch(e){return ${generate(this.ast[0])}}}`);
+  this._render = new Function('instance', `with(instance){return eval(${generate(this.ast[0])})}`);
   this.vnode = this._render(this);
-  console.log(this.vnode);
   this.slot = this.options.slot || {};
   this.components = this.options.components || [];
   // this.components.length && (this.components = this.components.map(comp => {
@@ -166,43 +165,3 @@ proto.addHooks = function (hookName, fn) {
   this.hooks[hookName].push(fn);
 }
 
-
-proto._c = function (tagName, astToken, attr, children) {
-  children = children.flat();
-  const vnode = {
-    tagName,
-    type: "element",
-    attr,
-    children,
-    _static: astToken._static,
-    events: astToken.events
-  };
-  children.forEach(child => {
-    if (!child) return;
-    child.parent = vnode;
-  });
-  return vnode;
-}
-
-proto._t = function (str) {
-  return { type: "text", content: str };
-}
-
-proto._ra = function (attrs) {
-  return attrs;
-}
-
-proto._i = function (ary, fn) {
-  ary = ary.map((item, index) => {
-    return fn(item, index);
-  });
-  return ary;
-}
-
-proto._s = function (expr) {
-  return { type: "text", content: expr };
-}
-
-proto._e = function () {
-  return;
-}

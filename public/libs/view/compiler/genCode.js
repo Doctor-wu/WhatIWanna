@@ -24,6 +24,7 @@ function generate(ast) {
     ast.bindsProccessed = true;
     return genBind(ast);
   } else if (ast.type === "element") {
+    if(ast.tagName === "template") return genTemplate(ast);
     return genElement(ast);
   } else if (ast.type === "expr") {
     return genExpr(ast);
@@ -33,8 +34,16 @@ function generate(ast) {
 }
 
 function genElement(ast) {
-  let parseToken = JSON.stringify({ _static: ast._static, events: ast.events });
-  return `_c("${ast.tagName}", ${parseToken}, _ra(${JSON.stringify(ast.attrs)})${ast.children ? ', [' + ast.children.map(generate).filter(Boolean) + ']' : ''})`;
+  let children = ast.children;
+  delete ast.parent;
+  delete ast.children;
+  let parseToken = JSON.stringify(ast);
+  return `_c("${ast.tagName}", ${parseToken}, _ra(${JSON.stringify(ast.attrs)})${children ? ', [' + children.map(generate).filter(Boolean) + ']' : ''})`;
+}
+
+function genTemplate(ast) {
+    const ary = ast.children.map(generate).filter(Boolean);
+    return `_sa(${ary})`;
 }
 
 function genExpr(ast) {
@@ -46,7 +55,7 @@ function genText(ast) {
 }
 
 function genIf(ast) {
-  return `(typeof ${ast.if.ifCondition} === 'undefined' ? false : !!${ast.if.ifCondition})? ${generate(ast)} : _e()`;
+  return `(!!${ast.if.ifCondition})? ${generate(ast)} : _e()`;
 }
 
 function genFor(ast) {

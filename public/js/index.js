@@ -13,6 +13,7 @@ import DetailView from "../libs/view/template/route-test/detail.js";
 import DetailView2 from "../libs/view/template/route-test/detail2.js";
 import parseHTML from "../libs/view/compiler/parseHTML.js";
 import generate from "../libs/view/compiler/genCode.js";
+import createVnode from "../libs/view/compiler/create-vnode.js";
 
 export let whiteList = ["/auth/login", "/auth/regist", "/route-test", "/route-test/detail"];
 
@@ -100,32 +101,7 @@ vt.beforeRoute((from, to, next, reject) => {
 vt.regist('afterFlush', () => {
   console.log(vt._matched, vm);
   vm.update();
-})
-
-
-let view = new View({
-  name: "vm",
-  template: `<div class="login">
-<h3 v-for="item in list" v-bind:style="loginStyle">登录{{item.name}}帐号</h3>
-<div id="login" style="height: 4rem" v-if="needLogin">__login-form__</div>
-<div v-for="(item, index) in numbers">
-  {{item}}
-</div>
-<div class=".btn-wrap">
-<button @click="handleLogin" class="btn btn-12 btn-success goLogin">{{state}}</button>
-<button class="btn btn-12 btn-default goRegist">注册</button>
-</div>
-</div>`,
-  data: {
-    list: [{ name: 'doctorwu' }, { name: 'yoqi' }],
-    numbers: [1, 2, 3],
-    state: "登录按钮1",
-  }
 });
-// let ast = parseHTML(html)[0];
-// console.log(ast);
-// let _render = generate(ast);
-console.log(view);
 
 View.usePlugin({
   install(View) {
@@ -133,12 +109,46 @@ View.usePlugin({
   }
 });
 
+View.usePlugin(createVnode);
+
+let view = new View({
+    name: "vm",
+    template: `<div class="login">
+  <h3 v-for="item in list" v-bind:style="loginStyle">登录{{item.name}}帐号</h3>
+  <div id="login" style="height: 4rem" v-if="needLogin">__login-form__</div>
+  <template v-for="(item, index) in numbers">
+    <div v-if="item%2 !== 0">
+      奇数{{item}}
+    </div>
+    <div v-if="item%2 === 0">
+      偶数{{item}}
+    </div>
+  </template>
+  <div class=".btn-wrap">
+  <button @click="handleLogin" class="btn btn-12 btn-success goLogin">{{state}}</button>
+  <button class="btn btn-12 btn-default goRegist">注册</button>
+  </div>
+  </div>`,
+    data: {
+      list: [{ name: 'doctorwu' }, { name: 'yoqi' }],
+      numbers: [1, 2, 3],
+      state: "登录按钮1",
+      needLogin: false,
+    }
+  });
+  // let ast = parseHTML(html)[0];
+  // console.log(ast);
+  // let _render = generate(ast);
+  console.log(view, view.vnode);
+
 const vm = new View({
   el: document.querySelector("#app"),
   template: "__APP__",
   components: [{ name: "APP", component: routeTest }],
   name: "app"
 });
+
+console.log(vm.vnode);
 
 window.vt = vt;
 export default vt;
