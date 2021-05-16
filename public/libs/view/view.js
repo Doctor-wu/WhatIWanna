@@ -1,5 +1,6 @@
 import { utils } from "../../js/utils/utils.js";
 import { Pipe } from "../Pipe.js";
+import generate from "./compiler/genCode.js";
 import parseHTML from "./compiler/parseHTML.js";
 import { initGlobal } from "./init-global.js";
 
@@ -34,7 +35,14 @@ proto.init = function () {
   utils.assert(this.options.name, "View needs a name");
   this.name = this.options.name;
   this.template = this.options.template;
-  this.vnode = parseHTML(this.template);
+  this.data = this.options.data || {};
+  Object.keys(this.data).forEach(key => {
+    this[key] = this.data[key];
+  });
+  this.ast = parseHTML(this.template);
+  this._render = new Function('instance', `with(instance){try{return eval(${generate(this.ast[0])})}catch(e){return ${generate(this.ast[0])}}}`);
+  this.vnode = this._render(this);
+  console.log(this.vnode);
   this.slot = this.options.slot || {};
   this.components = this.options.components || [];
   // this.components.length && (this.components = this.components.map(comp => {
@@ -77,7 +85,6 @@ proto.parseTemplate = function () {
       notEnd = false;
       const name = `__${componentConfig.name}__`;
       if (this.target.indexOf(name) === -1) return;
-      console.log(name);
       this.target = this.target.replace(new RegExp(name), () => {
         notEnd = true;
         const instance = new componentConfig.component;
@@ -160,32 +167,42 @@ proto.addHooks = function (hookName, fn) {
 }
 
 
-// proto.renderView = function (view) {
-//   if (view.el) {
-//     view.addHooks("mounted", () => {
-//       view.components.forEach((component) => {
-//         component.mount(view);
-//       });
-//     })
-//   }
-//   if (this.routeCurrView.length > 0) {
-//     [].forEach.call(this.routeCurrView, (route) => {
-//       route.parentNode.removeChild(route.nextElementSibling);
-//     });
-//     this.routeCurrView = [];
-//   }
-//   this.routeViews = this.el.querySelectorAll(".__view__");
-//   [].forEach.call(this.routeViews, (routeView) => {
-//     let append = document.createElement("div");
-//     append.classList.add("route_view__wrapper")
-//     append.style.height = "100%";
-//     append.style.width = "100%";
-//     append.innerHTML = `
-//         ${view.target}
-//         `;
-//     view.el = append;
-//     routeView.parentNode.insertBefore(append, routeView.nextElementSibling);
-//     view.mount(this);
-//     this.routeCurrView = this.el.querySelectorAll(".__view__");
-//   });
-// };
+proto._c = function (tagName, astToken, attr, children) {
+  children = children.flat();
+  const vnode = {
+    tagName,
+    type: "element",
+    attr,
+    children,
+    _static: astToken._static,
+    events: astToken.events
+  };
+  children.forEach(child => {
+    if (!child) return;
+    child.parent = vnode;
+  });
+  return vnode;
+}
+
+proto._t = function (str) {
+  return { type: "text", content: str };
+}
+
+proto._ra = function (attrs) {
+  return attrs;
+}
+
+proto._i = function (ary, fn) {
+  ary = ary.map((item, index) => {
+    return fn(item, index);
+  });
+  return ary;
+}
+
+proto._s = function (expr) {
+  return { type: "text", content: expr };
+}
+
+proto._e = function () {
+  return;
+}

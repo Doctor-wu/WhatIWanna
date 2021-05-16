@@ -103,21 +103,29 @@ vt.regist('afterFlush', () => {
 })
 
 
-let html = `<div class="login">
-<h3 v-for="item in list" v-bind:style="loginStyle">登录帐号</h3>
+let view = new View({
+  name: "vm",
+  template: `<div class="login">
+<h3 v-for="item in list" v-bind:style="loginStyle">登录{{item.name}}帐号</h3>
 <div id="login" style="height: 4rem" v-if="needLogin">__login-form__</div>
 <div v-for="(item, index) in numbers">
-  123
+  {{item}}
 </div>
 <div class=".btn-wrap">
-<button @click="handleLogin" class="btn btn-12 btn-success goLogin">1{{'登录'}} {{state}}{{data}}2</button>
+<button @click="handleLogin" class="btn btn-12 btn-success goLogin">{{state}}</button>
 <button class="btn btn-12 btn-default goRegist">注册</button>
 </div>
-</div>`;
-let ast = parseHTML(html)[0];
-console.log(ast);
-let _render = generate(ast);
-console.log(_render);
+</div>`,
+  data: {
+    list: [{ name: 'doctorwu' }, { name: 'yoqi' }],
+    numbers: [1, 2, 3],
+    state: "登录按钮1",
+  }
+});
+// let ast = parseHTML(html)[0];
+// console.log(ast);
+// let _render = generate(ast);
+console.log(view);
 
 View.usePlugin({
   install(View) {

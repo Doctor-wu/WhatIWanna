@@ -5,7 +5,7 @@
         type 节点类型
           -- ELEMENT 元素
           -- TEXT 文本
-        _isStatic 是否为静态节点，如果是静态节点，在DOM-DIFF的时候就不必进行比较
+        _static 是否为静态节点，如果是静态节点，在DOM-DIFF的时候就不必进行比较
         children 节点的孩子
         attr 属性
         events 事件
@@ -33,7 +33,8 @@ function generate(ast) {
 }
 
 function genElement(ast) {
-  return `_c("${ast.tagName}", _ra(${JSON.stringify(ast.attrs)})${ast.children ? ', [' + ast.children.map(generate) + ']' : ''})`;
+  let parseToken = JSON.stringify({ _static: ast._static, events: ast.events });
+  return `_c("${ast.tagName}", ${parseToken}, _ra(${JSON.stringify(ast.attrs)})${ast.children ? ', [' + ast.children.map(generate).filter(Boolean) + ']' : ''})`;
 }
 
 function genExpr(ast) {
@@ -41,11 +42,11 @@ function genExpr(ast) {
 }
 
 function genText(ast) {
-  return `_t('${ast.content.trim()}')`;
+  return ast.content.trim() ? `_t('${ast.content.trim()}')` : '';
 }
 
 function genIf(ast) {
-  return `(${ast.if.ifCondition})? ${generate(ast)} : _e()`;
+  return `(typeof ${ast.if.ifCondition} === 'undefined' ? false : !!${ast.if.ifCondition})? ${generate(ast)} : _e()`;
 }
 
 function genFor(ast) {
@@ -53,12 +54,8 @@ function genFor(ast) {
 }
 
 function genBind(ast) {
-  console.log(ast);
   // 暂时还没想到可以做什么额外操作
   return generate(ast);
 }
-
-
-
 
 export default generate;
