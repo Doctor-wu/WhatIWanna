@@ -51,8 +51,6 @@ let login = {
       });
       this.vForm = vForm;
       let dom = vForm.mount("#login");
-      console.log(parseHTML(dom.outerHTML.trim()));
-      console.log(dom);
       return dom.outerHTML;
     }
   },

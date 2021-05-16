@@ -124,6 +124,7 @@ let view = new View({
       偶数{{item}}
     </div>
   </template>
+  <div class="static"></div>
   <div class=".btn-wrap">
   <button @click="handleLogin" class="btn btn-12 btn-success goLogin">{{state}}</button>
   <button class="btn btn-12 btn-default goRegist">注册</button>
@@ -148,7 +149,6 @@ const vm = new View({
   name: "app"
 });
 
-console.log(vm.vnode);
 
 window.vt = vt;
 export default vt;

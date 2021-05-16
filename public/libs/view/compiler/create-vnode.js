@@ -10,6 +10,7 @@ const createVnode = {
         type: "element",
         attr,
         children,
+        binds: astToken.binds || [],
         _static: astToken._static,
         events: astToken.events
       };
