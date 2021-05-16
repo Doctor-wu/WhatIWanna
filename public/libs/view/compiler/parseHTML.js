@@ -188,7 +188,8 @@ function parseHTML(html, options) {
   function resolveAttr(value) {
     let match = expReg.exec(value);
     if (match) {
-      
+      console.log(match);
+
       return Object.assign(getBaseToken(), {
         type: "expr",
         value: match[1],

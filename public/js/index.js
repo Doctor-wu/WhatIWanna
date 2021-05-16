@@ -103,8 +103,11 @@ vt.regist('afterFlush', () => {
 
 
 let html = `<div class="login">
-<h3>登录帐号</h3>
+<h3 v-for="item in list" v-bind:style="loginStyle">登录帐号</h3>
 <div id="login" style="height: 4rem" v-if="needLogin">__login-form__</div>
+<div v-for="(item, index) in numbers">
+  123
+</div>
 <div class=".btn-wrap">
 <button @click="handleLogin" class="btn btn-12 btn-success goLogin">1{{登录}} {{state}}{{data}}2</button>
 <button class="btn btn-12 btn-default goRegist">注册</button>
