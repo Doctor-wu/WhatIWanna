@@ -12,8 +12,10 @@ const createVnode = {
         children,
         // binds: astToken.binds || [],
         _static: attrs._static,
-        // events: astToken.events
+        events: attrs.events
       };
+      delete attrs._static;
+      delete attrs.events;
       children.forEach(child => {
         if (!child) return;
         child.parent = vnode;
@@ -56,13 +58,14 @@ const createVnode = {
       return str;
     }
 
-    proto._rb = function (instance, vnode) {
+    proto._rb = function (vnode) {
       let binds = {};
       let attrs = vnode.attrs.binds || {};
       Object.keys(attrs).forEach(key => {
-        binds[key] = attrs[key].type === "expr" ? instance[attrs[key].value] : attrs[key].value;
+        binds[key] = attrs[key]
       });
       vnode.binds = binds;
+      delete vnode.attrs.binds;
       return vnode;
     }
   }

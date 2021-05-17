@@ -2,6 +2,7 @@ import { utils } from "../../js/utils/utils.js";
 import { Pipe } from "../Pipe.js";
 import generate from "./compiler/genCode.js";
 import parseHTML from "./compiler/parseHTML.js";
+import patchVnode from "./compiler/patch-vnode.js";
 import { initGlobal } from "./init-global.js";
 
 let vid = 0;
@@ -42,6 +43,7 @@ proto.init = function () {
   this.ast = parseHTML(this.template.trim());
   this._render = new Function('instance', `with(instance){return eval(${generate(this.ast[0])})}`);
   this.vnode = this._render(this);
+  this.el = patchVnode(null, this.vnode);
   this.slot = this.options.slot || {};
   this.components = this.options.components || [];
   // this.components.length && (this.components = this.components.map(comp => {

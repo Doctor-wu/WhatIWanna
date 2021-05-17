@@ -45,6 +45,8 @@ function genElement(ast) {
     parseToken[key] = ast[key];
   });
   // parseToken = JSON.stringify(parseToken);
+  let attrStr = genAttrStr(ast.attrs);
+  console.log(attrStr);
   return `_c("${ast.tagName}", _ra(${JSON.stringify(Object.assign(ast.attrs, parseToken))})${children ? ', [' + children.map(generate).filter(Boolean) + ']' : '[]'})`;
 }
 
@@ -75,7 +77,35 @@ function genFor(ast) {
 }
 
 function genBind(ast) {
-  return `_rb(instance, ${generate(ast)})`;
+  return `_rb(${generate(ast)})`;
+}
+
+function genAttrStr(obj) {
+  let str = "{";
+
+  Object.keys(obj).forEach(key => {
+    if (!obj[key]) return;
+    if (key === "binds") {
+      str += "binds:{";
+      Object.keys(obj.binds).forEach(key => {
+        str += `${key}: ${obj.binds[key].type === "expr" ? obj.binds[key].value : "'" + obj.binds[key].value + "'"}`
+      });
+      str += "}";
+      return;
+    }
+    if (key === "_static") {
+      str += `${key}:`;
+      str += obj[key];
+      str += "，";
+    }
+
+    str += `${key}:`;
+    str += `${obj[key].type === "expr" ? obj[key].value : "'" + obj[key].value + "'"}`
+    str += ",";
+  });
+
+  str += "}";
+  return str;
 }
 
 export default generate;
