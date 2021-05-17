@@ -2,17 +2,17 @@ const createVnode = {
   install(View) {
     let proto = View.prototype;
 
-    proto._c = function (tagName, astToken, attr, children) {
+    proto._c = function (tagName, attrs, children) {
       children = flatAry(children).filter(Boolean);
       children = resolveContinuousText(children);
       const vnode = {
         tagName,
         type: "element",
-        attr,
+        attrs,
         children,
-        binds: astToken.binds || [],
-        _static: astToken._static,
-        events: astToken.events
+        // binds: astToken.binds || [],
+        _static: attrs._static,
+        // events: astToken.events
       };
       children.forEach(child => {
         if (!child) return;
@@ -52,8 +52,18 @@ const createVnode = {
       };
     }
 
-    proto._e = function (...args) {
-      return proto._sa(args);
+    proto._e = function (str) {
+      return str;
+    }
+
+    proto._rb = function (instance, vnode) {
+      let binds = {};
+      let attrs = vnode.attrs.binds || {};
+      Object.keys(attrs).forEach(key => {
+        binds[key] = attrs[key].type === "expr" ? instance[attrs[key].value] : attrs[key].value;
+      });
+      vnode.binds = binds;
+      return vnode;
     }
   }
 }

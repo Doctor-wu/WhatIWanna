@@ -64,12 +64,10 @@ function resolveTokenAttrs(token, key, value) {
     let match = key.match(evRE);
     let evtName = match[1];
     let evtValue = value;
-    const evtItem = {
-      evtName,
-      evtValue,
-    }
+
     token.events[evtName] = token.events[evtName] || [];
-    token.events[evtName].push(evtItem);
+    token.events[evtName].push(evtValue);
+    delete token.attrs[key];
   } else if (key.startsWith("v-")) {
     let match = key.match(dirRE);
     let dirName = match[1];
@@ -88,8 +86,8 @@ function resolveTokenAttrs(token, key, value) {
 
     token.directives[dirName] = token.directives[dirName] || [];
     token.directives[dirName].push(dirItem);
+    delete token.attrs[key];
   }
-  delete token.attrs[key];
 }
 
 // 兜底处理token

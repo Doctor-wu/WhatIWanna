@@ -66,12 +66,11 @@ function makeElseIfDir(token) {
 
 // 处理 [bind] 指令
 function makeBindDir(token) {
-  token.binds = token.directives.bind.map(item => {
-    return {
-      stateName: item.dirExpr,
-      stateValue: item.dirValue
-    }
+  const binds = {};
+  token.directives.bind.forEach(item => {
+    binds[item.dirExpr] = item.dirValue;
   });
+  token.binds = binds;
 }
 // 处理 [未知] 指令
 function makeDefaultDir(token, key) {

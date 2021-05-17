@@ -44,8 +44,8 @@ function genElement(ast) {
   AST2VNODE_KEYS.forEach(key => {
     parseToken[key] = ast[key];
   });
-  parseToken = JSON.stringify(parseToken);
-  return `_c("${ast.tagName}", ${parseToken}, _ra(${JSON.stringify(ast.attrs)})${children ? ', [' + children.map(generate).filter(Boolean) + ']' : ''})`;
+  // parseToken = JSON.stringify(parseToken);
+  return `_c("${ast.tagName}", _ra(${JSON.stringify(Object.assign(ast.attrs, parseToken))})${children ? ', [' + children.map(generate).filter(Boolean) + ']' : '[]'})`;
 }
 
 function genTemplate(ast) {
@@ -75,8 +75,7 @@ function genFor(ast) {
 }
 
 function genBind(ast) {
-  // 暂时还没想到可以做什么额外操作
-  return generate(ast);
+  return `_rb(instance, ${generate(ast)})`;
 }
 
 export default generate;

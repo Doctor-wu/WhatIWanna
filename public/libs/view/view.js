@@ -39,7 +39,7 @@ proto.init = function () {
   Object.keys(this.data).forEach(key => {
     this[key] = this.data[key];
   });
-  this.ast = parseHTML(this.template);
+  this.ast = parseHTML(this.template.trim());
   this._render = new Function('instance', `with(instance){return eval(${generate(this.ast[0])})}`);
   this.vnode = this._render(this);
   this.slot = this.options.slot || {};

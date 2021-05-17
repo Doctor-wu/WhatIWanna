@@ -113,31 +113,36 @@ View.usePlugin(createVnode);
 
 let view = new View({
   name: "vm",
-  template: `<div class="login">
-  <h3 v-for="item in list" v-bind:style="loginStyle">登录 {{item.name}}帐号</h3>
-  <div id="login" style="height: 4rem" v-if="{{needLogin}}">__login-form__</div>
-  <template v-for="(item, index) in numbers">
-    <div v-if="{{item%2 !== 0}}">
-      ({{index}})奇数: {{item}}
+  template: `
+  <div class="login">
+    <h3 v-for="item in list" v-bind:style="{{loginStyle}}">登录 {{item.name}}帐号</h3>
+    <div id="login" style="height: 4rem" v-if="{{needLogin}}">__login-form__</div>
+    <template v-for="(item, index) in numbers">
+      <div v-if="{{item%2 !== 0}}">
+        ({{index}})奇数: {{item}}
+      </div>
+      <div v-else-if="{{true}}">
+        ({{index}})偶数: {{item}}
+      </div>
+      <div v-else>
+        我是else
+      </div>
+    </template>
+    <div class="static">static</div>
+    <div class=".btn-wrap">
+      <button @click="{{() => handleLogin()}}" class="btn btn-12 btn-success goLogin">{{state}}</button>
+      <button class="btn btn-12 btn-default goRegist">注册</button>
     </div>
-    <div v-else-if="{{true}}">
-      ({{index}})偶数: {{item}}
-    </div>
-    <div v-else>
-      我是else
-    </div>
-  </template>
-  <div class="static">static</div>
-  <div class=".btn-wrap">
-  <button @click="handleLogin" class="btn btn-12 btn-success goLogin">{{state}}</button>
-  <button class="btn btn-12 btn-default goRegist">注册</button>
-  </div>
   </div>`,
   data: {
     list: [{ name: 'doctorwu' }, { name: 'yoqi' }],
     numbers: [1, 2, 3],
     state: "登录按钮1",
-    needLogin: false,
+    needLogin: true,
+    loginStyle: {
+      color: 'red'
+    },
+    handleLogin: () => { console.log(123) }
   }
 });
 // let ast = parseHTML(html)[0];
