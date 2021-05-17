@@ -24,7 +24,7 @@ function generate(ast) {
     ast.bindsProccessed = true;
     return genBind(ast);
   } else if (ast.type === "element") {
-    if(ast.tagName === "template") return genTemplate(ast);
+    if (ast.tagName === "template") return genTemplate(ast);
     return genElement(ast);
   } else if (ast.type === "expr") {
     return genExpr(ast);
@@ -42,8 +42,10 @@ function genElement(ast) {
 }
 
 function genTemplate(ast) {
-    const ary = ast.children.map(generate).filter(Boolean);
-    return `_sa(${ary})`;
+  console.log(ast);
+  const ary = ast.children.map(generate).filter(Boolean);
+  console.log(ary);
+  return `_sa([${ary}])`;
 }
 
 function genExpr(ast) {
@@ -55,7 +57,7 @@ function genText(ast) {
 }
 
 function genIf(ast) {
-  return `(!!${ast.if.ifCondition})? ${generate(ast)} : _e()`;
+  return `(${ast.if.ifCondition})? ${generate(ast)} : _e()`;
 }
 
 function genFor(ast) {

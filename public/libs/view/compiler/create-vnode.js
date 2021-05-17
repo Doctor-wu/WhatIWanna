@@ -3,7 +3,7 @@ const createVnode = {
     let proto = View.prototype;
 
     proto._c = function (tagName, astToken, attr, children) {
-      children = children.flat().filter(Boolean);
+      children = flatAry(children).filter(Boolean);
       children = resolveContinuousText(children);
       const vnode = {
         tagName,
@@ -33,9 +33,10 @@ const createVnode = {
     }
 
     proto._i = function (ary, fn) {
-      if(typeof ary === "string") ary = JSON.parse(ary);
+      if (typeof ary === "string") ary = JSON.parse(ary);
       ary = ary.map((item, index) => {
-        return fn(item, index);
+        const result = fn(item, index);
+        return result;
       });
       return ary;
     }
@@ -59,25 +60,29 @@ const createVnode = {
 
 // 把连续的text接起来
 function resolveContinuousText(children) {
-  if(children.length <= 1) return children;
+  if (children.length <= 1) return children;
   let nChildren = [];
-  children.reduce((last, current, currentIndex)=>{
-    if(last.type === "text"){
-      if(current.type === "element") {
+  children.reduce((last, current, currentIndex) => {
+    if (last.type === "text") {
+      if (current.type === "element") {
         nChildren.push(last);
         nChildren.push(current);
       }
-      if(current.type === "text" && currentIndex) current.content = last.content + current.content;
+      if (current.type === "text" && currentIndex) current.content = last.content + current.content;
     }
-    if(last.type === "element"){
-      if(current.type === "element"){
+    if (last.type === "element") {
+      if (current.type === "element") {
         nChildren.push(current);
       }
     }
     return current;
   }, children[0]);
-  if(nChildren.length === 0) nChildren.push(children[children.length - 1]);
+  if (nChildren.length === 0) nChildren.push(children[children.length - 1]);
   return nChildren;
+}
+
+function flatAry(ary) {
+  return !Array.isArray(ary) ? ary : [].concat.apply([], ary.map(flatAry));
 }
 
 export default createVnode;
