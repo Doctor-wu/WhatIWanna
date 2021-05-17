@@ -52,8 +52,8 @@ const createVnode = {
       };
     }
 
-    proto._e = function () {
-      return;
+    proto._e = function (...args) {
+      return proto._sa(args);
     }
   }
 }
@@ -82,6 +82,7 @@ function resolveContinuousText(children) {
 }
 
 function flatAry(ary) {
+  if (!ary) return [];
   return !Array.isArray(ary) ? ary : [].concat.apply([], ary.map(flatAry));
 }
 

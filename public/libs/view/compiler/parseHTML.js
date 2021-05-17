@@ -10,9 +10,9 @@ let startTagReg = new RegExp(`\\<(${tagNameReg})`);
 let endTagReg = new RegExp(`\\<\\/${tagNameReg}(\\/?)\\>`);
 
 let commentReg = /\<!--(?:\s*(.*(?=\s))\s*)-->/;
-let attribute = /\s*([^=]+)\s*=\s*['"`]([^'"`]*)['"`]\s*/;
+let attribute = /\s*([^=>]+)(?:\s*=\s*['"`]([^'"`]*)['"`]\s*)?/;
 
-let expReg = /\s*\{\{([^\}]*)\}\}\s*/;
+let expReg = /\{\{([^\}]*)\}\}/;
 
 const getBaseToken = () => ({
   _static: true,
@@ -111,7 +111,6 @@ function parseHTML(html, options) {
 
       if (match.index !== 0) {
         let rest = text.slice(0, match.index);
-
         let token = Object.assign(getBaseToken(), {
           type: "text",
           content: rest,
@@ -188,8 +187,6 @@ function parseHTML(html, options) {
   function resolveAttr(value) {
     let match = expReg.exec(value);
     if (match) {
-      console.log(match);
-
       return Object.assign(getBaseToken(), {
         type: "expr",
         value: match[1],

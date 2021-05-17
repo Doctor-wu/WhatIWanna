@@ -12,17 +12,22 @@
     ]
 */
 
+const AST2VNODE_KEYS = ["_static", "binds", "events"];
+
 
 function generate(ast) {
   if (ast.if && !ast.ifProccessed) {
     ast.ifProccessed = true;
-    return genIf(ast);
+    const result = genIf(ast);
+    return result;
   } else if (ast.for && !ast.forProccessed) {
     ast.forProccessed = true;
     return genFor(ast);
   } else if (ast.binds && !ast.bindsProccessed) {
     ast.bindsProccessed = true;
     return genBind(ast);
+  } else if (ast.elseProccessed) {
+    return undefined;
   } else if (ast.type === "element") {
     if (ast.tagName === "template") return genTemplate(ast);
     return genElement(ast);
@@ -35,16 +40,16 @@ function generate(ast) {
 
 function genElement(ast) {
   let children = ast.children;
-  delete ast.parent;
-  delete ast.children;
-  let parseToken = JSON.stringify(ast);
+  let parseToken = {};
+  AST2VNODE_KEYS.forEach(key => {
+    parseToken[key] = ast[key];
+  });
+  parseToken = JSON.stringify(parseToken);
   return `_c("${ast.tagName}", ${parseToken}, _ra(${JSON.stringify(ast.attrs)})${children ? ', [' + children.map(generate).filter(Boolean) + ']' : ''})`;
 }
 
 function genTemplate(ast) {
-  console.log(ast);
   const ary = ast.children.map(generate).filter(Boolean);
-  console.log(ary);
   return `_sa([${ary}])`;
 }
 
@@ -53,11 +58,16 @@ function genExpr(ast) {
 }
 
 function genText(ast) {
-  return ast.content.trim() ? `_t('${ast.content.trim()}')` : '';
+  return ast.content.trim() ? `_t('${ast.content.replace(/\n/g, "")}')` : '';
 }
 
 function genIf(ast) {
-  return `(${ast.if.ifCondition})? ${generate(ast)} : _e()`;
+  let condition = ast.if.ifCondition.type === "expr" ? ast.if.ifCondition.value : `"${ast.if.ifCondition.value}"`;
+  const result = `(${condition})? ${generate(ast)} : ${(ast.else && !ast.elseProccessed) ? generate(ast.else) : undefined}`;
+  if (ast.else) {
+    ast.else.elseProccessed = true;
+  }
+  return result;
 }
 
 function genFor(ast) {

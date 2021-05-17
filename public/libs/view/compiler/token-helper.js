@@ -1,7 +1,7 @@
 import handleDirectives from "./directives-helper.js";
 import handleEvents from "./events-helper.js";
 
-let dirRE = /v-(.*)/;
+let dirRE = /v-([^>\s]*)/;
 let evRE = /@(.*)/;
 
 const tokenStrategy = {
@@ -19,7 +19,7 @@ function resolveToken(token) {
 };
 
 function textTokenHandler(token) {
-
+  return token;
 }
 
 // 处理表达式token
@@ -49,7 +49,7 @@ function elementTokenHandler(token) {
   } = token;
   let attrKeys = Object.keys(attrs);
   attrKeys.forEach(key => {
-    resolveTokenAttrs(token, key, attrs[key].value);
+    resolveTokenAttrs(token, key, attrs[key] || true);
   });
 
   // 处理事件
@@ -85,9 +85,11 @@ function resolveTokenAttrs(token, key, value) {
       dirExpr,
       dirValue,
     };
+
     token.directives[dirName] = token.directives[dirName] || [];
     token.directives[dirName].push(dirItem);
   }
+  delete token.attrs[key];
 }
 
 // 兜底处理token
