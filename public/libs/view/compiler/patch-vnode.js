@@ -23,11 +23,20 @@ function createDom(vNode) {
 
 
 function resolveDOMAttr(dom, vNode) {
-  const { attrs = {} } = vNode;
-  Object.keys(attrs).forEach(key => {
+  const { $attrs = {} } = vNode;
+  Object.keys($attrs).forEach(key => {
     let domKey = key;
     if (key === "class") domKey = "className";
-    dom[domKey] = attrs[key].value;
+    if (key === "events") resolveDOMEvents(dom, $attrs.events);
+    dom[domKey] = $attrs[key];
+  })
+}
+
+function resolveDOMEvents(dom, events) {
+  Object.keys(events).forEach(key => {
+    events[key].forEach(evHandler => {
+      dom.addEventListener(key, evHandler, false);
+    })
   })
 }
 

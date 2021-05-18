@@ -113,15 +113,15 @@ View.usePlugin(createVnode);
 
 let view = new View({
   name: "vm",
-  template: `
-  <div class="login">
-    <h3 v-for="item in list" v-bind:style="{{loginStyle}}">登录 {{item.name}}帐号</h3>
-    <div id="login" style="height: 4rem" v-if="{{needLogin}}">__login-form__</div>
+  template: `<div id="auth">
+    <div class="login">
+    <h3 v-for="item in list" v-bind:style="loginStyle">登录 {{item.name}}帐号</h3>
+    <div id="login" style="height: 1rem;margin: 1rem 0;" v-if="needLogin">__login-form__</div>
     <template v-for="(item, index) in numbers">
-      <div class="{{item}}" v-if="{{item%2 !== 0}}">
+      <div v-bind:class="item" v-if="item%2 !== 0">
         ({{index}})奇数: {{item}}
       </div>
-      <div v-else-if="{{true}}">
+      <div v-else-if="Math.random() > 0.5">
         ({{index}})偶数: {{item}}
       </div>
       <div v-else>
@@ -133,6 +133,17 @@ let view = new View({
       <button @click="handleLogin" class="btn btn-12 btn-success goLogin">{{state}}</button>
       <button class="btn btn-12 btn-default goRegist">注册</button>
     </div>
+  </div>
+  <ul class="left">
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <ul class="right">
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
   </div>`,
   data: {
     list: [{ name: 'doctorwu' }, { name: 'yoqi' }],
@@ -142,21 +153,24 @@ let view = new View({
     loginStyle: {
       color: 'red'
     },
-    handleLogin: () => { console.log(123) },
+    handleLogin: function () {
+      console.log(this);
+    },
     btnWrap: "dynamic"
-  }
+  },
+  el: document.querySelector("#app"),
 });
 // let ast = parseHTML(html)[0];
 // console.log(ast);
 // let _render = generate(ast);
 console.log(view, view.vnode, view.el);
 
-const vm = new View({
-  el: document.querySelector("#app"),
-  template: "__APP__",
-  components: [{ name: "APP", component: routeTest }],
-  name: "app"
-});
+// const vm = new View({
+//   el: document.querySelector("#app"),
+//   template: "__APP__",
+//   components: [{ name: "APP", component: routeTest }],
+//   name: "app"
+// });
 
 
 window.vt = vt;

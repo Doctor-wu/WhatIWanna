@@ -43,7 +43,7 @@ proto.init = function () {
   this.ast = parseHTML(this.template.trim());
   this._render = new Function('instance', `with(instance){return eval(${generate(this.ast[0])})}`);
   this.vnode = this._render(this);
-  this.el = patchVnode(null, this.vnode);
+  this.$el = patchVnode(null, this.vnode);
   this.slot = this.options.slot || {};
   this.components = this.options.components || [];
   // this.components.length && (this.components = this.components.map(comp => {
@@ -113,7 +113,8 @@ proto.mount = function (el) {
   // }
   if (el instanceof HTMLElement) {
     if (this.renderType === "default") {
-      el.innerHTML = this.target;
+      // el.innerHTML = this.target;
+      el.appendChild(this.$el);
     } else if (this.renderType === "append") {
       let wrap = document.createElement("span");
       wrap.innerHTML = this.target;

@@ -12,7 +12,6 @@
     ]
 */
 
-const AST2VNODE_KEYS = ["_static", "binds", "events"];
 
 
 function generate(ast) {
@@ -23,10 +22,12 @@ function generate(ast) {
   } else if (ast.for && !ast.forProccessed) {
     ast.forProccessed = true;
     return genFor(ast);
-  } else if (ast.binds && !ast.bindsProccessed) {
-    ast.bindsProccessed = true;
-    return genBind(ast);
-  } else if (ast.elseProccessed) {
+  }
+  // else if (ast.binds && !ast.bindsProccessed) {
+  //   ast.bindsProccessed = true;
+  //   return genBind(ast);
+  // }
+  else if (ast.elseProccessed) {
     return undefined;
   } else if (ast.type === "element") {
     if (ast.tagName === "template") return genTemplate(ast);
@@ -40,14 +41,8 @@ function generate(ast) {
 
 function genElement(ast) {
   let children = ast.children;
-  let parseToken = {};
-  AST2VNODE_KEYS.forEach(key => {
-    parseToken[key] = ast[key];
-  });
-  // parseToken = JSON.stringify(parseToken);
-  let attrStr = genAttrStr(ast.attrs);
-  console.log(attrStr);
-  return `_c("${ast.tagName}", _ra(${JSON.stringify(Object.assign(ast.attrs, parseToken))})${children ? ', [' + children.map(generate).filter(Boolean) + ']' : '[]'})`;
+  const data = genData(ast);
+  return `_c("${ast.tagName}", _ra(${data}), ${children ? '[' + children.map(generate).filter(Boolean) + ']' : '[]'},${ast._static})`;
 }
 
 function genTemplate(ast) {
@@ -64,7 +59,7 @@ function genText(ast) {
 }
 
 function genIf(ast) {
-  let condition = ast.if.ifCondition.type === "expr" ? ast.if.ifCondition.value : `"${ast.if.ifCondition.value}"`;
+  let condition = ast.if.ifCondition.value;
   const result = `(${condition})? ${generate(ast)} : ${(ast.else && !ast.elseProccessed) ? generate(ast.else) : undefined}`;
   if (ast.else) {
     ast.else.elseProccessed = true;
@@ -77,34 +72,44 @@ function genFor(ast) {
 }
 
 function genBind(ast) {
-  return `_rb(${generate(ast)})`;
+  if (!ast.binds) return "";
+  let str = "";
+  Object.keys(ast.binds).forEach(key => {
+    str += `${key}: ${ast.binds[key].value},`
+  });
+  return str;
 }
 
-function genAttrStr(obj) {
+function genAttrStr(ast) {
+  if (!ast.attrs) return "";
+  let str = "";
+  Object.keys(ast.attrs).forEach(key => {
+    str += `${key}: "${ast.attrs[key].value}",`
+  });
+  return str;
+}
+
+function genHandler(ast) {
+  if (!ast.events) return "";
+  let keys = Object.keys(ast.events);
+  if (keys.length === 0) return "";
+  let str = "events:{";
+  keys.forEach(key => {
+    str += `${key}: [${ast.events[key].map(item => item.value)}],`
+  });
+  str += "}";
+  return str;
+}
+
+function genData(ast) {
   let str = "{";
 
-  Object.keys(obj).forEach(key => {
-    if (!obj[key]) return;
-    if (key === "binds") {
-      str += "binds:{";
-      Object.keys(obj.binds).forEach(key => {
-        str += `${key}: ${obj.binds[key].type === "expr" ? obj.binds[key].value : "'" + obj.binds[key].value + "'"}`
-      });
-      str += "}";
-      return;
-    }
-    if (key === "_static") {
-      str += `${key}:`;
-      str += obj[key];
-      str += "，";
-    }
-
-    str += `${key}:`;
-    str += `${obj[key].type === "expr" ? obj[key].value : "'" + obj[key].value + "'"}`
-    str += ",";
-  });
+  str = str + genBind(ast);
+  str = str + genAttrStr(ast);
+  str = str + genHandler(ast);
 
   str += "}";
+  console.log(str);
   return str;
 }
 
