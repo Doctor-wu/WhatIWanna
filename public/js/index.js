@@ -207,6 +207,7 @@ let Login = {
   methods: {
     handleLogin() {
       console.log(this);
+      notify.success(this.state);
     },
   },
 };
@@ -237,7 +238,7 @@ let view = new View({
 // let ast = parseHTML(html)[0];
 // console.log(ast);
 // let _render = generate(ast);
-console.log(view, view.vnode, view.el);
+console.log(view, view.$vnode, view.el);
 
 // const vm = new View({
 //   el: document.querySelector("#app"),

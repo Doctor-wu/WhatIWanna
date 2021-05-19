@@ -97,9 +97,8 @@ function isComponent(vNode, tagName) {
 function createComponent(components, tagName, attrs, children, isStatic) {
   const component = components.find(comp => comp.name === tagName);
   const componentInstance = new this.constructor(component);
-  console.log(componentInstance, 123);
-  componentInstance.vnode.componentInstance = componentInstance;
-  return componentInstance.vnode;
+  componentInstance.$vnode.componentInstance = componentInstance;
+  return componentInstance.$vnode;
 }
 
 export default createVnode;

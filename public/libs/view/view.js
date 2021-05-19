@@ -40,7 +40,7 @@ proto.init = function () {
   this.initMethods();
   this.ast = parseHTML(this.template.trim());
   this._render = new Function('instance', `with(instance){return eval(${generate(this.ast[0])})}`);
-  this.vnode = this._render(this);
+  this.$vnode = this._render(this);
   this.slot = this.options.slot || {};
   this.hooks = {};
   this.renderType = this.options.renderType || "default";
@@ -101,7 +101,7 @@ proto.component = function (component) {
 
 proto.mount = function (el) {
   this.executeHooks("beforeMount");
-  this.$el = patchVnode(null, this.vnode);
+  this.$el = patchVnode(null, this.$vnode);
   // this.renderSlot();
   if (!el) {
     this.executeHooks("mounted");
