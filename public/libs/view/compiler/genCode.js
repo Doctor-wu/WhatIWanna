@@ -101,12 +101,18 @@ function genHandler(ast) {
   return str;
 }
 
+function genComponentConfig(ast) {
+  if (!ast.componentConfig) return "";
+  console.log(ast.componentConfig);
+}
+
 function genData(ast) {
   let str = "{";
 
   str = str + genBind(ast);
   str = str + genAttrStr(ast);
   str = str + genHandler(ast);
+  str = str + genComponentConfig(ast);
 
   str += "}";
   // console.log(str);

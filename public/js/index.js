@@ -174,7 +174,7 @@ let dom = vForm.mount("#login");
 
 let authTemplate = `
 <section class="auth">
-  <Login />
+  <Login v-bind:title="loginProps" />
   <ul class="left">
     <li></li>
     <li></li>
@@ -191,7 +191,7 @@ let Login = {
   name: "Login",
   template: `
   <div class="login">
-    <h3>{{state}}</h3>
+    <h3>{{title}}</h3>
     <div id="login" style="height: 4rem">${dom.outerHTML}</div>
     <div class=".btn-wrap">
       <button @click="handleLogin" class="btn btn-12 btn-success goLogin">登录</button>
@@ -208,6 +208,9 @@ let Login = {
     handleLogin() {
       console.log(this);
       notify.success(this.state);
+      notify.info(this.state);
+      notify.warn(this.state);
+      notify.danger(this.state);
     },
   },
 };
@@ -222,6 +225,7 @@ let view = new View({
       numbers: [1, 2, 3, 4, 5],
       state: "登录账号",
       needLogin: true,
+      loginProps: "dynamic-loginProps",
       loginStyle: {
         color: 'red'
       },
@@ -238,7 +242,7 @@ let view = new View({
 // let ast = parseHTML(html)[0];
 // console.log(ast);
 // let _render = generate(ast);
-console.log(view, view.$vnode, view.el);
+console.log(view, view.$vnode, view.$el);
 
 // const vm = new View({
 //   el: document.querySelector("#app"),

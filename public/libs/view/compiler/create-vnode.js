@@ -6,7 +6,7 @@ const createVnode = {
       children = flatAry(children).filter(Boolean);
       children = resolveContinuousText(children);
       if (isComponent(this, tagName)) {
-        return createComponent.call(this, this.components, tagName, attrs, children, isStatic);
+        return createComponent.call(this, this.components, tagName, attrs, children);
       }
       const vnode = {
         tagName,
@@ -94,9 +94,12 @@ function isComponent(vNode, tagName) {
   return vNode.components.some(component => component.name === tagName);
 }
 
-function createComponent(components, tagName, attrs, children, isStatic) {
+function createComponent(components, tagName, attrs, children) {
   const component = components.find(comp => comp.name === tagName);
-  const componentInstance = new this.constructor(component);
+  const componentInstance = new this.constructor(Object.assign(component, {
+    $props: attrs,
+    $slots: children,
+  }));
   componentInstance.$vnode.componentInstance = componentInstance;
   return componentInstance.$vnode;
 }

@@ -36,6 +36,8 @@ proto.init = function () {
   this.name = this.options.name;
   this.components = this.options.components || [];
   this.template = this.options.template;
+  this.initProps();
+  this.initSlots();
   this.initData();
   this.initMethods();
   this.ast = parseHTML(this.template.trim());
@@ -48,6 +50,17 @@ proto.init = function () {
   this.target = this.template;
   this.firstLoad = true;
 };
+
+proto.initProps = function () {
+  this.$props = this.options.$props || {};
+  Object.keys(this.$props).forEach(key => {
+    this[key] = this.$props[key];
+  });
+}
+
+proto.initSlots = function () {
+  this.$slots = this.options.$slots || [];
+}
 
 proto.initData = function () {
   this.$data = (this.options.data || (this.options.data = () => ({})))();
@@ -105,24 +118,12 @@ proto.mount = function (el) {
   // this.renderSlot();
   if (!el) {
     this.executeHooks("mounted");
-    return this.target;
+    return this.$el;
   }
   el = typeof el === "string" ? document.querySelector(el) : el;
   if (el instanceof HTMLElement) {
-    if (this.renderType === "default") {
-      // el.innerHTML = this.target;
-      el.appendChild(this.$el);
-    } else if (this.renderType === "append") {
-      let wrap = document.createElement("span");
-      wrap.innerHTML = this.target;
-      el.appendChild(wrap);
-      this.parentEl = wrap.parentElement;
-      wrap.outerHTML = wrap.innerHTML;
-      this.el = this.parentEl.lastElementChild;
-    }
+    el.appendChild(this.$el);
   }
-
-  this.el = el;
 
   if (this.firstLoad) {
     this.firstLoad = false;
