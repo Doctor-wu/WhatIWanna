@@ -7,6 +7,7 @@ const dirStrategy = {
   else: makeElseDir,
   "else-if": makeElseIfDir,
   bind: makeBindDir,
+  slot: makeSlotDir,
   default: makeDefaultDir,
 };
 
@@ -72,6 +73,11 @@ function makeBindDir(token) {
   });
   token.binds = binds;
 }
+
+function makeSlotDir(token) {
+  token.attrs["slot-name"] = token.directives.slot[0].dirValue.value;
+}
+
 // 处理 [未知] 指令
 function makeDefaultDir(token, key) {
   console.log(`未知指令: ${key}, token: `, token.directives[key]);

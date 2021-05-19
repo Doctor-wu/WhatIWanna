@@ -178,6 +178,9 @@ let authTemplate = `
     <p>
       I am default slot;
     </p>
+    <template v-slot="middle">
+      I am middle slot;
+    </template>
   </Login>
   <ul class="left">
     <li></li>
@@ -197,7 +200,7 @@ let Login = {
   <div class="login">
     <h3>{{title}}</h3>
     <div id="login" style="height: 4rem">${dom.outerHTML}</div>
-    <slot></slot>
+    <slot name="middle"></slot>
     <div class=".btn-wrap">
       <button @click="handleLogin" class="btn btn-12 btn-success goLogin">登录</button>
       <button class="btn btn-12 btn-default goRegist">注册</button>

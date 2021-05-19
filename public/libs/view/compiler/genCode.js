@@ -49,6 +49,8 @@ function genElement(ast) {
 }
 
 function genTemplate(ast) {
+  console.log(genAttrStr(ast.attrs));
+
   const ary = ast.children.map(generate).filter(Boolean);
   return `_sa([${ary}])`;
 }
@@ -124,7 +126,8 @@ function genData(ast) {
 
 function genSlot(ast) {
   console.log(ast);
-  return `_rsl($slots.${ast.attrs.name || 'default'})`;
+  const slotKey = ast.attrs.name ? (ast.attrs["slot-name"] = {}).value : 'default'
+  return `_rsl($slots.${slotKey})`;
 }
 
 export default generate;
