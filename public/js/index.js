@@ -174,7 +174,11 @@ let dom = vForm.mount("#login");
 
 let authTemplate = `
 <section class="auth">
-  <Login v-bind:title="loginProps" />
+  <Login v-bind:title="loginProps">
+    <p>
+      I am default slot;
+    </p>
+  </Login>
   <ul class="left">
     <li></li>
     <li></li>
@@ -193,6 +197,7 @@ let Login = {
   <div class="login">
     <h3>{{title}}</h3>
     <div id="login" style="height: 4rem">${dom.outerHTML}</div>
+    <slot></slot>
     <div class=".btn-wrap">
       <button @click="handleLogin" class="btn btn-12 btn-success goLogin">登录</button>
       <button class="btn btn-12 btn-default goRegist">注册</button>

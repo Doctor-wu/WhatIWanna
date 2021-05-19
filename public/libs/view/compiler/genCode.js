@@ -19,22 +19,25 @@ function generate(ast) {
     ast.ifProccessed = true;
     const result = genIf(ast);
     return result;
-  } else if (ast.for && !ast.forProccessed) {
+  }
+  else if (ast.for && !ast.forProccessed) {
     ast.forProccessed = true;
     return genFor(ast);
   }
-  // else if (ast.binds && !ast.bindsProccessed) {
-  //   ast.bindsProccessed = true;
-  //   return genBind(ast);
-  // }
   else if (ast.elseProccessed) {
     return undefined;
-  } else if (ast.type === "element") {
+  }
+  else if (ast.tagName === "slot") {
+    return genSlot(ast);
+  }
+  else if (ast.type === "element") {
     if (ast.tagName === "template") return genTemplate(ast);
     return genElement(ast);
-  } else if (ast.type === "expr") {
+  }
+  else if (ast.type === "expr") {
     return genExpr(ast);
-  } else if (ast.type === "text") {
+  }
+  else if (ast.type === "text") {
     return genText(ast);
   }
 }
@@ -117,6 +120,11 @@ function genData(ast) {
   str += "}";
   // console.log(str);
   return str;
+}
+
+function genSlot(ast) {
+  console.log(ast);
+  return `_rsl($slots.${ast.attrs.name || 'default'})`;
 }
 
 export default generate;

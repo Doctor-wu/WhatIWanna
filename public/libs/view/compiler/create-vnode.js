@@ -58,6 +58,10 @@ const createVnode = {
     proto._e = function (str) {
       return str;
     }
+
+    proto._rsl = function (slotName) {
+      return slotName;
+    }
   }
 }
 
@@ -98,7 +102,9 @@ function createComponent(components, tagName, attrs, children) {
   const component = components.find(comp => comp.name === tagName);
   const componentInstance = new this.constructor(Object.assign(component, {
     $props: attrs,
-    $slots: children,
+    $slots: {
+      default: children
+    },
   }));
   componentInstance.$vnode.componentInstance = componentInstance;
   return componentInstance.$vnode;
