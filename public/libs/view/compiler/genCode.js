@@ -109,7 +109,7 @@ function genData(ast) {
   str = str + genHandler(ast);
 
   str += "}";
-  console.log(str);
+  // console.log(str);
   return str;
 }
 

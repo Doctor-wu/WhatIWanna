@@ -134,29 +134,21 @@ let view = new View({
       <button class="btn btn-12 btn-default goRegist">注册</button>
     </div>
   </div>
-  <ul class="left">
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-        <ul class="right">
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
   </div>`,
   data: {
     list: [{ name: 'doctorwu' }, { name: 'yoqi' }],
-    numbers: [1, 2, 3],
-    state: "登录按钮1",
+    numbers: [1, 2, 3, 4, 5],
+    state: "登录按钮",
     needLogin: true,
     loginStyle: {
       color: 'red'
     },
-    handleLogin: function () {
-      console.log(this);
-    },
     btnWrap: "dynamic"
+  },
+  methods: {
+    handleLogin() {
+      console.log(this, this.list);
+    },
   },
   el: document.querySelector("#app"),
 });

@@ -36,33 +36,34 @@ proto.init = function () {
   utils.assert(this.options.name, "View needs a name");
   this.name = this.options.name;
   this.template = this.options.template;
-  this.data = this.options.data || {};
-  Object.keys(this.data).forEach(key => {
-    this[key] = this.data[key];
-  });
+  this.initData();
+  this.initMethods();
   this.ast = parseHTML(this.template.trim());
   this._render = new Function('instance', `with(instance){return eval(${generate(this.ast[0])})}`);
   this.vnode = this._render(this);
   this.$el = patchVnode(null, this.vnode);
   this.slot = this.options.slot || {};
   this.components = this.options.components || [];
-  // this.components.length && (this.components = this.components.map(comp => {
-  //   if (comp instanceof Function) {
-  //     return comp();
-  //   }
-  //   return comp;
-  // }))
   this.hooks = {};
-  // this.hooks["mounted"] = [() => {
-  //   this.components.forEach((component) => {
-  //     component().mount(this);
-  //   });
-  // }]
   this.renderType = this.options.renderType || "default";
   this.routeCurrView = [];
   this.target = this.template;
   this.firstLoad = true;
 };
+
+proto.initData = function () {
+  this.$data = this.options.data || {};
+  Object.keys(this.$data).forEach(key => {
+    this[key] = this.$data[key];
+  });
+}
+
+proto.initMethods = function () {
+  this.$methods = this.options.methods || {};
+  Object.keys(this.$methods).forEach(key => {
+    this[key] = this.$methods[key].bind(this);
+  });
+}
 
 proto.loadHooks = function () {
   hooks.forEach((hook) => {
@@ -108,9 +109,6 @@ proto.mount = function (el) {
     return this.target;
   }
   el = typeof el === "string" ? document.querySelector(el) : el;
-  // if (!this.el && el instanceof View) {
-  //   this.el = el.el.querySelector(`#COMPONENT${this.vid}`);
-  // }
   if (el instanceof HTMLElement) {
     if (this.renderType === "default") {
       // el.innerHTML = this.target;
