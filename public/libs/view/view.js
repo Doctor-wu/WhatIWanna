@@ -19,8 +19,7 @@ export default function View(options) {
   this.vid = vid++;
   this.init();
   this.loadHooks();
-  this.parseTemplate();
-  this.mount(options.el);
+  // this.parseTemplate();
   views.add(this);
 }
 
@@ -35,15 +34,14 @@ proto.init = function () {
   utils.assert(this.options.template != null, "View needs a template");
   utils.assert(this.options.name, "View needs a name");
   this.name = this.options.name;
+  this.components = this.options.components || [];
   this.template = this.options.template;
   this.initData();
   this.initMethods();
   this.ast = parseHTML(this.template.trim());
   this._render = new Function('instance', `with(instance){return eval(${generate(this.ast[0])})}`);
   this.vnode = this._render(this);
-  this.$el = patchVnode(null, this.vnode);
   this.slot = this.options.slot || {};
-  this.components = this.options.components || [];
   this.hooks = {};
   this.renderType = this.options.renderType || "default";
   this.routeCurrView = [];
@@ -52,7 +50,7 @@ proto.init = function () {
 };
 
 proto.initData = function () {
-  this.$data = this.options.data || {};
+  this.$data = (this.options.data || (this.options.data = () => ({})))();
   Object.keys(this.$data).forEach(key => {
     this[key] = this.$data[key];
   });
@@ -103,6 +101,7 @@ proto.component = function (component) {
 
 proto.mount = function (el) {
   this.executeHooks("beforeMount");
+  this.$el = patchVnode(null, this.vnode);
   // this.renderSlot();
   if (!el) {
     this.executeHooks("mounted");

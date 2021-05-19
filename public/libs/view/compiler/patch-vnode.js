@@ -17,6 +17,7 @@ function createDom(vNode) {
     vNode.children.forEach(child => {
       dom.appendChild(createDom(child));
     });
+    if (vNode.componentInstance) vNode.componentInstance.$el = dom;
     return dom;
   }
 }

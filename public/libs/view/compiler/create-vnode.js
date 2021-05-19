@@ -5,6 +5,9 @@ const createVnode = {
     proto._c = function (tagName, attrs, children, isStatic) {
       children = flatAry(children).filter(Boolean);
       children = resolveContinuousText(children);
+      if (isComponent(this, tagName)) {
+        return createComponent.call(this, this.components, tagName, attrs, children, isStatic);
+      }
       const vnode = {
         tagName,
         type: "element",
@@ -84,6 +87,19 @@ function resolveContinuousText(children) {
 function flatAry(ary) {
   if (!ary) return [];
   return !Array.isArray(ary) ? ary : [].concat.apply([], ary.map(flatAry));
+}
+
+function isComponent(vNode, tagName) {
+  if (!vNode.components.length) return false;
+  return vNode.components.some(component => component.name === tagName);
+}
+
+function createComponent(components, tagName, attrs, children, isStatic) {
+  const component = components.find(comp => comp.name === tagName);
+  const componentInstance = new this.constructor(component);
+  console.log(componentInstance, 123);
+  componentInstance.vnode.componentInstance = componentInstance;
+  return componentInstance.vnode;
 }
 
 export default createVnode;

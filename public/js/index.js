@@ -148,74 +148,92 @@ let vForm = new VForm({
 });
 let dom = vForm.mount("#login");
 
+// `<div id="auth">
+//   <div class="login">
+//   <h3 v-for="item in list" v-bind:style="loginStyle">登录 {{item.name}}帐号</h3>
+//   <div id="login" style="height: 1rem;margin: 1rem 0;" v-if="needLogin">__login-form__</div>
+//   <template v-for="(item, index) in numbers">
+//     <div v-bind:class="item" v-if="item%2 !== 0">
+//       ({{index}})奇数: {{item}}
+//     </div>
+//     <div v-else-if="Math.random() > 0.5">
+//       ({{index}})偶数: {{item}}
+//     </div>
+//     <div v-else>
+//       我是else
+//     </div>
+//   </template>
+//   <div class="static">static</div>
+//   <div class="btn-wrap">
+//     <button @click="handleLogin" class="btn btn-12 btn-success goLogin">{{state}}</button>
+//     <button class="btn btn-12 btn-default goRegist">注册</button>
+//   </div>
+// </div>
+// </div>`,
 
-let authTemplate = `<section class="auth">
-        <div class="login">
-        <h3>登录帐号</h3>
-        <div id="login" style="height: 4rem">${dom.outerHTML}</div>
-        <div class=".btn-wrap">
-        <button @click="handleLogin" class="btn btn-12 btn-success goLogin">登录</button>
-        <button class="btn btn-12 btn-default goRegist">注册</button>
-        </div>
-        </div>
-        <ul class="left">
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-        <ul class="right">
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-    </section>`
 
+let authTemplate = `
+<section class="auth">
+  <Login />
+  <ul class="left">
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  <ul class="right">
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</section>`;
 
-
-
+let Login = {
+  name: "Login",
+  template: `
+  <div class="login">
+    <h3>{{state}}</h3>
+    <div id="login" style="height: 4rem">${dom.outerHTML}</div>
+    <div class=".btn-wrap">
+      <button @click="handleLogin" class="btn btn-12 btn-success goLogin">登录</button>
+      <button class="btn btn-12 btn-default goRegist">注册</button>
+    </div>
+  </div>
+  `,
+  data() {
+    return {
+      state: "登录账号",
+    };
+  },
+  methods: {
+    handleLogin() {
+      console.log(this);
+    },
+  },
+};
 
 let view = new View({
   name: "vm",
   template: authTemplate,
-  // `<div id="auth">
-  //   <div class="login">
-  //   <h3 v-for="item in list" v-bind:style="loginStyle">登录 {{item.name}}帐号</h3>
-  //   <div id="login" style="height: 1rem;margin: 1rem 0;" v-if="needLogin">__login-form__</div>
-  //   <template v-for="(item, index) in numbers">
-  //     <div v-bind:class="item" v-if="item%2 !== 0">
-  //       ({{index}})奇数: {{item}}
-  //     </div>
-  //     <div v-else-if="Math.random() > 0.5">
-  //       ({{index}})偶数: {{item}}
-  //     </div>
-  //     <div v-else>
-  //       我是else
-  //     </div>
-  //   </template>
-  //   <div class="static">static</div>
-  //   <div class="btn-wrap">
-  //     <button @click="handleLogin" class="btn btn-12 btn-success goLogin">{{state}}</button>
-  //     <button class="btn btn-12 btn-default goRegist">注册</button>
-  //   </div>
-  // </div>
-  // </div>`,
-  data: {
-    list: [{ name: 'doctorwu' }, { name: 'yoqi' }],
-    numbers: [1, 2, 3, 4, 5],
-    state: "登录按钮",
-    needLogin: true,
-    loginStyle: {
-      color: 'red'
-    },
-    btnWrap: "dynamic"
+  components: [Login],
+  data() {
+    return {
+      list: [{ name: 'doctorwu' }, { name: 'yoqi' }],
+      numbers: [1, 2, 3, 4, 5],
+      state: "登录账号",
+      needLogin: true,
+      loginStyle: {
+        color: 'red'
+      },
+      btnWrap: "dynamic"
+    };
   },
   methods: {
     handleLogin() {
       console.log(this, this.list);
     },
   },
-  el: document.querySelector("#app"),
-});
+  // el: document.querySelector("#app"),
+}).mount(document.querySelector("#app"));
 // let ast = parseHTML(html)[0];
 // console.log(ast);
 // let _render = generate(ast);

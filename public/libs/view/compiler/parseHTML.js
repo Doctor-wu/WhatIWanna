@@ -7,10 +7,12 @@ let tagNameReg = `\\w+(?:-\\w+)*`;
 
 let startTagReg = new RegExp(`\\<(${tagNameReg})`);
 
+let startTagEndRE = /(?:\s*\/)?>/;
+
 let endTagReg = new RegExp(`\\<\\/${tagNameReg}(\\/?)\\>`);
 
 let commentReg = /\<!--(?:\s*(.*(?=\s))\s*)-->/;
-let attribute = /\s*([^=>]+)(?:\s*=\s*['"`]([^'"`]*)['"`]\s*)?/;
+let attribute = /\s*([^\/\s=>]+)(?:\s*=\s*['"`]([^'"`]*)['"`]\s*)?/;
 
 let expReg = /\{\{([^\}]*)\}\}/;
 
@@ -50,8 +52,11 @@ function parseHTML(html, options) {
 
 
     // 结束[开始标签]
-    if (html.indexOf(">") === 0) {
-      walk(1);
+    let startTagEndMatch = html.match(startTagEndRE);
+    if (startTagEndMatch && startTagEndMatch.index === 0) {
+      walk(startTagEndMatch[0].length);
+      if (startTagEndMatch[0].includes("/"))
+        stack.pop();
       continue;
     }
 
@@ -162,10 +167,13 @@ function parseHTML(html, options) {
         index: index + walkIndex,
       });
       walk(source.length);
-      while (html.indexOf(">") > 0) {
+
+      let tagEndMatch = html.match(startTagEndRE);
+      while (tagEndMatch && tagEndMatch.index > 0) {
         let item = attribute.exec(html);
         token.attrs[item[1]] = resolveAttr(item[2]);
         walk(item[0].length);
+        tagEndMatch = html.match(startTagEndRE);
       }
 
       if (stack.length !== 0) {
