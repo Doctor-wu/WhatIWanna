@@ -16,14 +16,15 @@ let attribute = /\s*([^\/\s=>]+)(?:\s*=\s*['"`]([^'"`]*)['"`]\s*)?/;
 
 let expReg = /\{\{([^\}]*)\}\}/;
 
-const getBaseToken = () => ({
+const getBaseToken = ({ context }) => ({
   _static: true,
+  context,
 });
 
 
 let oldhtml;
 
-function parseHTML(html, options) {
+function parseHTML(html, context) {
   oldhtml = html; // 记录处理前的html
   let stack = [],
     ast = [],
@@ -35,7 +36,7 @@ function parseHTML(html, options) {
     // 注释
     let commentMatch = html.match(commentReg);
     if (commentMatch && commentMatch.index === 0) {
-      const token = Object.assign(getBaseToken(), {
+      const token = Object.assign(getBaseToken({ context }), {
         type: "comment",
         content: commentMatch[1],
       });
@@ -94,7 +95,7 @@ function parseHTML(html, options) {
     // 如果是一段纯表达式，resolveval之后返回空字符串 "{{state}}" => ""
     if (!resolveVal) return;
     rest = resolveVal;
-    const token = Object.assign(getBaseToken(), {
+    const token = Object.assign(getBaseToken({ context }), {
       type: "text",
       content: rest,
     });
@@ -116,7 +117,7 @@ function parseHTML(html, options) {
 
       if (match.index !== 0) {
         let rest = text.slice(0, match.index);
-        let token = Object.assign(getBaseToken(), {
+        let token = Object.assign(getBaseToken({ context }), {
           type: "text",
           content: rest,
           _static: true,
@@ -131,7 +132,7 @@ function parseHTML(html, options) {
         text = text.slice(rest.length);
       } else {
         let pattern = match[1];
-        let token = Object.assign(getBaseToken(), {
+        let token = Object.assign(getBaseToken({ context }), {
           type: "expr",
           content: pattern,
           _static: false,
@@ -158,7 +159,7 @@ function parseHTML(html, options) {
       let {
         index
       } = match;
-      const token = Object.assign(getBaseToken(), {
+      const token = Object.assign(getBaseToken({ context }), {
         type: "element",
         tagName,
         attrs: {},
@@ -195,13 +196,13 @@ function parseHTML(html, options) {
   function resolveAttr(value) {
     let match = expReg.exec(value);
     if (match) {
-      return Object.assign(getBaseToken(), {
+      return Object.assign(getBaseToken({ context }), {
         type: "expr",
         value: match[1],
         _static: false
       });
     }
-    return Object.assign(getBaseToken(), {
+    return Object.assign(getBaseToken({ context }), {
       type: "text",
       value,
       _static: true

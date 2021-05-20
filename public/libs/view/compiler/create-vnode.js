@@ -15,7 +15,8 @@ const createVnode = {
         children,
         // binds: astToken.binds || [],
         _static: isStatic,
-        events: attrs.events
+        events: attrs.events,
+        context: this,
       };
       children.forEach(child => {
         if (!child) return;
@@ -108,13 +109,24 @@ function isComponent(vNode, tagName) {
 function createComponent(components, tagName, attrs, children) {
   const component = components.find(comp => comp.name === tagName);
   const $slots = {};
+  let ifRef = false;
   children.forEach(child => {
     ($slots[child.slotName || "default"] || ($slots[child.slotName || "default"] = [])).push(child);
   });
+  if (attrs.ref) {
+    ifRef = {
+      refName: attrs.ref,
+    };
+    delete attrs.ref; // 防止ref作为prop挂载到组件实例上
+  }
   const componentInstance = new this.constructor(Object.assign(component, {
     $props: attrs,
     $slots,
+    $parent: this,
   }));
+  if (ifRef) {
+    (this.$refs[ifRef.refName] || (this.$refs[ifRef.refName] = [])).push(componentInstance);
+  }
   componentInstance.$vnode.componentInstance = componentInstance;
   return componentInstance.$vnode;
 }

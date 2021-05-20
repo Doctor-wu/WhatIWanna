@@ -136,7 +136,7 @@ View.usePlugin(createVnode);
 
 let authTemplate = `
 <section class="auth">
-  <Login v-bind:title="loginProps">
+  <Login ref="login" v-bind:title="loginProps">
     <div>
       <p style="margin-top: 10px" v-for="item in numbers">
         {{item}}) I am default slot;
@@ -148,7 +148,7 @@ let authTemplate = `
       </p>
     </template>
   </Login>
-  <ul class="left">
+  <ul ref="ulElement" class="left">
     <li></li>
     <li></li>
     <li></li>

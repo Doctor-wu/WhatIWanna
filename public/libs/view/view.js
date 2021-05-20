@@ -34,13 +34,17 @@ proto.init = function () {
   utils.assert(this.options.template != null, "View needs a template");
   utils.assert(this.options.name, "View needs a name");
   this.name = this.options.name;
+  if (this.options.$parent) {
+    this.$parent = this.options.$parent;
+  }
+  this.$refs = {};
   this.components = this.options.components || [];
   this.template = this.options.template;
   this.initProps();
   this.initSlots();
   this.initData();
   this.initMethods();
-  this.ast = parseHTML(this.template.trim());
+  this.ast = parseHTML(this.template.trim(), this);
   this._render = new Function('instance', `with(instance){return eval(${generate(this.ast[0])})}`);
   this.$vnode = this._render(this);
   this.hooks = {};
@@ -113,7 +117,7 @@ proto.component = function (component) {
 
 proto.mount = function (el) {
   this.executeHooks("beforeMount");
-  this.$el = patchVnode(null, this.$vnode);
+  this.$el = patchVnode.call(this, null, this.$vnode);
   // this.renderSlot();
   if (!el) {
     this.executeHooks("mounted");

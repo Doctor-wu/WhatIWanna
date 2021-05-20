@@ -2,7 +2,7 @@
 
 function patchVnode(oldVNode, newVNode) {
   if (!oldVNode && newVNode) {
-    return createDom(newVNode);
+    return createDom.call(this, newVNode);
   }
 }
 
@@ -13,9 +13,9 @@ function createDom(vNode) {
   } else if (vNode.type === "element") {
     let dom = document.createElement(vNode.tagName);
     vNode.el = dom;
-    resolveDOMAttr(dom, vNode);
+    resolveDOMAttr.call(this, dom, vNode);
     vNode.children.forEach(child => {
-      dom.appendChild(createDom(child));
+      dom.appendChild(createDom.call(this, child));
     });
     if (vNode.componentInstance) vNode.componentInstance.$el = dom;
     return dom;
@@ -29,6 +29,11 @@ function resolveDOMAttr(dom, vNode) {
     let domKey = key;
     if (key === "class") domKey = "className";
     if (key === "events") resolveDOMEvents(dom, $attrs.events);
+    if (key === "ref") {
+      (this.$refs[$attrs[key]] || (this.$refs[$attrs[key]] = [])).push(dom);
+      return;
+    }
+
     dom[domKey] = $attrs[key];
   })
 }
