@@ -41,7 +41,7 @@ let Login = {
   name: "Login",
   template: `
   <div class="login">
-    <h3>{{stateTitle.value}}</h3>
+    <h3 v-bind:style="middleStyle">{{stateTitle.value}}</h3>
     <slot></slot>
     <div v-if="showForm.value" ref="form" id="login" style="height: 4rem">${dom.outerHTML}</div>
     <slot name="middle"></slot>
@@ -51,13 +51,13 @@ let Login = {
       <button @click="toggleForm" class="btn btn-12 btn-default goRegist">{{showForm.value ? '隐藏表格' : '显示表格'}}</button>
     </div>
     <slot name="foot">
-      <p style="color: red;">I am reserve foot slot;</p>
+      <p>I am reserve foot slot;</p>
     </slot>
   </div>
   `,
   setup() {
     const slotList = reactive([1,2,3]);
-    const middleSlotStyle = reactive({
+    const middleStyle = reactive({
       color: "gold",
     }) ;
     const showForm = reactive(true);
@@ -65,7 +65,7 @@ let Login = {
 
     return {
       slotList,
-      middleSlotStyle,
+      middleStyle,
       stateTitle,
       showForm,
     }
@@ -83,6 +83,8 @@ let Login = {
     },
     changeTitle() {
         this.$state.stateTitle.value = "123";
+        this.$state.middleStyle.color = "blue";
+        console.log(this.$state);
     },
     toggleForm() {
         this.showForm.value = !this.showForm.value;

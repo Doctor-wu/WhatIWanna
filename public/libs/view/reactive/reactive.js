@@ -122,7 +122,7 @@ function trigger(
   //TODO: 必须首先运行计算属性的更新，以便计算的getter
   //在任何依赖于它们的正常更新effect运行之前，都可能失效。
 
-  computedRunners.forEach(run) /* 依次执行computedRunners 回调*/
+  // computedRunners.forEach(run) /* 依次执行computedRunners 回调*/
   effects.forEach(run) /* 依次执行 effect 回调（ TODO: 里面包括渲染effect ）*/
 }
 
