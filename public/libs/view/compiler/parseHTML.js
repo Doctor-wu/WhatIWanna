@@ -7,7 +7,7 @@ let tagNameReg = `\\w+(?:-\\w+)*`;
 
 let startTagReg = new RegExp(`\\<(${tagNameReg})`);
 
-let startTagEndRE = /(?:\s*\/)?>/;
+let startTagEndRE = /\s*(?:\s*\/)?>/;
 
 let endTagReg = new RegExp(`\\<\\/${tagNameReg}(\\/?)\\>`);
 

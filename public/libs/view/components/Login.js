@@ -41,7 +41,7 @@ let Login = {
   name: "Login",
   template: `
   <div class="login">
-    <h3 v-bind:style="middleStyle">{{stateTitle.value}}</h3>
+    <h3 >{{stateTitle.value}} {{middleStyle.color}}</h3>
     <slot></slot>
     <div v-if="showForm.value" ref="form" id="login" style="height: 4rem">${dom.outerHTML}</div>
     <slot name="middle"></slot>
