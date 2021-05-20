@@ -30,7 +30,7 @@ function resolveDOMAttr(dom, vNode) {
     if (key === "class") domKey = "className";
     if (key === "events") resolveDOMEvents(dom, $attrs.events);
     if (key === "ref") {
-      (this.$refs[$attrs[key]] || (this.$refs[$attrs[key]] = [])).push(dom);
+      (vNode.context.$refs[$attrs[key]] || (vNode.context.$refs[$attrs[key]] = [])).push(dom);
       return;
     }
 

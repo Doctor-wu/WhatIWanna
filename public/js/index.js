@@ -138,7 +138,7 @@ let authTemplate = `
 <section class="auth">
   <Login ref="login" v-bind:title="loginProps">
     <div>
-      <p style="margin-top: 10px" v-for="item in numbers">
+      <p ref="slot-list" style="margin-top: 10px" v-for="item in numbers">
         {{item}}) I am default slot;
       </p>
     </div>
@@ -179,7 +179,8 @@ let view = new View({
   },
   methods: {
     handleLogin() {
-      console.log(this, this.list);
+      notify.success(`I am outside Component; My name is ${this.name}`);
+      console.log(this);
     },
   },
   // el: document.querySelector("#app"),

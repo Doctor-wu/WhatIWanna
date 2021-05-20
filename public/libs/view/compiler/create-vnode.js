@@ -124,6 +124,7 @@ function createComponent(components, tagName, attrs, children) {
     $slots,
     $parent: this,
   }));
+
   if (ifRef) {
     (this.$refs[ifRef.refName] || (this.$refs[ifRef.refName] = [])).push(componentInstance);
   }

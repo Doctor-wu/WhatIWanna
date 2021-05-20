@@ -42,7 +42,7 @@ let Login = {
   <div class="login">
     <h3>{{title}}</h3>
     <slot></slot>
-    <div id="login" style="height: 4rem">${dom.outerHTML}</div>
+    <div ref="form" id="login" style="height: 4rem">${dom.outerHTML}</div>
     <slot name="middle"></slot>
     <div class=".btn-wrap">
       <button @click="handleLogin" class="btn btn-12 btn-success goLogin">登录</button>
@@ -61,10 +61,8 @@ let Login = {
   methods: {
     handleLogin() {
       console.log(this);
-      notify.success(this.state);
-      notify.info(this.state);
-      notify.warn(this.state);
-      notify.danger(this.state);
+      notify.success(`I am inner Component; My name is ${this.name}`);
+      this.$parent.handleLogin();
     },
   },
 };
