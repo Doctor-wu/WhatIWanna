@@ -1,5 +1,6 @@
 import { VForm } from "../../vForm/vForm.js";
 import { VFormItem } from "../../vForm/vForm-item.js";
+import { reactive } from "../reactive/reactive.js";
 
 let user = new VFormItem({
   tag: "input",
@@ -40,19 +41,35 @@ let Login = {
   name: "Login",
   template: `
   <div class="login">
-    <h3>{{title}}</h3>
+    <h3>{{stateTitle.value}}</h3>
     <slot></slot>
-    <div ref="form" id="login" style="height: 4rem">${dom.outerHTML}</div>
+    <div v-if="showForm.value" ref="form" id="login" style="height: 4rem">${dom.outerHTML}</div>
     <slot name="middle"></slot>
     <div class=".btn-wrap">
       <button @click="handleLogin" class="btn btn-12 btn-success goLogin">登录</button>
-      <button class="btn btn-12 btn-default goRegist">注册</button>
+      <button @click="changeTitle" class="btn btn-12 btn-default goRegist">注册</button>
+      <button @click="toggleForm" class="btn btn-12 btn-default goRegist">{{showForm.value ? '隐藏表格' : '显示表格'}}</button>
     </div>
     <slot name="foot">
       <p style="color: red;">I am reserve foot slot;</p>
     </slot>
   </div>
   `,
+  setup() {
+    const slotList = reactive([1,2,3]);
+    const middleSlotStyle = reactive({
+      color: "gold",
+    }) ;
+    const showForm = reactive(true);
+    const stateTitle = reactive("登录帐户");
+
+    return {
+      slotList,
+      middleSlotStyle,
+      stateTitle,
+      showForm,
+    }
+  },
   data() {
     return {
       state: "登录账号",
@@ -64,6 +81,12 @@ let Login = {
       notify.success(`I am inner Component; My name is ${this.name}`);
       this.$parent.handleLogin();
     },
+    changeTitle() {
+        this.$state.stateTitle.value = "123";
+    },
+    toggleForm() {
+        this.showForm.value = !this.showForm.value;
+    }
   },
 };
 

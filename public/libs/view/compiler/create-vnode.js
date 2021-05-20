@@ -128,7 +128,9 @@ function createComponent(components, tagName, attrs, children) {
   if (ifRef) {
     (this.$refs[ifRef.refName] || (this.$refs[ifRef.refName] = [])).push(componentInstance);
   }
-  componentInstance.$vnode.componentInstance = componentInstance;
+//   componentInstance.$vnode.componentInstance = componentInstance;
+  componentInstance._isComponent = true;
+  componentInstance.mount();
   return componentInstance.$vnode;
 }
 

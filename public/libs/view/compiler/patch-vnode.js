@@ -3,6 +3,12 @@
 function patchVnode(oldVNode, newVNode) {
   if (!oldVNode && newVNode) {
     return createDom.call(this, newVNode);
+  }else if(!oldVNode && !newVNode){
+
+  }else if(oldVNode && !newVNode){
+
+  }else if(oldVNode && newVNode) {
+    oldVNode.el.parentNode.replaceChild(createDom(newVNode), oldVNode.el);
   }
 }
 
