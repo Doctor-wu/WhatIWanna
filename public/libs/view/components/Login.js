@@ -48,7 +48,9 @@ let Login = {
       <button @click="handleLogin" class="btn btn-12 btn-success goLogin">登录</button>
       <button class="btn btn-12 btn-default goRegist">注册</button>
     </div>
-    <slot name="foot"></slot>
+    <slot name="foot">
+      I am reserve foot
+    </slot>
   </div>
   `,
   data() {

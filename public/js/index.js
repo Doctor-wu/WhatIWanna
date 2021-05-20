@@ -139,17 +139,12 @@ let authTemplate = `
   <Login v-bind:title="loginProps">
     <div>
       <p style="margin-top: 10px" v-for="item in numbers">
-        {{item}} )I am default slot;
+        {{item}}) I am default slot;
       </p>
     </div>
     <template v-slot:middle>
       <p>
         I am middle slot;
-      </p>
-    </template>
-    <template v-slot:foot>
-      <p>
-        I am foot slot;
       </p>
     </template>
   </Login>

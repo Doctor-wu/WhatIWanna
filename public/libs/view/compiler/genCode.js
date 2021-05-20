@@ -131,7 +131,9 @@ function genData(ast) {
 
 function genSlot(ast) {
   const slotKey = ast.attrs.name ? ast.attrs.name.value : 'default';
-  return `_rsl($slots.${slotKey})`;
+  console.log(ast);
+  return `_rsl($slots.${slotKey} || ${(ast.children.map(generate).toString()) || undefined})`;
 }
+
 
 export default generate;
