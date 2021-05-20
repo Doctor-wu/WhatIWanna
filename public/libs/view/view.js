@@ -43,7 +43,6 @@ proto.init = function () {
   this.ast = parseHTML(this.template.trim());
   this._render = new Function('instance', `with(instance){return eval(${generate(this.ast[0])})}`);
   this.$vnode = this._render(this);
-  this.slot = this.options.slot || {};
   this.hooks = {};
   this.renderType = this.options.renderType || "default";
   this.routeCurrView = [];

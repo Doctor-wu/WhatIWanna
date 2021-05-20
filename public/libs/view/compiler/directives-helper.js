@@ -75,7 +75,7 @@ function makeBindDir(token) {
 }
 
 function makeSlotDir(token) {
-  token.attrs["slot-name"] = token.directives.slot[0].dirValue.value;
+  token.attrs["slot-name"] = token.directives.slot[0].dirExpr;
 }
 
 // 处理 [未知] 指令

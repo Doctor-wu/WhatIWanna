@@ -11,11 +11,8 @@ import View from "../libs/view/view.js";
 import routeTest from "../libs/view/template/route-test/app.js";
 import DetailView from "../libs/view/template/route-test/detail.js";
 import DetailView2 from "../libs/view/template/route-test/detail2.js";
-import parseHTML from "../libs/view/compiler/parseHTML.js";
-import generate from "../libs/view/compiler/genCode.js";
 import createVnode from "../libs/view/compiler/create-vnode.js";
-import { VFormItem } from "../libs/vForm/vForm-item.js";
-import { VForm } from "../libs/vForm/vForm.js";
+import Login from "../libs/view/components/Login.js";
 
 export let whiteList = ["/auth/login", "/auth/regist", "/route-test", "/route-test/detail"];
 
@@ -113,41 +110,6 @@ View.usePlugin({
 
 View.usePlugin(createVnode);
 
-let user = new VFormItem({
-  tag: "input",
-  label: "用户名",
-  key: "casId",
-  attrs: {
-    placeholder: "请输入用户名[学号]",
-    autocomplete: "username"
-  },
-  rules: [
-    { prop: "required", msg: "请输入用户名[学号]", trigger: "blur" },
-    { pattern: /^\d{12}$/, msg: "请输入正用户名[学号]", trigger: "input" }
-  ]
-});
-
-let pwd = new VFormItem({
-  tag: "input",
-  label: "密码",
-  key: "password",
-  attrs: {
-    type: "password",
-    placeholder: "请输入密码",
-    autocomplete: "current-password"
-  },
-  rules: [
-    { prop: "required", msg: "请输入密码", trigger: "blur" }
-  ]
-});
-
-let vForm = new VForm({
-  title: "登录",
-  items: [user, pwd],
-  showBtn: false
-});
-let dom = vForm.mount("#login");
-
 // `<div id="auth">
 //   <div class="login">
 //   <h3 v-for="item in list" v-bind:style="loginStyle">登录 {{item.name}}帐号</h3>
@@ -175,11 +137,20 @@ let dom = vForm.mount("#login");
 let authTemplate = `
 <section class="auth">
   <Login v-bind:title="loginProps">
-    <p>
-      I am default slot;
-    </p>
-    <template v-slot="middle">
-      I am middle slot;
+    <div>
+      <p style="margin-top: 10px" v-for="item in numbers">
+        {{item}} )I am default slot;
+      </p>
+    </div>
+    <template v-slot:middle>
+      <p>
+        I am middle slot;
+      </p>
+    </template>
+    <template v-slot:foot>
+      <p>
+        I am foot slot;
+      </p>
     </template>
   </Login>
   <ul class="left">
@@ -194,35 +165,6 @@ let authTemplate = `
   </ul>
 </section>`;
 
-let Login = {
-  name: "Login",
-  template: `
-  <div class="login">
-    <h3>{{title}}</h3>
-    <div id="login" style="height: 4rem">${dom.outerHTML}</div>
-    <slot name="middle"></slot>
-    <div class=".btn-wrap">
-      <button @click="handleLogin" class="btn btn-12 btn-success goLogin">登录</button>
-      <button class="btn btn-12 btn-default goRegist">注册</button>
-    </div>
-  </div>
-  `,
-  data() {
-    return {
-      state: "登录账号",
-    };
-  },
-  methods: {
-    handleLogin() {
-      console.log(this);
-      notify.success(this.state);
-      notify.info(this.state);
-      notify.warn(this.state);
-      notify.danger(this.state);
-    },
-  },
-};
-
 let view = new View({
   name: "vm",
   template: authTemplate,
@@ -230,10 +172,10 @@ let view = new View({
   data() {
     return {
       list: [{ name: 'doctorwu' }, { name: 'yoqi' }],
-      numbers: [1, 2, 3, 4, 5],
+      numbers: [1, 2, 3],
       state: "登录账号",
       needLogin: true,
-      loginProps: "dynamic-loginProps",
+      loginProps: "登录账号",
       loginStyle: {
         color: 'red'
       },

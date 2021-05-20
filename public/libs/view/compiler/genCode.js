@@ -30,8 +30,10 @@ function generate(ast) {
   else if (ast.tagName === "slot") {
     return genSlot(ast);
   }
+  else if (ast.tagName === "template") {
+    return genTemplate(ast);
+  }
   else if (ast.type === "element") {
-    if (ast.tagName === "template") return genTemplate(ast);
     return genElement(ast);
   }
   else if (ast.type === "expr") {
@@ -49,10 +51,13 @@ function genElement(ast) {
 }
 
 function genTemplate(ast) {
-  console.log(genAttrStr(ast.attrs));
+  let slotName;
+  if (ast.attrs["slot-name"]) {
+    slotName = ast.attrs["slot-name"];
+  }
 
   const ary = ast.children.map(generate).filter(Boolean);
-  return `_sa([${ary}])`;
+  return `_sa([${ary}]${slotName ? (`, "${slotName}"`) : ""})`;
 }
 
 function genExpr(ast) {
@@ -125,8 +130,7 @@ function genData(ast) {
 }
 
 function genSlot(ast) {
-  console.log(ast);
-  const slotKey = ast.attrs.name ? (ast.attrs["slot-name"] = {}).value : 'default'
+  const slotKey = ast.attrs.name ? ast.attrs.name.value : 'default';
   return `_rsl($slots.${slotKey})`;
 }
 
