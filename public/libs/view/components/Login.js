@@ -49,7 +49,7 @@ let Login = {
       <button class="btn btn-12 btn-default goRegist">注册</button>
     </div>
     <slot name="foot">
-      I am reserve foot
+      <p style="color: red;">I am reserve foot slot</p>
     </slot>
   </div>
   `,
