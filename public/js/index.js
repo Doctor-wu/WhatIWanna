@@ -7,8 +7,6 @@ View.usePlugin(createVnode);
 
 let authTemplate = `
 <section class="auth">
-  <p>{{parentText.value}}</p>
-  <p>{{numbers}}</p>
   <Login v-if="true" @log="parentLog" ref="login" v-bind:title="loginProps">
     <div>
       <p ref="slot-list" style="margin-top: 10px" v-for="item in numbers">
@@ -53,6 +51,10 @@ let view = new View({
       }, {
         name: 'yoqi'
       }],
+      hoistLayer: {
+        position: "relative",
+        zIndex: 1
+      },
       state: "登录账号",
       needLogin: true,
       loginProps: "登录账号",
@@ -73,7 +75,13 @@ let view = new View({
     },
     parentLog() {
       notify.success("I am parent log");
-    }
+    },
+    addNumbers() {
+      this.numbers.push(this.numbers.length + 1);
+    },
+    decreaseNumbers() {
+      this.numbers.pop();
+    },
   },
   // el: document.querySelector("#app"),
 });

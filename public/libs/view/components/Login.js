@@ -42,26 +42,29 @@ let Login = {
   template: `
   <div class="login">
     <h3 v-bind:style="middleStyle">{{stateTitle.value}}</h3>
+      <button @click="$parent.addNumbers" class="btn btn-6 btn-success goLogin">加</button>
+      <button @click="$parent.decreaseNumbers" class="btn btn-6 btn-default">减</button>
+
     <slot></slot>
     <div v-if="showForm.value" ref="form" id="login" style="height: 4rem">${dom.outerHTML}</div>
-    <slot name="middle"></slot>
     <div class=".btn-wrap">
       <button @click="handleLogin" class="btn btn-12 btn-success goLogin">登录</button>
+      <slot name="middle"></slot>
       <button @click="changeTitle" class="btn btn-12 btn-default goRegist">注册</button>
+      <slot name="foot">
+        <p>I am reserve foot slot;</p>
+      </slot>
       <button @click="toggleForm" class="btn btn-12 btn-default goRegist">{{showForm.value ? '隐藏表格' : '显示表格'}}</button>
     </div>
-    <slot name="foot">
-      <p>I am reserve foot slot;</p>
-    </slot>
   </div>
   `,
   setup() {
     const slotList = reactive([1, 2, 3]);
     const middleStyle = reactive({
-      color: "gold",
+      // color: "gold",
     });
     const showForm = reactive(true);
-    const stateTitle = reactive("I am childComponent");
+    const stateTitle = reactive("登录帐户");
 
     return {
       slotList,
@@ -78,13 +81,13 @@ let Login = {
   methods: {
     handleLogin() {
       console.log(this);
-      notify.success(`I am inner Component; My name is ${this.name}`);
-      this.$parent.handleLogin();
+      // notify.success(`I am inner Component; My name is ${this.name}`);
+      // this.$parent.handleLogin();
+      this.$parent.changeParentText();
     },
     changeTitle() {
       notify.success("I am child log");
       this.emit('log');
-      // this.$parent.changeParentText();
       // this.$state.stateTitle.value = "I changed too";
       // this.$state.middleStyle.color = "blue";
     },

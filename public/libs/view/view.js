@@ -56,6 +56,23 @@ proto.init = function () {
   this.hooks = {};
 };
 
+proto.mount = function (el) {
+  this.initSetUp();
+  this._render = new Function('instance', `with(instance){return eval(${generate(this.ast[0])})}`);
+  setupRenderEffect(this);
+  if (!el) {
+    return this.$el;
+  }
+  el = typeof el === "string" ? document.querySelector(el) : el;
+  if (el instanceof HTMLElement) {
+    el.appendChild(this.$el);
+  }
+
+  this.executeHooks("mounted");
+  return this.$el;
+};
+
+
 proto.initSetUp = function () {
   if (!this.options.setup || typeof this.options.setup !== "function") return;
   this.setup = this.options.setup;
@@ -94,22 +111,6 @@ proto.loadHooks = function () {
     if (!this.hooks[hook]) this.hooks[hook] = [];
     this.options[hook] && this.hooks[hook].push(this.options[hook]);
   });
-};
-
-proto.mount = function (el) {
-  this.initSetUp();
-  this._render = new Function('instance', `with(instance){return eval(${generate(this.ast[0])})}`);
-  setupRenderEffect(this);
-  if (!el) {
-    return this.$el;
-  }
-  el = typeof el === "string" ? document.querySelector(el) : el;
-  if (el instanceof HTMLElement) {
-    el.appendChild(this.$el);
-  }
-
-  this.executeHooks("mounted");
-  return this.$el;
 };
 
 proto.executeHooks = function (hookName) {

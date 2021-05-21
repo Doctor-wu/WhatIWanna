@@ -7,6 +7,7 @@ const createVnode = {
       let componentMounted = this._buildingComponentAST[this._compIndex] && this._buildingComponentAST[this._compIndex].componentInstance;
       if (_isComponent && componentMounted) {
         // updateComponent;
+        const componentInstance = this._buildingComponentAST[this._compIndex].componentInstance;
         const $slots = {};
         children.forEach(child => {
           if (Array.isArray(child)) {
@@ -16,8 +17,11 @@ const createVnode = {
           }
           ($slots[child.slotName || "default"] || ($slots[child.slotName || "default"] = [])).push(child);
         });
-        this._buildingComponentAST[this._compIndex].componentInstance.$slots = $slots;
-        this._buildingComponentAST[this._compIndex].componentInstance.update();
+        componentInstance.$slots = $slots;
+        componentInstance.update();
+        componentInstance._isComponent = true;
+        componentInstance.$vnode.componentInstance = componentInstance;
+        componentInstance.$vnode._isComponent = true;
         return this._buildingComponentAST[this._compIndex].componentInstance.$vnode;
       }
       children = flatAry(children).filter(Boolean);
@@ -160,9 +164,10 @@ function createComponent(components, tagName, attrs, children) {
     (this.$refs[ifRef.refName] || (this.$refs[ifRef.refName] = [])).push(componentInstance);
   }
   //   componentInstance.$vnode.componentInstance = componentInstance;
-  componentInstance._isComponent = true;
   componentInstance.mount();
+  componentInstance._isComponent = true;
   componentInstance.$vnode.componentInstance = componentInstance;
+  componentInstance.$vnode._isComponent = true;
   if (this._buildingComponentAST[this._compIndex]) {
     this._buildingComponentAST[this._compIndex].componentInstance = componentInstance;
   }
