@@ -22,6 +22,7 @@ export function setupRenderEffect(instance) {
 
       instance.isMounted = true;
     } else {
+      console.log("update");
       // debugger;
       // 更新组件逻辑
       // ......

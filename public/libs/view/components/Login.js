@@ -82,9 +82,11 @@ let Login = {
       this.$parent.handleLogin();
     },
     changeTitle() {
-      this.$parent.changeParentText();
-      this.$state.stateTitle.value = "I changed too";
-      this.$state.middleStyle.color = "blue";
+      notify.success("I am child log");
+      this.emit('log');
+      // this.$parent.changeParentText();
+      // this.$state.stateTitle.value = "I changed too";
+      // this.$state.middleStyle.color = "blue";
     },
     toggleForm() {
       this.showForm.value = !this.showForm.value;

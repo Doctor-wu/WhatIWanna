@@ -8,7 +8,6 @@ const createVnode = {
       if (_isComponent && componentMounted) {
         // updateComponent;
         const $slots = {};
-        console.log(attrs, children);
         children.forEach(child => {
           if (Array.isArray(child)) {
             return child.forEach(c => {
@@ -33,7 +32,7 @@ const createVnode = {
         children,
         // binds: astToken.binds || [],
         _static: isStatic,
-        events: attrs.events,
+        $events: attrs.$events,
         context: this,
       };
       children.forEach(child => {
@@ -147,6 +146,15 @@ function createComponent(components, tagName, attrs, children) {
     $slots,
     $parent: this,
   }));
+
+  if (attrs.$events) {
+    Object.keys(attrs.$events).forEach(evName => {
+      attrs.$events[evName].forEach(ev => {
+        componentInstance.regist(evName, ev);
+      })
+    })
+    delete attrs.$events;
+  }
 
   if (ifRef) {
     (this.$refs[ifRef.refName] || (this.$refs[ifRef.refName] = [])).push(componentInstance);

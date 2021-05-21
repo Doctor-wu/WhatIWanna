@@ -9,8 +9,7 @@ let authTemplate = `
 <section class="auth">
   <p>{{parentText.value}}</p>
   <p>{{numbers}}</p>
-  <Login v-if="false" ref="login" v-bind:title="loginProps"/>
-  <Login v-if="true" ref="login" v-bind:title="loginProps">
+  <Login v-if="true" @log="parentLog" ref="login" v-bind:title="loginProps">
     <div>
       <p ref="slot-list" style="margin-top: 10px" v-for="item in numbers">
         {{item}}) I am default slot;
@@ -71,6 +70,9 @@ let view = new View({
     changeParentText() {
       this.parentText.value = "But I changed";
       this.numbers.push(this.numbers.length + 1);
+    },
+    parentLog() {
+      notify.success("I am parent log");
     }
   },
   // el: document.querySelector("#app"),

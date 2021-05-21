@@ -105,12 +105,12 @@ function genAttrStr(ast) {
 }
 
 function genHandler(ast) {
-  if (!ast.events) return "";
-  let keys = Object.keys(ast.events);
+  if (!ast.$events) return "";
+  let keys = Object.keys(ast.$events);
   if (keys.length === 0) return "";
-  let str = "events:{";
+  let str = "$events:{";
   keys.forEach(key => {
-    str += `${key}: [${ast.events[key].map(item => item.value)}],`
+    str += `${key}: [${ast.$events[key].map(item => item.value)}],`
   });
   str += "}";
   return str;
