@@ -3,9 +3,30 @@ const createVnode = {
     let proto = View.prototype;
 
     proto._c = function (tagName, attrs, children, isStatic) {
+      let _isComponent = isComponent(this, tagName);
+      let componentMounted = this._buildingComponentAST[this._compIndex] && this._buildingComponentAST[this._compIndex].componentInstance;
+      if (_isComponent && componentMounted) {
+        // updateComponent;
+        const componentInstance = this._buildingComponentAST[this._compIndex].componentInstance;
+        const $slots = {};
+        children.forEach(child => {
+          if (Array.isArray(child)) {
+            return child.forEach(c => {
+              ($slots[c.slotName || "default"] || ($slots[c.slotName || "default"] = [])).push(child);
+            })
+          }
+          ($slots[child.slotName || "default"] || ($slots[child.slotName || "default"] = [])).push(child);
+        });
+        componentInstance.$slots = $slots;
+        componentInstance.update();
+        componentInstance._isComponent = true;
+        componentInstance.$vnode.componentInstance = componentInstance;
+        componentInstance.$vnode._isComponent = true;
+        return this._buildingComponentAST[this._compIndex].componentInstance.$vnode;
+      }
       children = flatAry(children).filter(Boolean);
       children = resolveContinuousText(children);
-      if (isComponent(this, tagName)) {
+      if (_isComponent && !componentMounted) {
         return createComponent.call(this, this.components, tagName, attrs, children);
       }
       const vnode = {
@@ -15,12 +36,13 @@ const createVnode = {
         children,
         // binds: astToken.binds || [],
         _static: isStatic,
-        events: attrs.events,
+        $events: attrs.$events,
         context: this,
       };
-      children.forEach(child => {
+      children.forEach((child, index) => {
         if (!child) return;
         child.parent = vnode;
+        child.key = (child.$attrs && child.$attrs.key) || index;
       });
       return vnode;
     }
@@ -50,6 +72,11 @@ const createVnode = {
         ary.forEach(item => item.slotName = slotName);
       }
       return ary;
+    }
+
+    proto._cp = function (code) {
+      this._compIndex++;
+      return code;
     }
 
     proto._s = function (expr) {
@@ -125,12 +152,27 @@ function createComponent(components, tagName, attrs, children) {
     $parent: this,
   }));
 
+  if (attrs.$events) {
+    Object.keys(attrs.$events).forEach(evName => {
+      attrs.$events[evName].forEach(ev => {
+        componentInstance.regist(evName, ev);
+      })
+    })
+    delete attrs.$events;
+  }
+
   if (ifRef) {
     (this.$refs[ifRef.refName] || (this.$refs[ifRef.refName] = [])).push(componentInstance);
   }
-//   componentInstance.$vnode.componentInstance = componentInstance;
-  componentInstance._isComponent = true;
+  //   componentInstance.$vnode.componentInstance = componentInstance;
   componentInstance.mount();
+  componentInstance._isComponent = true;
+  componentInstance.$vnode.componentInstance = componentInstance;
+  componentInstance.$vnode._isComponent = true;
+  if (this._buildingComponentAST[this._compIndex]) {
+    this._buildingComponentAST[this._compIndex].componentInstance = componentInstance;
+  }
+
   return componentInstance.$vnode;
 }
 

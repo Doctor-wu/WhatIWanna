@@ -41,7 +41,7 @@ export function reactive(target) {
 function get(target, key, receiver) {
   const res = Reflect.get(target, key, receiver);
 
-  activeEffect &&　track(target, key);
+  activeEffect && track(target, key);
 
   /* 数据绑定 */
   return isObject(res) ?
@@ -77,7 +77,8 @@ function set(
   receiver
 ) {
   const oldValue = target[key];
-  const result = Reflect.set(target, key, value, receiver)
+  // if (oldValue === value) return true;
+  const result = Reflect.set(target, key, value, receiver);
   /* 判断当前对象，和存在reactiveToRaw 里面是否相等 */
   if (target === reactiveToRaw.get(receiver)) {
     /* 改变原有属性 */
@@ -87,6 +88,7 @@ function set(
   return result
 }
 
+const asyncEffect = new Set();
 function trigger(
   target,
   key,
@@ -104,7 +106,9 @@ function trigger(
   const add = (effectsToAdd) => {
     if (effectsToAdd) {
       effectsToAdd.forEach(effect => {
+        if (asyncEffect.has(effect)) return;
         effects.add(effect)  /* 储存对应的dep */
+        asyncEffect.add(effect);
       })
     }
   }
@@ -115,7 +119,7 @@ function trigger(
     if (effect.options.scheduler) { /* 放进 scheduler 调度*/
       effect.options.scheduler(effect)
     } else {
-      effect() /* 不存在调度情况，直接执行effect */
+      effect() /* 默认异步调度 */
     }
   }
 
@@ -123,7 +127,10 @@ function trigger(
   //在任何依赖于它们的正常更新effect运行之前，都可能失效。
 
   // computedRunners.forEach(run) /* 依次执行computedRunners 回调*/
-  effects.forEach(run) /* 依次执行 effect 回调（ TODO: 里面包括渲染effect ）*/
+  Promise.resolve().then(() => {
+    effects.forEach(run); /* 依次执行 effect 回调（ TODO: 里面包括渲染effect ）*/
+    asyncEffect.clear();
+  });
 }
 
 

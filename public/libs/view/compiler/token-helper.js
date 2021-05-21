@@ -42,7 +42,7 @@ function tagTreeListDynamic(token) {
 // 处理元素token
 function elementTokenHandler(token) {
   token.directives = {};
-  token.events = {};
+  token.$events = {};
 
   const {
     attrs
@@ -65,8 +65,8 @@ function resolveTokenAttrs(token, key, value) {
     let evtName = match[1];
     let evtValue = value;
 
-    token.events[evtName] = token.events[evtName] || [];
-    token.events[evtName].push(evtValue);
+    token.$events[evtName] = token.$events[evtName] || [];
+    token.$events[evtName].push(evtValue);
     delete token.attrs[key];
   } else if (key.startsWith("v-")) {
     let match = key.match(dirRE);

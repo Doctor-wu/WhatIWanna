@@ -8,7 +8,7 @@ export function setupRenderEffect(instance) {
   /* 创建一个渲染 effect */
   instance.update = effect(function componentEffect() {
     if (!instance.isMounted) {
-      /* 触发instance.render函数，形成树结构 */
+      /* 触发instance._render函数，形成树结构 */
       instance.subTree = instance._render.call(instance, instance);
       instance.$vnode = instance.subTree;
       instance.$vnode.componentInstance = this;
@@ -25,14 +25,17 @@ export function setupRenderEffect(instance) {
       // debugger;
       // 更新组件逻辑
       // ......
+      console.log("update");
+      instance._compIndex = 0;
       let oldVNode = instance.$vnode;
       instance.subTree = instance._render.call(instance, instance);
       instance.$vnode = instance.subTree;
-      instance.$vnode.componentInstance = this;
+      instance.$vnode.componentInstance = instance;
 
       instance.executeHooks("beforeUpdate");
 
-      instance.$el = patchVnode.call(instance, oldVNode, instance.$vnode);
+      patchVnode.call(instance, oldVNode, instance.$vnode);
+      instance.$el = instance.$vnode.el;
       /* 触发声明周期 mounted钩子 */
 
       instance.executeHooks("updated");

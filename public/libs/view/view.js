@@ -20,7 +20,7 @@ export default function View(options) {
   if (!this instanceof View) {
     return new View(options);
   }
-  
+
   Pipe.call(this);
   this.options = options;
   this.vid = vid++;
@@ -46,6 +46,8 @@ proto.init = function () {
   this.$refs = {};
   this.components = this.options.components || [];
   this.template = this.options.template;
+  this._buildingComponentAST = [];
+  this._compIndex = 0;
   this.initProps();
   this.initSlots();
   this.initData();
@@ -54,13 +56,29 @@ proto.init = function () {
   this.hooks = {};
 };
 
+proto.mount = function (el) {
+  this.initSetUp();
+  this._render = new Function('instance', `with(instance){return eval(${generate(this.ast[0])})}`);
+  setupRenderEffect(this);
+  if (!el) {
+    return this.$el;
+  }
+  el = typeof el === "string" ? document.querySelector(el) : el;
+  if (el instanceof HTMLElement) {
+    el.appendChild(this.$el);
+  }
+
+  this.executeHooks("mounted");
+  return this.$el;
+};
+
+
 proto.initSetUp = function () {
   if (!this.options.setup || typeof this.options.setup !== "function") return;
   this.setup = this.options.setup;
 
   this.$state = this.setup.call(this, this.$props);
   proxify(this.$state, this);
-  console.log(this);
 }
 
 proto.initProps = function () {
@@ -95,22 +113,6 @@ proto.loadHooks = function () {
   });
 };
 
-proto.mount = function (el) {
-  this.initSetUp();
-  this._render = new Function('instance', `with(instance){return eval(${generate(this.ast[0])})}`);
-  setupRenderEffect(this);
-  if (!el) {
-    return this.$el;
-  }
-  el = typeof el === "string" ? document.querySelector(el) : el;
-  if (el instanceof HTMLElement) {
-    el.appendChild(this.$el);
-  }
-
-  this.executeHooks("mounted");
-  return this.$el;
-};
-
 proto.executeHooks = function (hookName) {
   if (this.hooks[hookName]) {
     this.hooks[hookName].forEach((hook) => {
@@ -125,7 +127,7 @@ proto.addHooks = function (hookName, fn) {
 }
 
 function proxify(obj, instance) {
-  if(typeof obj !== "object" || !obj) return;
+  if (typeof obj !== "object" || !obj) return;
 
   Object.keys(obj).forEach(key => {
     Object.defineProperty(instance, key, {
