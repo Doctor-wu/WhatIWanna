@@ -56,12 +56,12 @@ let Login = {
   </div>
   `,
   setup() {
-    const slotList = reactive([1,2,3]);
+    const slotList = reactive([1, 2, 3]);
     const middleStyle = reactive({
       color: "gold",
-    }) ;
+    });
     const showForm = reactive(true);
-    const stateTitle = reactive("登录帐户");
+    const stateTitle = reactive("I am childComponent");
 
     return {
       slotList,
@@ -82,12 +82,12 @@ let Login = {
       this.$parent.handleLogin();
     },
     changeTitle() {
-        this.$state.stateTitle.value = "123";
-        this.$state.middleStyle.color = "blue";
-        console.log(this.$state);
+      this.$parent.changeParentText();
+      this.$state.stateTitle.value = "I changed too";
+      this.$state.middleStyle.color = "blue";
     },
     toggleForm() {
-        this.showForm.value = !this.showForm.value;
+      this.showForm.value = !this.showForm.value;
     }
   },
 };

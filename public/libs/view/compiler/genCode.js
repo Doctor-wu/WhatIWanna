@@ -15,7 +15,11 @@
 
 
 function generate(ast) {
-  if (ast.if && !ast.ifProccessed) {
+  if (ast.context.components.length && ast.context.components.some(component => component.name === ast.tagName) && !ast.compProccessed) {
+    ast.compProccessed = true;
+    return genComponent(ast);
+  }
+  else if (ast.if && !ast.ifProccessed) {
     ast.ifProccessed = true;
     const result = genIf(ast);
     return result;
@@ -47,7 +51,8 @@ function generate(ast) {
 function genElement(ast) {
   let children = ast.children;
   const data = genData(ast);
-  return `_c("${ast.tagName}", _ra(${data}), ${children ? '[' + children.map(generate).filter(Boolean) + ']' : '[]'},${ast._static})`;
+  let baseCreateElement = `_c("${ast.tagName}", _ra(${data}), ${children ? '[' + children.map(generate).filter(Boolean) + ']' : '[]'},${ast._static})`;
+  return baseCreateElement;
 }
 
 function genTemplate(ast) {
@@ -111,9 +116,10 @@ function genHandler(ast) {
   return str;
 }
 
-function genComponentConfig(ast) {
-  if (!ast.componentConfig) return "";
-  console.log(ast.componentConfig);
+
+function genComponent(ast) {
+  ast.context._buildingComponentAST.push(ast);
+  return `_cp(${generate(ast)})`;
 }
 
 function genData(ast) {
@@ -122,7 +128,6 @@ function genData(ast) {
   str = str + genBind(ast);
   str = str + genAttrStr(ast);
   str = str + genHandler(ast);
-  str = str + genComponentConfig(ast);
 
   str += "}";
   // console.log(str);

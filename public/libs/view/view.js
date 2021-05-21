@@ -20,7 +20,7 @@ export default function View(options) {
   if (!this instanceof View) {
     return new View(options);
   }
-  
+
   Pipe.call(this);
   this.options = options;
   this.vid = vid++;
@@ -46,6 +46,8 @@ proto.init = function () {
   this.$refs = {};
   this.components = this.options.components || [];
   this.template = this.options.template;
+  this._buildingComponentAST = [];
+  this._compIndex = 0;
   this.initProps();
   this.initSlots();
   this.initData();
@@ -60,7 +62,6 @@ proto.initSetUp = function () {
 
   this.$state = this.setup.call(this, this.$props);
   proxify(this.$state, this);
-  console.log(this);
 }
 
 proto.initProps = function () {
@@ -125,7 +126,7 @@ proto.addHooks = function (hookName, fn) {
 }
 
 function proxify(obj, instance) {
-  if(typeof obj !== "object" || !obj) return;
+  if (typeof obj !== "object" || !obj) return;
 
   Object.keys(obj).forEach(key => {
     Object.defineProperty(instance, key, {

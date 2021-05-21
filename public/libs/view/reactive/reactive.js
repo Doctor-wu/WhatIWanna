@@ -41,7 +41,7 @@ export function reactive(target) {
 function get(target, key, receiver) {
   const res = Reflect.get(target, key, receiver);
 
-  activeEffect &&　track(target, key);
+  activeEffect && track(target, key);
 
   /* 数据绑定 */
   return isObject(res) ?
@@ -77,7 +77,8 @@ function set(
   receiver
 ) {
   const oldValue = target[key];
-  const result = Reflect.set(target, key, value, receiver)
+  // if (oldValue === value) return true;
+  const result = Reflect.set(target, key, value, receiver);
   /* 判断当前对象，和存在reactiveToRaw 里面是否相等 */
   if (target === reactiveToRaw.get(receiver)) {
     /* 改变原有属性 */

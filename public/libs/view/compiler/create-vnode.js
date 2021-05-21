@@ -3,9 +3,27 @@ const createVnode = {
     let proto = View.prototype;
 
     proto._c = function (tagName, attrs, children, isStatic) {
+      let _isComponent = isComponent(this, tagName);
+      let componentMounted = this._buildingComponentAST[this._compIndex] && this._buildingComponentAST[this._compIndex].componentInstance;
+      if (_isComponent && componentMounted) {
+        // updateComponent;
+        const $slots = {};
+        console.log(attrs, children);
+        children.forEach(child => {
+          if (Array.isArray(child)) {
+            return child.forEach(c => {
+              ($slots[c.slotName || "default"] || ($slots[c.slotName || "default"] = [])).push(child);
+            })
+          }
+          ($slots[child.slotName || "default"] || ($slots[child.slotName || "default"] = [])).push(child);
+        });
+        this._buildingComponentAST[this._compIndex].componentInstance.$slots = $slots;
+        this._buildingComponentAST[this._compIndex].componentInstance.update();
+        return this._buildingComponentAST[this._compIndex].componentInstance.$vnode;
+      }
       children = flatAry(children).filter(Boolean);
       children = resolveContinuousText(children);
-      if (isComponent(this, tagName)) {
+      if (_isComponent && !componentMounted) {
         return createComponent.call(this, this.components, tagName, attrs, children);
       }
       const vnode = {
@@ -50,6 +68,11 @@ const createVnode = {
         ary.forEach(item => item.slotName = slotName);
       }
       return ary;
+    }
+
+    proto._cp = function (code) {
+      this._compIndex++;
+      return code;
     }
 
     proto._s = function (expr) {
@@ -128,9 +151,14 @@ function createComponent(components, tagName, attrs, children) {
   if (ifRef) {
     (this.$refs[ifRef.refName] || (this.$refs[ifRef.refName] = [])).push(componentInstance);
   }
-//   componentInstance.$vnode.componentInstance = componentInstance;
+  //   componentInstance.$vnode.componentInstance = componentInstance;
   componentInstance._isComponent = true;
   componentInstance.mount();
+  componentInstance.$vnode.componentInstance = componentInstance;
+  if (this._buildingComponentAST[this._compIndex]) {
+    this._buildingComponentAST[this._compIndex].componentInstance = componentInstance;
+  }
+
   return componentInstance.$vnode;
 }
 

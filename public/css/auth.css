@@ -162,12 +162,16 @@ html {
     height: 100%;
     padding: 2.5rem 1rem 1rem;
     box-sizing: border-box;
-    position: relative;
     z-index: 3;
-    font-size: .5rem;
-    overflow: hidden; }
+    font-size: 0.5rem;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto; }
     .auth .login .btn {
-      margin-bottom: .2rem; }
+      margin-bottom: 0.2rem; }
     .auth .login .vform {
       margin-top: 1rem;
       overflow: auto; }
@@ -182,12 +186,12 @@ html {
     .auth .login .vform-item.valid-fail .vform-item-control {
       border-bottom: 2px solid red; }
     .auth .login .vform-item {
-      margin: .2rem 0; }
+      margin: 0.2rem 0; }
   .auth .login .options a {
     display: inline-block;
     float: right;
     color: cornflowerblue;
-    font-size: .3rem; }
+    font-size: 0.3rem; }
   .auth .btn {
     margin-left: 0;
     margin-right: 0;

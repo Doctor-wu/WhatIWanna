@@ -7,7 +7,10 @@ View.usePlugin(createVnode);
 
 let authTemplate = `
 <section class="auth">
-  <Login ref="login" v-bind:title="loginProps">
+  <p>{{parentText.value}}</p>
+  <p>{{numbers}}</p>
+  <Login v-if="false" ref="login" v-bind:title="loginProps"/>
+  <Login v-if="true" ref="login" v-bind:title="loginProps">
     <div>
       <p ref="slot-list" style="margin-top: 10px" v-for="item in numbers">
         {{item}}) I am default slot;
@@ -35,6 +38,15 @@ let view = new View({
   name: "vm",
   template: authTemplate,
   components: [Login],
+  setup() {
+    const parentText = reactive("I am parent");
+    const numbers = reactive([1, 2, 3]);
+
+    return {
+      parentText,
+      numbers,
+    }
+  },
   data() {
     return {
       list: [{
@@ -42,7 +54,6 @@ let view = new View({
       }, {
         name: 'yoqi'
       }],
-      numbers: [1, 2, 3],
       state: "登录账号",
       needLogin: true,
       loginProps: "登录账号",
@@ -57,6 +68,10 @@ let view = new View({
       notify.success(`I am outside Component; My name is ${this.name}`);
       console.log(this);
     },
+    changeParentText() {
+      this.parentText.value = "But I changed";
+      this.numbers.push(this.numbers.length + 1);
+    }
   },
   // el: document.querySelector("#app"),
 });
