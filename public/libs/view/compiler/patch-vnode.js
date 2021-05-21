@@ -25,11 +25,20 @@ function updateComponent(oldVNode, newVNode) {
     newVNode.el = newEl;
     return newEl;
   }
+  console.log(oldVNode, newVNode);
+  if ((oldVNode.key !== newVNode.key && !oldVNode._isComponent)) {
+    const newEl = createDom(newVNode); // 新老节点key不一致，直接创建新的节点
+    oldVNode.el.parentNode.replaceChild(newEl, oldVNode.el);
+
+    newVNode.el = newEl;
+    return newEl;
+  }
 
   newVNode.el = oldVNode.el;
 
   if (!compareVNodeAttrs(oldVNode, newVNode)) { // tagName一样则复用节点, 更新attr
-    resolveDOMAttr(oldVNode.el, newVNode);
+    removeDOMAttr(newVNode.el, oldVNode.$attrs);
+    resolveDOMAttr(newVNode.el, newVNode);
   }
 
   // if (oldVNode._static && newVNode._static) { // 静态节点跳过该过程
@@ -90,6 +99,33 @@ function createDom(vNode) {
     if (vNode.componentInstance) vNode.componentInstance.$el = dom;
     return dom;
   }
+}
+
+function removeDOMAttr(dom, $attrs) {
+  Object.keys($attrs).forEach(key => {
+    let domKey = key;
+    if (key === "class") domKey = "className";
+    if (key === "$events") removeDOMEvents(dom, $attrs.$events);
+    if (key === "style") return removeDOMStyle(dom, $attrs.style);
+
+    delete dom[domKey];
+  })
+}
+
+function removeDOMStyle(dom, styleObj) {
+  if (typeof styleObj === "string") return dom.style = "";
+
+  Object.keys(styleObj).forEach(key => {
+    delete dom.style[key];
+  })
+}
+
+function removeDOMEvents(dom, events) {
+  Object.keys(events).forEach(key => {
+    events[key].forEach(evHandler => {
+      dom.removeEventListener(key, evHandler, false);
+    })
+  })
 }
 
 

@@ -39,9 +39,10 @@ const createVnode = {
         $events: attrs.$events,
         context: this,
       };
-      children.forEach(child => {
+      children.forEach((child, index) => {
         if (!child) return;
         child.parent = vnode;
+        child.key = (child.$attrs && child.$attrs.key) || index;
       });
       return vnode;
     }

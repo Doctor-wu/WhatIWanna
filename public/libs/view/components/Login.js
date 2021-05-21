@@ -46,7 +46,7 @@ let Login = {
       <button @click="$parent.decreaseNumbers" class="btn btn-6 btn-default">减</button>
 
     <slot></slot>
-    <div v-if="showForm.value" ref="form" id="login" style="height: 4rem">${dom.outerHTML}</div>
+    <div key="123" v-if="showForm.value" ref="form" id="login" style="height: 4rem">${dom.outerHTML}</div>
     <div class=".btn-wrap">
       <button @click="handleLogin" class="btn btn-12 btn-success goLogin">登录</button>
       <slot name="middle"></slot>
