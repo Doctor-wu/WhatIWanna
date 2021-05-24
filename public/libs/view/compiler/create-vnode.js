@@ -4,7 +4,9 @@ const createVnode = {
 
     proto._c = function (tagName, attrs, children, isStatic) {
       let _isComponent = isComponent(this, tagName);
-      let componentMounted = this._buildingComponentAST[this._compIndex] && this._buildingComponentAST[this._compIndex].componentInstance;
+      let componentMounted = this._buildingComponentAST[this._compIndex]
+        && this._buildingComponentAST[this._compIndex].componentInstance
+        && this._buildingComponentAST[this._compIndex].componentInstance.isMounted;
       if (_isComponent && componentMounted) {
         // updateComponent;
         const componentInstance = this._buildingComponentAST[this._compIndex].componentInstance;

@@ -25,7 +25,7 @@ export function setupRenderEffect(instance, patch) {
       // debugger;
       // 更新组件逻辑
       // ......
-      console.log("update");
+      // console.log("update");
       instance._compIndex = 0;
       let oldVNode = instance.$vnode;
       instance.subTree = instance._render.call(instance, instance);

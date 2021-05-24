@@ -13,7 +13,8 @@ import { setupRenderEffect } from "./reactive/effective.js";
 
 let vid = 0;
 
-let hooks = ["beforeMount", "mounted"];
+let hooks = ["beforeMount", "mounted", "beforeDestroy", "destroyed"];
+
 window.views = new WeakSet();
 
 export default function View(options) {
@@ -71,6 +72,12 @@ proto.mount = function (el) {
   this.executeHooks("mounted");
   return this.$el;
 };
+
+proto._destroy = function () {
+  this.executeHooks("beforeDestroy");
+  this.isMounted = false;
+  this.executeHooks("destroyed");
+}
 
 
 proto.initSetUp = function () {

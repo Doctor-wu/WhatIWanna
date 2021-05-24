@@ -104,7 +104,12 @@ function createDom(vNode) {
     vNode.children.forEach(child => {
       dom.appendChild(createDom.call(this, child));
     });
-    if (vNode.componentInstance) vNode.componentInstance.$el = dom;
+    if (vNode.componentInstance) {
+      vNode.componentInstance.$el = dom;
+      vNode.componentInstance.$el.addEventListener("DOMNodeRemovedFromDocument", () => {
+        vNode.componentInstance._destroy();
+      })
+    }
     return dom;
   }
 }
@@ -184,6 +189,10 @@ function processVNodeDOM(VNode, options = { type: "remove" }) {
   if (dom._isRef) {
     VNode.context.$refs[dom._isRef].splice(dom._refIndex, 1);
   }
+  // if (VNode === VNode.context.$vnode && VNode.context._isComponent) {
+  //   console.log(options.type);
+  //   VNode.context._destroy();
+  // }
 }
 
 function resolveDOMEvents(dom, events) {
