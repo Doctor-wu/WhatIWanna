@@ -2,40 +2,40 @@ import { VForm } from "../../vForm/vForm.js";
 import { VFormItem } from "../../vForm/vForm-item.js";
 import { reactive } from "../reactive/reactive.js";
 
-let user = new VFormItem({
-  tag: "input",
-  label: "用户名",
-  key: "casId",
-  attrs: {
-    placeholder: "请输入用户名[学号]",
-    autocomplete: "username"
-  },
-  rules: [
-    { prop: "required", msg: "请输入用户名[学号]", trigger: "blur" },
-    { pattern: /^\d{12}$/, msg: "请输入正用户名[学号]", trigger: "input" }
-  ]
-});
+// let user = new VFormItem({
+//   tag: "input",
+//   label: "用户名",
+//   key: "casId",
+//   attrs: {
+//     placeholder: "请输入用户名[学号]",
+//     autocomplete: "username"
+//   },
+//   rules: [
+//     { prop: "required", msg: "请输入用户名[学号]", trigger: "blur" },
+//     { pattern: /^\d{12}$/, msg: "请输入正用户名[学号]", trigger: "input" }
+//   ]
+// });
 
-let pwd = new VFormItem({
-  tag: "input",
-  label: "密码",
-  key: "password",
-  attrs: {
-    type: "password",
-    placeholder: "请输入密码",
-    autocomplete: "current-password"
-  },
-  rules: [
-    { prop: "required", msg: "请输入密码", trigger: "blur" }
-  ]
-});
+// let pwd = new VFormItem({
+//   tag: "input",
+//   label: "密码",
+//   key: "password",
+//   attrs: {
+//     type: "password",
+//     placeholder: "请输入密码",
+//     autocomplete: "current-password"
+//   },
+//   rules: [
+//     { prop: "required", msg: "请输入密码", trigger: "blur" }
+//   ]
+// });
 
-let vForm = new VForm({
-  title: "登录",
-  items: [user, pwd],
-  showBtn: false
-});
-let dom = vForm.mount("#login");
+// let vForm = new VForm({
+//   title: "登录",
+//   items: [user, pwd],
+//   showBtn: false
+// });
+// let dom = vForm.mount("#login");
 
 let Login = {
   name: "Login",
@@ -46,7 +46,9 @@ let Login = {
       <button @click="$parent.decreaseNumbers" class="btn btn-6 btn-default">减</button>
 
     <slot></slot>
-    <div key="123" v-if="showForm.value" ref="form" id="login" style="height: 4rem">${dom.outerHTML}</div>
+    <div key="123" v-if="showForm.value" id="login" style="height: 4rem">
+      <VForm ref="vForm"></VForm>
+    </div>
     <div class=".btn-wrap">
       <button @click="handleLogin" class="btn btn-12 btn-success goLogin">登录</button>
       <slot name="middle"></slot>
@@ -73,6 +75,7 @@ let Login = {
       showForm,
     }
   },
+  components: [VForm],
   data() {
     return {
       state: "登录账号",

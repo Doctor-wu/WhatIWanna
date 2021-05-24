@@ -69,6 +69,10 @@ function makeElseIfDir(token) {
 function makeBindDir(token) {
   const binds = {};
   token.directives.bind.forEach(item => {
+    if (!item.dirExpr) {
+      binds["__bindBatch__"] = item.dirValue;
+      return;
+    }
     binds[item.dirExpr] = item.dirValue;
   });
   token.binds = binds;

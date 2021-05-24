@@ -8,7 +8,7 @@ function patchVnode(oldVNode, newVNode, parentDom) {
   } else if (!oldVNode && !newVNode) {
     return;
   } else if (oldVNode && !newVNode) {
-    oldVNode.el.parentNode.removeChild(oldVNode.el);
+    processVNodeDOM(oldVNode);
   } else if (oldVNode && newVNode) {
     return updateComponent(oldVNode, newVNode);
   }
@@ -17,18 +17,28 @@ function patchVnode(oldVNode, newVNode, parentDom) {
 function updateComponent(oldVNode, newVNode) {
   if (oldVNode.type === "text" && newVNode.type === "text") {
     if (oldVNode.content === newVNode.content) return newVNode.el = oldVNode.el;
+    else {
+      oldVNode.el.textContent = newVNode.content;
+      newVNode.el = oldVNode.el;
+    }
   }
   if (oldVNode.tagName !== newVNode.tagName) {
     const newEl = createDom(newVNode); // 新老节点tagName不一致，直接创建新的节点
     oldVNode.el.parentNode.replaceChild(newEl, oldVNode.el);
+
+    if (dom._isRef) {
+      dom.context.$refs[dom._isRef.splice(dom._refIndex, 1)];
+    }
 
     newVNode.el = newEl;
     return newEl;
   }
   if ((oldVNode.key !== newVNode.key && !oldVNode._isComponent)) {
     const newEl = createDom(newVNode); // 新老节点key不一致，直接创建新的节点
-    oldVNode.el.parentNode.replaceChild(newEl, oldVNode.el);
-
+    processVNodeDOM(oldVNode, {
+      type: "replace",
+      newDOM: newEl,
+    });
     newVNode.el = newEl;
     return newEl;
   }
@@ -40,10 +50,9 @@ function updateComponent(oldVNode, newVNode) {
     resolveDOMAttr(newVNode.el, newVNode);
   }
 
-  // if (oldVNode._static && newVNode._static) { // 静态节点跳过该过程
-  //   console.log(oldVNode, newVNode);
-  //   return newVNode.el = oldVNode.el;
-  // }
+  if (oldVNode._static && newVNode._static) { // 静态节点跳过该过程
+    return newVNode.el = oldVNode.el;
+  }
 
 
   if (oldVNode.children) {
@@ -72,8 +81,8 @@ function updateComponent(oldVNode, newVNode) {
 }
 
 function compareVNodeAttrs(oldVNode, newVNode) {
-  const oldAttrs = oldVNode.$attrs,
-    newAttrs = newVNode.$attrs,
+  const oldAttrs = oldVNode.$attrs || {},
+    newAttrs = newVNode.$attrs || {},
     oldKeys = Object.keys(oldAttrs),
     newKeys = Object.keys(newAttrs);
   if (oldKeys.length !== newKeys.length) return false;
@@ -135,14 +144,24 @@ function resolveDOMAttr(dom, vNode) {
   Object.keys($attrs).forEach(key => {
     let domKey = key;
     if (key === "class") domKey = "className";
-    if (key === "$events") resolveDOMEvents(dom, $attrs.$events);
+    if (key === "$events") return resolveDOMEvents(dom, $attrs.$events);
     if (key === "style") return resolveDOMStyle(dom, $attrs.style);
+    if (key === "__bindBatch__") return bindBatch(dom, $attrs["__bindBatch__"]);
     if (key === "ref") {
       (vNode.context.$refs[$attrs[key]] || (vNode.context.$refs[$attrs[key]] = [])).push(dom);
+      dom._isRef = $attrs[key];
+      dom._refIndex = vNode.context.$refs[$attrs[key]].length - 1;
       return;
     }
 
     dom[domKey] = $attrs[key];
+  })
+}
+
+function bindBatch(dom, value) {
+  if (!value || typeof value !== "object") return;
+  Object.keys(value).forEach(key => {
+    dom[key] = value[key];
   })
 }
 
@@ -152,6 +171,19 @@ function resolveDOMStyle(dom, styleObj) {
   Object.keys(styleObj).forEach(key => {
     dom.style[key] = styleObj[key];
   })
+}
+
+function processVNodeDOM(VNode, options = { type: "remove" }) {
+  let dom = VNode.el;
+  if (options.type === "remove") {
+    dom.parentNode.removeChild(dom);
+  }
+  if (options.type === "replace") {
+    dom.parentNode.replaceChild(options.newDOM, dom);
+  }
+  if (dom._isRef) {
+    VNode.context.$refs[dom._isRef].splice(dom._refIndex, 1);
+  }
 }
 
 function resolveDOMEvents(dom, events) {

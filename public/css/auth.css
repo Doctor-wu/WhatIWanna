@@ -105,22 +105,22 @@ html {
   .vform::-webkit-scrollbar {
     width: 0 !important; }
   .vform .btn-wrap {
-    margin-bottom: .2rem; }
+    margin-bottom: 0.2rem; }
     .vform .btn-wrap button {
       border-color: #777; }
 
 .vform-item {
-  font-size: .35rem;
-  margin: .8rem 0;
+  font-size: 0.35rem;
+  margin: 0.8rem 0;
   box-sizing: border-box; }
   .vform-item .vform-item-label {
     font-weight: bold;
-    padding: .1rem 0;
+    padding: 0.1rem 0;
     color: #333; }
   .vform-item .vform-item-control {
     -webkit-appearance: none;
     -moz-appearance: none;
-    transition: all ease .3s;
+    transition: all ease 0.3s;
     width: 100%;
     border-width: 1px;
     vertical-align: middle;
@@ -134,22 +134,22 @@ html {
     .vform-item .vform-item-control:focus, .vform-item .vform-item-control:valid {
       border: none;
       border-bottom: 2px solid #07689f;
-      font-size: .28rem;
-      height: .6rem;
-      padding: .1rem .05rem 0; }
+      font-size: 0.28rem;
+      height: 0.6rem;
+      padding: 0.1rem 0.05rem 0; }
   .vform-item .vform-item-msgbox {
-    font-size: .25rem;
-    padding: .1rem .02rem;
+    font-size: 0.25rem;
+    padding: 0.1rem 0.02rem;
     color: red;
-    height: .35rem;
+    height: 0.35rem;
     box-sizing: border-box; }
 
 .vform-item.valid-fail .vform-item-control {
   border: none;
   border-bottom: 2px solid red;
-  font-size: .28rem;
-  height: .6rem;
-  padding: .1rem .05rem 0; }
+  font-size: 0.28rem;
+  height: 0.6rem;
+  padding: 0.1rem 0.05rem 0; }
 
 .auth {
   height: 100%;

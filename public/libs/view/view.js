@@ -59,7 +59,7 @@ proto.init = function () {
 proto.mount = function (el) {
   this.initSetUp();
   this._render = new Function('instance', `with(instance){return eval(${generate(this.ast[0])})}`);
-  setupRenderEffect(this);
+  setupRenderEffect(this, el);
   if (!el) {
     return this.$el;
   }

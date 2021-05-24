@@ -4,7 +4,7 @@ let eid = 0;
 let effectStack = [];
 export let activeEffect = null;
 
-export function setupRenderEffect(instance) {
+export function setupRenderEffect(instance, patch) {
   /* 创建一个渲染 effect */
   instance.update = effect(function componentEffect() {
     if (!instance.isMounted) {
@@ -15,7 +15,7 @@ export function setupRenderEffect(instance) {
 
       instance.executeHooks("beforeMount");
 
-      instance.$el = patchVnode.call(instance, null, instance.$vnode);
+      instance.$el = patch && patchVnode.call(instance, null, instance.$vnode);
       /* 触发声明周期 mounted钩子 */
 
       instance.executeHooks("mounted");
