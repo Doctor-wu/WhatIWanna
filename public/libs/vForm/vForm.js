@@ -27,31 +27,15 @@ export let VForm = {
         @input="(value) => setValue(item.props, value)"
         v-bind:value="dataSource[item.props]"
         v-bind:itemConfig="item"
-        v-bind:controllConfig="controllConfig"
+        v-bind:controllConfig="Object.assign({},controllConfig,item.htmlProps || {})"
         ></VFormItem>
-      </template>
-      <template v-for="item in formItem">
-        <p>
-        {{dataSource[item.props] || ""}}
-        </p>
       </template>
     </form>
   `,
   components: [VFormItem],
   setup(props) {
     const {
-      formItem = [
-        {
-          props: "username",
-          labelContent: "用户名",
-          placeholder: "请输入用户名[学号]"
-        },
-        {
-          props: "password",
-          labelContent: "密码",
-          placeholder: "请输入密码"
-        }
-      ]
+      formItem = []
     } = props;
 
     const dataSource = reactive({
@@ -59,7 +43,7 @@ export let VForm = {
     });
 
     const controllConfig = reactive({
-      placeholder: 'dynamic'
+      placeholder: 'dynamic',
     });
 
     return {
@@ -70,7 +54,7 @@ export let VForm = {
   },
   methods: {
     setValue(props, value) {
-      console.log(props, value, this);
+      // console.log(props, value, this);
       this.dataSource[props] = value;
     }
   },

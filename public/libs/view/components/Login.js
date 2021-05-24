@@ -44,10 +44,9 @@ let Login = {
     <h3 v-bind:style="middleStyle">{{stateTitle.value}}</h3>
       <button @click="$parent.addNumbers" class="btn btn-6 btn-success goLogin">加</button>
       <button @click="$parent.decreaseNumbers" class="btn btn-6 btn-default">减</button>
-
     <slot></slot>
     <div key="123" v-if="showForm.value" id="login" style="height: 4rem">
-      <VForm ref="vForm"></VForm>
+      <VForm v-bind:formItem="formItems" ref="vForm"></VForm>
     </div>
     <div class=".btn-wrap">
       <button @click="handleLogin" class="btn btn-12 btn-success goLogin">登录</button>
@@ -68,11 +67,28 @@ let Login = {
     const showForm = reactive(true);
     const stateTitle = reactive("登录帐户");
 
+    const formItems = reactive([
+      {
+        props: "username",
+        labelContent: "用户名",
+        placeholder: "请输入用户名[学号]"
+      },
+      {
+        props: "password",
+        labelContent: "密码",
+        htmlProps: {
+          placeholder: "请输入密码",
+          type: "password"
+        }
+      }
+    ]);
+
     return {
       slotList,
       middleStyle,
       stateTitle,
       showForm,
+      formItems,
     }
   },
   components: [VForm],

@@ -22,6 +22,7 @@ function updateComponent(oldVNode, newVNode) {
       newVNode.el = oldVNode.el;
     }
   }
+
   if (oldVNode.tagName !== newVNode.tagName) {
     const newEl = createDom(newVNode); // 新老节点tagName不一致，直接创建新的节点
     oldVNode.el.parentNode.replaceChild(newEl, oldVNode.el);
