@@ -15,6 +15,7 @@ function patchVnode(oldVNode, newVNode, parentDom) {
 }
 
 function updateComponent(oldVNode, newVNode) {
+//   debugger;
   if (oldVNode.type === "text" && newVNode.type === "text") {
     if (oldVNode.content === newVNode.content) return newVNode.el = oldVNode.el;
     else {
@@ -51,16 +52,16 @@ function updateComponent(oldVNode, newVNode) {
     resolveDOMAttr(newVNode.el, newVNode);
   }
 
-  if (oldVNode._static && newVNode._static) { // 静态节点跳过该过程
-    return newVNode.el = oldVNode.el;
-  }
+//   if (oldVNode._static && newVNode._static) { // 静态节点跳过该过程
+//     return newVNode.el = oldVNode.el;
+//   }
 
 
   if (oldVNode.children) {
     if (newVNode.children) { // 新老节点都有孩子，则对孩子们做DOM-DIFF
       let iList = oldVNode.children.length > newVNode.children.length ? oldVNode.children : newVNode.children;
       iList.forEach((_, index) => {
-        if (oldVNode.children[index] && oldVNode.children[index]._isComponent) { // 如果子元素是组件，则组件内部自己更新
+        if (oldVNode.children[index] && oldVNode.children[index]._isComponent && newVNode.children[index]) { // 如果子元素是组件，则组件内部自己更新
           return;
         }
         patchVnode(oldVNode.children[index], newVNode.children[index], oldVNode.children[index] ? oldVNode.el : newVNode.el);

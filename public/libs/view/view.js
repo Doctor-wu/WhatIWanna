@@ -47,7 +47,7 @@ proto.init = function () {
   this.$refs = {};
   this.components = this.options.components || [];
   this.template = this.options.template;
-  this._buildingComponentAST = [];
+  this.__COMPONENTS__ = {};
   this._compIndex = 0;
   this.initProps();
   this.initSlots();

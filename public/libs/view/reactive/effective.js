@@ -22,11 +22,9 @@ export function setupRenderEffect(instance, patch) {
 
       instance.isMounted = true;
     } else {
-      // debugger;
       // 更新组件逻辑
       // ......
       // console.log("update");
-      instance._compIndex = 0;
       let oldVNode = instance.$vnode;
       instance.subTree = instance._render.call(instance, instance);
       instance.$vnode = instance.subTree;
@@ -34,7 +32,9 @@ export function setupRenderEffect(instance, patch) {
 
       instance.executeHooks("beforeUpdate");
 
-      patchVnode.call(instance, oldVNode, instance.$vnode);
+      Promise.resolve().then(()=>{
+        patchVnode.call(instance, oldVNode, instance.$vnode);
+      })
       instance.$el = instance.$vnode.el;
       /* 触发声明周期 mounted钩子 */
 

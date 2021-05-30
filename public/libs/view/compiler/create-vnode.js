@@ -2,14 +2,15 @@ const createVnode = {
   install(View) {
     let proto = View.prototype;
 
-    proto._c = function (tagName, attrs, children, isStatic) {
-      let _isComponent = isComponent(this, tagName);
-      let componentMounted = this._buildingComponentAST[this._compIndex]
-        && this._buildingComponentAST[this._compIndex].componentInstance
-        && this._buildingComponentAST[this._compIndex].componentInstance.isMounted;
-      if (_isComponent && componentMounted) {
+    proto._c = function (tagName, attrs, children, isStatic, compForIndex) {
+      let _CompIndex = attrs.VIEW_COMPONENT_ID;
+      if(compForIndex !== undefined) _CompIndex = _CompIndex + "-" +compForIndex;
+      let componentMounted = this.__COMPONENTS__[_CompIndex]
+        && this.__COMPONENTS__[_CompIndex].isMounted;
+    
+      if (_CompIndex && componentMounted) {
         // updateComponent;
-        const componentInstance = this._buildingComponentAST[this._compIndex].componentInstance;
+        const componentInstance = this.__COMPONENTS__[_CompIndex];
         const $slots = {};
         children.forEach(child => {
           if (Array.isArray(child)) {
@@ -24,12 +25,12 @@ const createVnode = {
         componentInstance._isComponent = true;
         componentInstance.$vnode.componentInstance = componentInstance;
         componentInstance.$vnode._isComponent = true;
-        return this._buildingComponentAST[this._compIndex].componentInstance.$vnode;
+        return componentInstance.$vnode;
       }
       children = flatAry(children).filter(Boolean);
       children = resolveContinuousText(children);
-      if (_isComponent && !componentMounted) {
-        return createComponent.call(this, this.components, tagName, attrs, children);
+      if (_CompIndex && !componentMounted) {
+        return createComponent.call(this, this.components, tagName, attrs, children, _CompIndex);
       }
       const vnode = {
         tagName,
@@ -135,7 +136,7 @@ function isComponent(vNode, tagName) {
   return vNode.components.some(component => component.name === tagName);
 }
 
-function createComponent(components, tagName, attrs, children) {
+function createComponent(components, tagName, attrs, children, componentIndex) {
   const component = components.find(comp => comp.name === tagName);
   const $slots = {};
   let ifRef = false;
@@ -171,9 +172,8 @@ function createComponent(components, tagName, attrs, children) {
   componentInstance._isComponent = true;
   componentInstance.$vnode.componentInstance = componentInstance;
   componentInstance.$vnode._isComponent = true;
-  if (this._buildingComponentAST[this._compIndex]) {
-    this._buildingComponentAST[this._compIndex].componentInstance = componentInstance;
-  }
+  
+  this.__COMPONENTS__[componentIndex] = componentInstance;
 
   return componentInstance.$vnode;
 }

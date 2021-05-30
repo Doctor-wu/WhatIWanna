@@ -12,14 +12,11 @@
     ]
 */
 
+let VIEW_COMPONENT_ID = 1;
 
 
-function generate(ast) {
-  if (ast.context.components.length && ast.context.components.some(component => component.name === ast.tagName) && !ast.compProccessed) {
-    ast.compProccessed = true;
-    return genComponent(ast);
-  }
-  else if (ast.if && !ast.ifProccessed) {
+function generate(ast, compIndex) {
+  if (ast.if && !ast.ifProccessed) {
     ast.ifProccessed = true;
     const result = genIf(ast);
     return result;
@@ -35,10 +32,10 @@ function generate(ast) {
     return genSlot(ast);
   }
   else if (ast.tagName === "template") {
-    return genTemplate(ast);
+    return genTemplate(ast, compIndex);
   }
   else if (ast.type === "element") {
-    return genElement(ast);
+    return genElement(ast, compIndex);
   }
   else if (ast.type === "expr") {
     return genExpr(ast);
@@ -48,20 +45,29 @@ function generate(ast) {
   }
 }
 
-function genElement(ast) {
+function genElement(ast, compIndex) {
   let children = ast.children;
+
+  if (ast.context.components.length && ast.context.components.some(component => component.name === ast.tagName) && !ast.compProccessed) {
+    ast.compProccessed = true;
+    ast.attrs.VIEW_COMPONENT_ID = {
+        value: VIEW_COMPONENT_ID++,
+    };
+  }
+
   const data = genData(ast);
-  let baseCreateElement = `_c("${ast.tagName}", _ra(${data}), ${children ? '[' + children.map(generate).filter(Boolean) + ']' : '[]'},${ast._static})`;
+
+  let baseCreateElement = `_c("${ast.tagName}", _ra(${data}), ${children ? '[' + children.map(child => generate(child)).filter(Boolean) + ']' : '[]'},${ast._static || false}${compIndex ? `,${compIndex}` : ''})`;
   return baseCreateElement;
 }
 
-function genTemplate(ast) {
+function genTemplate(ast, compIndex) {
   let slotName;
   if (ast.attrs["slot-name"]) {
     slotName = ast.attrs["slot-name"];
   }
 
-  const ary = ast.children.map(generate).filter(Boolean);
+  const ary = ast.children.map(child => generate(child, compIndex)).filter(Boolean);
   return `_sa([${ary}]${slotName ? (`, "${slotName}"`) : ""})`;
 }
 
@@ -83,7 +89,9 @@ function genIf(ast) {
 }
 
 function genFor(ast) {
-  return `_i(${ast.for.state}, function(${ast.for.alias.item}${ast.for.alias.index ? ',' + ast.for.alias.index : ''}){return ${generate(ast)}})`;
+  const indexKey = ast.for.alias.index || '$index';
+  ast._static = false;
+  return `_i(${ast.for.state}, function(${ast.for.alias.item},${indexKey}){return ${generate(ast, indexKey)}})`;
 }
 
 function genBind(ast) {
@@ -136,7 +144,7 @@ function genData(ast) {
 
 function genSlot(ast) {
   const slotKey = ast.attrs.name ? ast.attrs.name.value : 'default';
-  return `_rsl($slots.${slotKey} || ${(ast.children.map(generate).filter(Boolean).toString()) || undefined})`;
+  return `_rsl($slots.${slotKey} || ${(ast.children.map(child => generate(child)).filter(Boolean).toString()) || undefined})`;
 }
 
 

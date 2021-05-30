@@ -5,13 +5,22 @@ import { reactive } from "../libs/view/reactive/reactive.js";
 
 View.usePlugin(createVnode);
 
+const myP = {
+    name: "myP",
+    template: `
+    <p style="margin-top: 10px">
+      {{$props.item}}) I am default slot;
+    </p>
+    `,
+}
+
 let authTemplate = `
 <section class="auth">
   <Login v-if="true" @log="parentLog" ref="login" v-bind:title="loginProps">
     <div>
-      <p ref="slot-list" style="margin-top: 10px" v-for="item in numbers">
-        {{item}}) I am default slot;
-      </p>
+      <template v-for="item in numbers">
+        <myP ref="slot-list" v-bind:item="item" />
+      </template>
     </div>
     <template v-slot:middle>
       <p>
@@ -34,7 +43,7 @@ let authTemplate = `
 let view = new View({
   name: "vm",
   template: authTemplate,
-  components: [Login],
+  components: [Login, myP],
   setup() {
     const parentText = reactive("I am parent");
     const numbers = reactive([1, 2, 3]);

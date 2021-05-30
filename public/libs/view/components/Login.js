@@ -78,7 +78,7 @@ let Login = {
         labelContent: "密码",
         htmlProps: {
           placeholder: "请输入密码",
-          type: "password"
+        //   type: "password"
         }
       }
     ]);
